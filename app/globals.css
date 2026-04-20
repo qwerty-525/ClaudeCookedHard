@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+
+  /* shadcn color tokens — dark aviation theme */
+  --primary: 45 85% 62%;            /* amber-gold: scramble highlight */
+  --primary-foreground: 0 0% 100%;
+  --foreground: 210 40% 98%;        /* slate-50 */
+  --border: 215 28% 17%;            /* #1e293b */
+  --background: 222 84% 3%;         /* #04060a */
+  --muted: 215 28% 17%;
+  --muted-foreground: 215 16% 65%;  /* #94a3b8 */
+  --secondary: 215 28% 17%;
+  --secondary-foreground: 210 40% 98%;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1e293b #0b0b10;
+}
+
+body {
+  font-family: var(--font-inter);
+}
+
+@keyframes streak {
+  0% { transform: translateX(-200%); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateX(600%); opacity: 0; }
+}
+
+.animate-streak {
+  animation: streak linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-streak { animation: none; }
+}
+
+/* Scrollytelling page — hide nav border on dark bg */
+.scrollytelling-page nav {
+  border-color: transparent;
+  background: transparent;
+}
