@@ -1,7 +1,7 @@
 "use client"
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import FlyingPlane from "@/components/FlyingPlane"
+import DropBombSection from "@/components/DropBombSection"
 import PlaneCard from "@/components/PlaneCard"
 import YouTubeClipLoop from "@/components/YouTubeClipLoop"
 import MachScale from "@/components/MachScale"
@@ -98,28 +98,8 @@ export default function FightersPage() {
         </motion.div>
       </section>
 
-      {/* F-35 fly-through */}
-      <section className="relative bg-gradient-to-b from-[#04060a] via-[#06080f] to-[#0b0b10]">
-        <div className="text-center pt-24 pb-2">
-          <p className="text-xs tracking-[0.4em] text-red-400/70 uppercase">The Vanguard</p>
-          <h2 className="text-4xl font-bold mt-4">F-35 Lightning II</h2>
-          <p className="text-[#94a3b8] mt-2 text-sm">Lockheed Martin · Mach 1.6</p>
-        </div>
-
-        <FlyingPlane
-          imageSrc="/planes/f35.png"
-          imageWidth={520}
-          imageHeight={200}
-          label="F-35B Lightning II · STOVL Variant"
-        />
-
-        <div className="text-center pb-24 px-8 max-w-lg mx-auto">
-          <p className="text-[#94a3b8] text-sm leading-relaxed">
-            The most technologically advanced combat aircraft ever flown. Every surface is angled to deflect radar.
-            Its distributed aperture system gives the pilot a seamless 360° view through the aircraft's own skin.
-          </p>
-        </div>
-      </section>
+      {/* Drop bomb scroll sequence → leads into F-35 explore */}
+      <DropBombSection exploreHref="/fighters/f35" />
 
       {/* Mach speed scale */}
       <MachScale jets={fighterJets} />
@@ -141,6 +121,25 @@ export default function FightersPage() {
           <a
             href="/scrollytelling"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-white/25 text-white/80 text-sm font-medium backdrop-blur-sm hover:bg-white/10 hover:border-white/50 transition-all duration-200"
+          >
+            Click to explore more
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
+              <path d="M2 6.5h9M6.5 2l4.5 4.5L6.5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      {/* F-117 Nighthawk scrollytelling teaser */}
+      <section className="relative h-[40vh] flex items-end overflow-hidden bg-gradient-to-b from-[#04060a] to-[#0b0b10]">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
+        <div className="relative z-10 w-full text-center pb-16 px-8">
+          <p className="text-xs tracking-[0.4em] text-red-400/60 uppercase mb-3">Lockheed Skunk Works</p>
+          <h2 className="text-4xl font-bold text-white">F-117 Nighthawk</h2>
+          <p className="text-white/60 mt-2 text-sm mb-8">The original ghost — stealth before stealth had a name</p>
+          <a
+            href="/fighters/f117"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-red-400/25 text-white/80 text-sm font-medium backdrop-blur-sm hover:bg-red-400/10 hover:border-red-400/50 transition-all duration-200"
           >
             Click to explore more
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>

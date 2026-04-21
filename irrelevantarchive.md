@@ -27,4 +27,3 @@ terminal
   https://www.datacamp.com/tutorial/how-to-build-claude-code-plugins
 
   https://noocap.notion.site/Complete-Workflow-AI-Chip-Scroll-Animation-Landing-Page-341508e99dda80618d88e989402ac749
-  

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { fighterJets } from "@/lib/data"
+import SR71VideoPlayer from "@/components/SR71VideoPlayer"
 
 export function generateStaticParams() {
   return fighterJets.map((j) => ({ slug: j.slug }))
@@ -16,8 +17,12 @@ export default async function FighterDetailPage({
   const jet = fighterJets.find((j) => j.slug === slug)
   if (!jet) notFound()
 
+  const isSR71 = slug === "sr-71-blackbird"
+
   return (
-    <main className="min-h-screen bg-[#04060a] text-[#f8fafc] pt-28 pb-24 px-6 md:px-12 lg:px-24">
+    <main className="min-h-screen bg-[#04060a] text-[#f8fafc]">
+      {isSR71 && <SR71VideoPlayer detail={jet.detail} name={jet.name} year={jet.year} />}
+      <div className="pt-28 pb-24 px-6 md:px-12 lg:px-24">
       <div className="max-w-3xl mx-auto">
         {/* Back */}
         <Link
@@ -78,6 +83,7 @@ export default async function FighterDetailPage({
             </p>
           </div>
         )}
+      </div>
       </div>
     </main>
   )

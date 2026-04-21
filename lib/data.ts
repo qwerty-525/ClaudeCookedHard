@@ -239,6 +239,14 @@ export const fighterJets: Aircraft[] = [
     year: 1983,
     fact: "Its helmet-mounted sight lets pilots fire missiles simply by looking at a target — a revelation that shocked Western intelligence when uncovered.",
   },
+  {
+    slug: "saab-jas-39-gripen",
+    name: "Saab JAS 39 Gripen",
+    detail: "Sweden · Saab",
+    year: 1997,
+    mach: 2.0,
+    fact: "Designed to land on public roads and be rearmed by a five-man conscript crew in under 10 minutes — the most cost-effective 4th-gen multirole fighter in operation.",
+  },
 ]
 
 export const engines: Aircraft[] = [
