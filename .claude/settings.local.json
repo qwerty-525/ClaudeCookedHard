@@ -20,7 +20,8 @@
       "Bash(curl -s -o /dev/null -w \"HTTP:%{http_code}\" http://localhost:3000/scrollytelling)",
       "Bash(curl -s http://localhost:3000/scrollytelling)",
       "Bash(node -e \"const fm = require\\('framer-motion'\\); console.log\\(typeof fm.useMotionValueEvent\\)\")",
-      "Bash(grep -v \"^$\")"
+      "Bash(grep -v \"^$\")",
+      "WebSearch"
     ]
   }
 }

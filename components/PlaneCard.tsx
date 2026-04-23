@@ -5,6 +5,12 @@ import { useRouter } from "next/navigation"
 import { motion, useAnimation } from "framer-motion"
 import { FlowButton } from "@/components/ui/flow-button"
 
+const STATUS_CONFIG = {
+  active:  { dot: "#22c55e", label: "In Service" },
+  legacy:  { dot: "#f59e0b", label: "Production Ended" },
+  retired: { dot: "#ef4444", label: "Retired" },
+}
+
 interface PlaneCardProps {
   name: string
   detail: string
@@ -14,6 +20,7 @@ interface PlaneCardProps {
   href: string
   accent?: string
   image?: string
+  status?: "active" | "legacy" | "retired"
 }
 
 export default function PlaneCard({
@@ -25,7 +32,9 @@ export default function PlaneCard({
   href,
   accent = "#3b82f6",
   image,
+  status,
 }: PlaneCardProps) {
+  const statusCfg = STATUS_CONFIG[status ?? "active"]
   const spinControls = useAnimation()
   const router = useRouter()
 
@@ -83,9 +92,20 @@ export default function PlaneCard({
         )}
 
         <div className="flex-1">
-          <span className="text-xs font-semibold tracking-widest" style={{ color: accent }}>
-            {year}
-          </span>
+          <div className="flex items-center justify-between gap-2 mb-0">
+            <span className="text-xs font-semibold tracking-widest" style={{ color: accent }}>
+              {year}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                style={{ background: statusCfg.dot, boxShadow: `0 0 5px ${statusCfg.dot}99` }}
+              />
+              <span className="text-[10px] font-medium tracking-wide" style={{ color: statusCfg.dot }}>
+                {statusCfg.label}
+              </span>
+            </span>
+          </div>
           <h3 className="text-xl font-semibold mt-2 mb-1 text-[#f8fafc]">{name}</h3>
           <p className="text-sm text-[#94a3b8] mb-4">{detail}</p>
           <div className="w-8 h-px bg-[#1e293b] mb-4" />

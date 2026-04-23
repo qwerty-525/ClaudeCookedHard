@@ -3,6 +3,8 @@ import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import PlaneCard from "@/components/PlaneCard"
 import { Typewriter } from "@/components/ui/typewriter"
+import { EngineTypeCarousel } from "@/components/ui/engine-type-carousel"
+import { EngineFaq } from "@/components/ui/engine-faq"
 import { engines } from "@/lib/data"
 
 // Three tiers of exhaust streaks — white-hot core, orange mid, red outer
@@ -175,8 +177,22 @@ export default function EnginesPage() {
         </div>
       </section>
 
+      {/* Engine type carousel */}
+      <section className="bg-[#0b0b10] px-6 md:px-12 lg:px-24 py-24 border-t border-white/[0.04]">
+        <div className="max-w-5xl mx-auto">
+          <EngineTypeCarousel />
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-[#04060a] px-6 md:px-12 lg:px-24 py-24 border-t border-white/[0.04]">
+        <div className="max-w-3xl mx-auto">
+          <EngineFaq />
+        </div>
+      </section>
+
       {/* Engine cards */}
-      <section id="engines" className="bg-[#0b0b10] px-6 md:px-12 lg:px-24 pb-36">
+      <section id="engines" className="bg-[#0b0b10] px-6 md:px-12 lg:px-24 pb-36 border-t border-white/[0.04]">
         <div className="max-w-5xl mx-auto">
           <div className="mb-12">
             <p className="text-xs tracking-[0.4em] text-amber-400 uppercase mb-4 font-medium">

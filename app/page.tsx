@@ -1,10 +1,19 @@
 "use client"
 import FlyingPlane from "@/components/FlyingPlane"
-import PlaneCard from "@/components/PlaneCard"
 import YouTubeClipLoop from "@/components/YouTubeClipLoop"
 import FleetMarquee from "@/components/ui/cta-with-text-marquee"
 import { HorizonHeroSection } from "@/components/ui/horizon-hero-section"
+import CompetitorCarousel from "@/components/CompetitorCarousel"
+import PlaneCard from "@/components/PlaneCard"
 import { commercialPlanes } from "@/lib/data"
+
+const COMPETITOR_SLUGS = new Set([
+  "boeing-737", "airbus-a320",
+  "boeing-747", "airbus-a380",
+  "boeing-787-dreamliner", "airbus-a350",
+  "boeing-777", "airbus-a340",
+  "boeing-757", "airbus-a330",
+])
 
 // Concorde: 3:01–3:12 then 2:30–2:37, looped
 const CONCORDE_CLIPS = [
@@ -81,24 +90,44 @@ export default function CommercialPage() {
       </section>
 
       {/* Fleet intro marquee */}
-      <FleetMarquee planeNames={commercialPlanes.filter((p) => p.active !== false || p.slug === "concorde").map((p) => p.name)} speed={7} />
+      <FleetMarquee planeNames={commercialPlanes.filter((p) => p.status !== "retired" || p.slug === "concorde").map((p) => p.name)} speed={7} />
 
-      {/* Fleet cards */}
-      <section id="fleet" className="px-6 md:px-12 lg:px-24 pb-36">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {commercialPlanes.filter((p) => p.active !== false || p.slug === "concorde").map((plane, i) => (
-              <PlaneCard
-                key={plane.name}
-                href={`/planes/${plane.slug}`}
-                name={plane.name}
-                detail={plane.detail}
-                fact={plane.fact}
-                year={plane.year}
-                index={i}
-                image={plane.image}
-              />
-            ))}
+      {/* Competitor carousel */}
+      <section id="fleet" className="px-6 md:px-12 lg:px-24 pb-24">
+        <div className="max-w-6xl mx-auto">
+          <CompetitorCarousel />
+        </div>
+      </section>
+
+      {/* Non-competitor planes */}
+      <section className="px-6 md:px-12 lg:px-24 pb-36">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-10">
+            <p className="text-[10px] tracking-[0.4em] text-[#3b82f6] uppercase mb-3 font-medium">
+              Beyond the Rivalry
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">The Rest of the Fleet.</h2>
+            <p className="text-[#94a3b8] mt-2 text-sm max-w-md leading-relaxed">
+              Pioneers, legends, and one-of-a-kinds that don't fit neatly into any rivalry.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {commercialPlanes
+              .filter((p) => !COMPETITOR_SLUGS.has(p.slug))
+              .map((plane, i) => (
+                <PlaneCard
+                  key={plane.slug}
+                  name={plane.name}
+                  detail={plane.detail}
+                  fact={plane.fact}
+                  year={plane.year}
+                  index={i}
+                  href={`/planes/${plane.slug}`}
+                  accent="#3b82f6"
+                  image={plane.image}
+                  status={plane.status}
+                />
+              ))}
           </div>
         </div>
       </section>
