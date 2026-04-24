@@ -1,10 +1,12 @@
 "use client"
+import Link from "next/link"
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import DropBombSection from "@/components/DropBombSection"
 import PlaneCard from "@/components/PlaneCard"
 import YouTubeClipLoop from "@/components/YouTubeClipLoop"
 import MachScale from "@/components/MachScale"
+import DogfightCarousel from "@/components/DogfightCarousel"
 import { Typewriter } from "@/components/ui/typewriter"
 import { fighterJets } from "@/lib/data"
 
@@ -31,6 +33,7 @@ export default function FightersPage() {
 
   const titleY = useTransform(heroProgress, [0, 1], [0, -100])
   const titleOpacity = useTransform(heroProgress, [0, 0.65], [1, 0])
+  const featuredJets = fighterJets.slice(0, 3)
 
   return (
     <main className="bg-[#04060a]">
@@ -98,6 +101,49 @@ export default function FightersPage() {
         </motion.div>
       </section>
 
+      <section className="relative border-y border-white/[0.06] bg-[#12090b]">
+        <div className="avia-grid absolute inset-0 opacity-15" />
+        <div className="relative mx-auto grid max-w-6xl gap-6 px-6 py-10 md:grid-cols-[1.35fr_0.85fr] md:px-12 lg:px-24">
+          <div className="avia-panel rounded-[28px] p-7 md:p-8">
+            <p className="text-[10px] font-medium uppercase tracking-[0.45em] text-[#f87171]">
+              Threat Profile
+            </p>
+            <h2 className="mt-4 max-w-2xl text-3xl font-bold tracking-tight text-white md:text-4xl">
+              Speed, stealth, and overmatch should read like three different design religions.
+            </h2>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#94a3b8] md:text-base">
+              This section works best when it feels severe and deliberate. The important part is not just spectacle, but
+              the sense that every aircraft was built around a specific doctrine.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link
+                href="#squadron"
+                className="avia-pill-button inline-flex items-center gap-2 rounded-full border border-red-400/25 bg-red-400/12 px-5 py-3 text-sm font-medium text-white transition-all duration-200 hover:border-red-400/45 hover:bg-red-400/18"
+              >
+                View Squadron
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
+                  <path d="M6.5 2v9M2 6.5l4.5 4.5L11 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </div>
+          </div>
+
+          <div className="avia-panel rounded-[28px] p-7">
+            <p className="text-[10px] font-medium uppercase tracking-[0.45em] text-[#f59e0b]">
+              Flight Deck
+            </p>
+            <div className="mt-5 grid grid-cols-3 gap-3">
+              {featuredJets.map((jet) => (
+                <div key={jet.slug} className="rounded-2xl border border-white/[0.07] bg-black/20 px-3 py-4 text-center">
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-[#fda4af]">{jet.year}</p>
+                  <p className="mt-2 text-sm font-semibold text-white">{jet.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Drop bomb scroll sequence → leads into F-35 explore */}
       <DropBombSection exploreHref="/fighters/f35" />
 
@@ -105,52 +151,67 @@ export default function FightersPage() {
       <MachScale jets={fighterJets} />
 
       {/* B-2 Spirit teaser */}
-      <section className="relative h-[70vh] flex items-end overflow-hidden">
+      <section className="relative flex h-[72vh] items-end overflow-hidden border-y border-white/[0.05]">
         {/* Looping B-2 footage: 0:40–0:43 */}
         <YouTubeClipLoop
           videoId="7Vb7IKhVKu4"
           clips={[{ start: 40, end: 56 }]}
           className="absolute inset-0 w-full h-full scale-[1.35] pointer-events-none"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/85" />
 
-        <div className="relative z-10 w-full text-center pb-16 px-8">
-          <p className="text-xs tracking-[0.4em] text-white/50 uppercase mb-3">Northrop Grumman</p>
-          <h2 className="text-4xl font-bold text-white">B-2 Spirit</h2>
-          <p className="text-white/60 mt-2 text-sm mb-8">The stealth bomber that redefined air power</p>
-          <a
-            href="/scrollytelling"
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-white/25 text-white/80 text-sm font-medium backdrop-blur-sm hover:bg-white/10 hover:border-white/50 transition-all duration-200"
-          >
-            Click to explore more
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
-              <path d="M2 6.5h9M6.5 2l4.5 4.5L6.5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
+        <div className="relative z-10 w-full px-8 pb-16 md:px-14 lg:px-20">
+          <div className="max-w-xl text-left">
+            <p className="mb-3 text-xs uppercase tracking-[0.4em] text-white/55">Northrop Grumman</p>
+            <h2 className="text-4xl font-bold text-white md:text-5xl">B-2 Spirit</h2>
+            <p className="mt-2 text-sm uppercase tracking-[0.24em] text-white/55">Deep strike · flying wing</p>
+            <p className="mt-5 text-sm leading-relaxed text-[#cbd5e1] md:text-base">
+              The stealth bomber that turned strategic bombing into something ghostlike, silent, and unnervingly precise.
+            </p>
+            <Link
+              href="/scrollytelling"
+              className="avia-pill-button mt-8 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-7 py-3 text-sm font-medium text-white backdrop-blur-sm transition-all duration-200 hover:border-white/40 hover:bg-white/14"
+            >
+              Explore the B-2
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
+                <path d="M2 6.5h9M6.5 2l4.5 4.5L6.5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* F-117 Nighthawk scrollytelling teaser */}
-      <section className="relative h-[40vh] flex items-end overflow-hidden bg-gradient-to-b from-[#04060a] to-[#0b0b10]">
+      <section className="relative flex h-[42vh] items-end overflow-hidden bg-gradient-to-b from-[#04060a] to-[#0b0b10]">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
-        <div className="relative z-10 w-full text-center pb-16 px-8">
-          <p className="text-xs tracking-[0.4em] text-red-400/60 uppercase mb-3">Lockheed Skunk Works</p>
+        <div className="relative z-10 w-full px-8 pb-14 text-center">
+          <p className="mb-3 text-xs uppercase tracking-[0.4em] text-red-400/60">Lockheed Skunk Works</p>
           <h2 className="text-4xl font-bold text-white">F-117 Nighthawk</h2>
-          <p className="text-white/60 mt-2 text-sm mb-8">The original ghost — stealth before stealth had a name</p>
-          <a
+          <p className="mt-2 text-sm text-white/60">The original ghost — stealth before stealth had a name</p>
+          <Link
             href="/fighters/f117"
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-red-400/25 text-white/80 text-sm font-medium backdrop-blur-sm hover:bg-red-400/10 hover:border-red-400/50 transition-all duration-200"
+            className="avia-pill-button mt-8 inline-flex items-center gap-2 rounded-full border border-red-400/25 bg-red-400/10 px-7 py-3 text-sm font-medium text-white/90 backdrop-blur-sm transition-all duration-200 hover:border-red-400/50 hover:bg-red-400/16"
           >
-            Click to explore more
+            Explore the F-117
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
               <path d="M2 6.5h9M6.5 2l4.5 4.5L6.5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-          </a>
+          </Link>
+        </div>
+      </section>
+
+      {/* Dogfight rivalry carousel */}
+      <section className="relative px-6 pb-24 pt-10 md:px-12 lg:px-24">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+        <div className="mx-auto max-w-6xl">
+          <DogfightCarousel />
         </div>
       </section>
 
       {/* Squadron cards */}
-      <section className="bg-[#0b0b10] px-6 md:px-12 lg:px-24 pb-36">
+      <section id="squadron" className="relative bg-[#0b0b10] px-6 pb-36 md:px-12 lg:px-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(239,68,68,0.12),transparent_38%)]" />
         <div className="max-w-5xl mx-auto">
           <div className="mb-16 pt-4">
             <p className="text-xs tracking-[0.4em] text-red-400 uppercase mb-4 font-medium">
@@ -162,7 +223,7 @@ export default function FightersPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {fighterJets.map((jet, i) => (
               <PlaneCard
                 key={jet.name}
@@ -174,6 +235,8 @@ export default function FightersPage() {
                 index={i}
                 accent="#ef4444"
                 image={jet.image}
+                role={jet.role}
+                roleColor={jet.roleColor}
               />
             ))}
           </div>

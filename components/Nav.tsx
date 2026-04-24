@@ -24,14 +24,26 @@ export default function Nav() {
 
   return (
     <nav
-      className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-8 py-5 bg-[#0b0b10]/75 backdrop-blur-md border-b transition-colors duration-500"
+      className="fixed top-0 inset-x-0 z-50 border-b bg-[#0b0b10]/72 px-5 py-4 backdrop-blur-xl transition-colors duration-500 md:px-8 md:py-5"
       style={{ borderColor: `${activeAccent}33` }}
     >
-      <span className="text-xs font-semibold tracking-[0.35em] text-[#94a3b8] uppercase select-none">
-        AVIA
-      </span>
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <span
+            className="h-2.5 w-2.5 rounded-full shadow-[0_0_18px_currentColor]"
+            style={{ color: activeAccent, backgroundColor: activeAccent }}
+          />
+          <div>
+            <span className="block select-none text-[11px] font-semibold uppercase tracking-[0.42em] text-[#e2e8f0]">
+              AVIA
+            </span>
+            <span className="hidden text-[10px] uppercase tracking-[0.26em] text-[#94a3b8] md:block">
+              Flight archive
+            </span>
+          </div>
+        </div>
 
-      <div className="flex items-center gap-1 bg-[#232328] rounded-full p-1">
+        <div className="flex items-center gap-1 rounded-full border border-white/[0.08] bg-[rgba(20,24,34,0.78)] p-1 shadow-[0_10px_30px_rgba(2,6,23,0.28)]">
         {TABS.map(({ href, label, accent, wipe, shadow }) => {
           const isActive = pathname === href
           return (
@@ -40,12 +52,12 @@ export default function Nav() {
               onClick={() => { if (!isActive) triggerTransition(href, accent, label) }}
               onMouseEnter={() => setHovered(href)}
               onMouseLeave={() => setHovered(null)}
-              className={`flex items-center h-9 px-5 rounded-full font-mono text-base font-medium transition-all duration-200 ${scaleFor(href)} ${
+              className={`flex h-9 items-center rounded-full px-4 font-mono text-sm font-medium transition-all duration-200 md:px-5 md:text-base ${scaleFor(href)} ${
                 isActive
                   ? `text-white shadow-lg ${shadow}`
                   : "text-[#94a3b8] hover:text-white cursor-pointer"
               }`}
-              style={isActive ? { backgroundColor: accent } : {}}
+              style={isActive ? { backgroundColor: accent, boxShadow: `0 10px 30px ${accent}33` } : {}}
             >
               {isActive ? (
                 label
@@ -60,6 +72,7 @@ export default function Nav() {
             </button>
           )
         })}
+        </div>
       </div>
     </nav>
   )

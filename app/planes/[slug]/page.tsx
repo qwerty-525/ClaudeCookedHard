@@ -30,12 +30,12 @@ export default async function PlaneDetailPage({
         />
       )}
 
-      <div className="pt-28 pb-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-3xl mx-auto">
+      <div className="px-6 pb-24 pt-28 md:px-12 lg:px-24">
+        <div className="avia-detail-shell mx-auto max-w-4xl rounded-[32px] p-7 md:p-10">
           {/* Back */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-[#94a3b8] hover:text-white transition-colors mb-12"
+            className="mb-12 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-sm text-[#94a3b8] transition-colors hover:text-white"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
               <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -49,8 +49,8 @@ export default async function PlaneDetailPage({
               <p className="text-xs tracking-[0.4em] text-[#3b82f6] uppercase mb-4 font-medium">
                 {plane.detail}
               </p>
-              <h1 className="text-5xl md:text-6xl font-bold mb-3">{plane.name}</h1>
-              <p className="text-[#94a3b8] text-sm mb-10">First flight · {plane.year}</p>
+              <h1 className="mb-3 text-5xl font-bold md:text-6xl">{plane.name}</h1>
+              <p className="mb-10 text-sm uppercase tracking-[0.24em] text-[#94a3b8]">First flight · {plane.year}</p>
             </>
           )}
 
@@ -60,20 +60,20 @@ export default async function PlaneDetailPage({
               <p className="text-xs tracking-[0.4em] text-[#3b82f6] uppercase mb-4 font-medium">
                 {plane.detail}
               </p>
-              <h1 className="text-5xl md:text-6xl font-bold mb-3">{plane.name}</h1>
-              <p className="text-[#94a3b8] text-sm">First flight · {plane.year}</p>
+              <h1 className="mb-3 text-5xl font-bold md:text-6xl">{plane.name}</h1>
+              <p className="text-sm uppercase tracking-[0.24em] text-[#94a3b8]">First flight · {plane.year}</p>
             </div>
           )}
 
           {/* Image */}
           {plane.image && (
-            <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden mb-10 border border-[#1e293b]">
+            <div className="relative mb-10 h-64 w-full overflow-hidden rounded-[28px] border border-white/[0.08] bg-black/20 md:h-80">
               <Image src={plane.image} alt={plane.name} fill className="object-contain p-6" />
             </div>
           )}
 
           {/* Quick fact */}
-          <div className="bg-[#232328] border border-[#1e293b] rounded-2xl p-6 mb-10">
+          <div className="mb-10 rounded-[28px] border border-[#3b82f6]/20 bg-[#3b82f6]/10 p-6">
             <p className="text-xs tracking-widest text-[#3b82f6] uppercase mb-2">Key Fact</p>
             <p className="text-[#f8fafc] leading-relaxed">{plane.fact}</p>
           </div>
@@ -82,10 +82,10 @@ export default async function PlaneDetailPage({
           {plane.specs && plane.specs.length > 0 && (
             <div className="mb-10">
               <h2 className="text-xl font-semibold mb-4">Specifications</h2>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                 {plane.specs.map((s) => (
-                  <div key={s.label} className="bg-[#232328] border border-[#1e293b] rounded-xl p-4">
-                    <p className="text-xs text-[#94a3b8] mb-1">{s.label}</p>
+                  <div key={s.label} className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4">
+                    <p className="mb-1 text-xs uppercase tracking-[0.18em] text-[#94a3b8]">{s.label}</p>
                     <p className="font-medium">{s.value}</p>
                   </div>
                 ))}
@@ -95,11 +95,11 @@ export default async function PlaneDetailPage({
 
           {/* Description */}
           {plane.description ? (
-            <div className="prose prose-invert max-w-none">
-              <p className="text-[#94a3b8] leading-relaxed">{plane.description}</p>
+            <div className="max-w-none">
+              <p className="whitespace-pre-line leading-8 text-[#b8c7dc]">{plane.description}</p>
             </div>
           ) : (
-            <div className="border border-dashed border-[#1e293b] rounded-2xl p-10 text-center text-[#94a3b8]">
+            <div className="rounded-[28px] border border-dashed border-[#1e293b] p-10 text-center text-[#94a3b8]">
               <p className="text-sm">More information coming soon.</p>
               <p className="text-xs mt-2 opacity-60">
                 Add <code className="text-[#3b82f6]">description</code> and <code className="text-[#3b82f6]">specs</code> fields in <code className="text-[#3b82f6]">lib/data.ts</code>

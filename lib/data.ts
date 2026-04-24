@@ -1,5 +1,7 @@
 export interface Aircraft {
   slug: string
+  role?: string
+  roleColor?: string
   name: string
   detail: string
   year: number
@@ -9,11 +11,16 @@ export interface Aircraft {
   status?: "active" | "legacy" | "retired"
   description?: string
   specs?: { label: string; value: string }[]
+  routes?: string[]
+  engineeringFeatures?: { title: string; body: string }[]
 }
 
 export const commercialPlanes: Aircraft[] = [
   {
     slug: "boeing-747",
+    role: "High Capacity",
+    roleColor: "#8b5cf6",
+    routes: ["New York → London · 7h", "LA → Tokyo · 11h 30m", "Sydney → Dallas · 15h 30m"],
     name: "Boeing 747",
     detail: "Boeing · USA",
     year: 1968,
@@ -36,6 +43,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "airbus-a380",
+    role: "Maximum Capacity",
+    roleColor: "#8b5cf6",
+    routes: ["Dubai → London · 7h", "Singapore → LA · 14h", "Sydney → Dallas · 16h 30m"],
     name: "Airbus A380",
     detail: "Airbus · Europe",
     year: 2005,
@@ -59,6 +69,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "concorde",
+    role: "Supersonic",
+    roleColor: "#f59e0b",
+    routes: ["London → New York · 3h 30m", "Paris → New York · 3h 45m"],
     name: "Concorde",
     detail: "Aérospatiale/BAC · UK & France",
     year: 1969,
@@ -82,6 +95,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "boeing-777",
+    role: "Long-Range Twin",
+    roleColor: "#3b82f6",
+    routes: ["Singapore → Newark · 18h 45m", "London → Dubai · 7h", "LA → Sydney · 14h 30m"],
     name: "Boeing 777",
     detail: "Boeing · USA",
     year: 1994,
@@ -102,6 +118,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "boeing-787-dreamliner",
+    role: "Fuel Efficiency",
+    roleColor: "#22c55e",
+    routes: ["Melbourne → Dallas · 17h", "Oslo → Singapore · 12h 30m", "London → Austin · 10h"],
     name: "Boeing 787 Dreamliner",
     detail: "Boeing · USA",
     year: 2009,
@@ -123,6 +142,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "airbus-a350",
+    role: "Ultra Long Range",
+    roleColor: "#3b82f6",
+    routes: ["Singapore → New York · 18h 45m", "Auckland → Dubai · 17h 15m", "Doha → Houston · 14h 45m"],
     name: "Airbus A350",
     detail: "Airbus · Europe",
     year: 2013,
@@ -143,6 +165,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "airbus-a320",
+    role: "Narrowbody Volume",
+    roleColor: "#06b6d4",
+    routes: ["London → Paris · 1h 15m", "Madrid → Barcelona · 1h 15m", "Frankfurt → Rome · 2h 10m"],
     name: "Airbus A320",
     detail: "Airbus · Europe",
     year: 1987,
@@ -164,6 +189,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "airbus-a320neo",
+    role: "Fuel Efficiency",
+    roleColor: "#22c55e",
+    routes: ["London → Lisbon · 2h 25m", "Paris → Madrid · 2h 05m", "Amsterdam → Athens · 3h 20m"],
     name: "Airbus A320neo",
     detail: "Airbus · Europe",
     year: 2016,
@@ -185,6 +213,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "embraer-e195-e2",
+    role: "Regional Efficiency",
+    roleColor: "#06b6d4",
+    routes: ["Montreal → Toronto · 1h 10m", "Oslo → Copenhagen · 1h 25m", "London → Edinburgh · 1h 20m"],
     name: "Embraer E195-E2",
     detail: "Embraer · Brazil",
     year: 2018,
@@ -205,6 +236,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "boeing-737",
+    role: "Short-Haul Volume",
+    roleColor: "#06b6d4",
+    routes: ["LA → San Francisco · 1h 10m", "London → Amsterdam · 1h 10m", "Dublin → London · 1h 20m"],
     name: "Boeing 737",
     detail: "Boeing · USA",
     year: 1967,
@@ -226,6 +260,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "boeing-737-max",
+    role: "Fuel Efficiency",
+    roleColor: "#22c55e",
+    routes: ["New York → Cancun · 3h 45m", "London → Madrid · 2h 25m", "Seattle → Denver · 2h 15m"],
     name: "Boeing 737 MAX",
     detail: "Boeing · USA",
     year: 2017,
@@ -247,6 +284,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "boeing-757",
+    role: "Short-Field ETOPS",
+    roleColor: "#3b82f6",
+    routes: ["New York → Reykjavik · 5h 50m", "Denver → London · 9h 30m", "LA → Denver · 2h 30m"],
     name: "Boeing 757",
     detail: "Boeing · USA",
     year: 1982,
@@ -268,6 +308,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "airbus-a330",
+    role: "Long-Haul Twin",
+    roleColor: "#3b82f6",
+    routes: ["London → New York · 8h 30m", "Paris → Johannesburg · 11h 30m", "Sydney → Bali · 6h"],
     name: "Airbus A330",
     detail: "Airbus · Europe",
     year: 1992,
@@ -287,6 +330,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "boeing-707",
+    role: "Jet Pioneer",
+    roleColor: "#94a3b8",
+    routes: ["New York → London · 8h", "San Francisco → Honolulu · 5h 20m", "Paris → New York · 8h 30m"],
     name: "Boeing 707",
     detail: "Boeing · USA",
     year: 1957,
@@ -308,6 +354,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "airbus-a220",
+    role: "Regional Efficiency",
+    roleColor: "#06b6d4",
+    routes: ["New York → Boston · 1h 20m", "Montreal → Toronto · 1h 10m", "London → Edinburgh · 1h 20m"],
     name: "Airbus A220",
     detail: "Airbus / Bombardier · Canada",
     year: 2016,
@@ -328,6 +377,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "douglas-dc-3",
+    role: "Aviation Pioneer",
+    roleColor: "#94a3b8",
+    routes: ["New York → Chicago · 3h 30m", "LA → San Francisco · 2h 15m", "London → Paris · 2h 30m"],
     name: "Douglas DC-3",
     detail: "Douglas Aircraft · USA",
     year: 1935,
@@ -349,6 +401,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "boeing-727",
+    role: "Short-Field Ops",
+    roleColor: "#06b6d4",
+    routes: ["New York → Miami · 3h", "Chicago → Denver · 3h 45m", "LA → Las Vegas · 1h"],
     name: "Boeing 727",
     detail: "Boeing · USA",
     year: 1963,
@@ -370,6 +425,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "airbus-a340",
+    role: "Ultra Long Range",
+    roleColor: "#3b82f6",
+    routes: ["Singapore → Newark · 18h 45m", "Hong Kong → London · 13h", "Buenos Aires → Madrid · 12h 30m"],
     name: "Airbus A340",
     detail: "Airbus · Europe",
     year: 1991,
@@ -390,6 +448,9 @@ export const commercialPlanes: Aircraft[] = [
   },
   {
     slug: "tupolev-tu-144",
+    role: "Supersonic Pioneer",
+    roleColor: "#f59e0b",
+    routes: ["Moscow → Almaty · 2h", "Moscow → Novosibirsk · 2h (planned)"],
     name: "Tupolev Tu-144",
     detail: "Tupolev · Soviet Union",
     year: 1968,
@@ -414,6 +475,8 @@ export const commercialPlanes: Aircraft[] = [
 export const fighterJets: Aircraft[] = [
   {
     slug: "f-22-raptor",
+    role: "Air Superiority",
+    roleColor: "#ef4444",
     name: "F-22 Raptor",
     detail: "USA · Lockheed Martin",
     year: 2005,
@@ -432,9 +495,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Combat radius", value: "590 nmi (1,093 km)" },
       { label: "Radar cross-section", value: "~0.0001 m² (equivalent to a marble)" },
     ],
+    engineeringFeatures: [
+      {
+        title: "Stealth Architecture",
+        body: "All panel edges are swept to identical angles so radar returns arrive simultaneously and cancel — a technique called edge alignment. Internal weapons bays, RAM-coated surfaces, and a low-observable exhaust nozzle combine to produce a radar cross-section of ~0.0001 m², the equivalent of a marble.",
+      },
+      {
+        title: "Supercruise Propulsion",
+        body: "Twin Pratt & Whitney F119-PW-100 engines with two-dimensional thrust-vectoring nozzles sustain Mach 1.8 flight without afterburner — a capability called supercruise. Afterburner-dependent fighters cannot follow without burning fuel at several times the rate, giving the F-22 a persistent tactical reach advantage.",
+      },
+      {
+        title: "Sensor Fusion",
+        body: "Onboard and off-board sensor data is fused in real time into a single tactical picture shared across the cockpit. The Raptor can track and fire on adversaries while emitting so little radar that it remains electronically invisible to them throughout the engagement.",
+      },
+    ],
   },
   {
     slug: "f-35-lightning-ii",
+    role: "Stealth Multirole",
+    roleColor: "#a855f7",
     name: "F-35 Lightning II",
     detail: "USA · Lockheed Martin",
     year: 2015,
@@ -454,9 +533,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Max takeoff weight", value: "70,000 lb (31,751 kg) — F-35A" },
       { label: "Variants", value: "F-35A (CTOL), F-35B (STOVL), F-35C (carrier)" },
     ],
+    engineeringFeatures: [
+      {
+        title: "Distributed Aperture System",
+        body: "Six infrared cameras arrayed around the entire fuselage create a continuous 360° sphere of situational awareness, fused directly into the pilot's helmet visor. The aircraft's own structure becomes transparent — the pilot can look through the floor at the ground directly beneath them.",
+      },
+      {
+        title: "F-35B Lift Fan (STOVL)",
+        body: "A Rolls-Royce shaft-driven lift fan behind the cockpit opens in the fuselage floor and generates 18,000 lbf of vertical thrust via a clutch coupled to the main engine. A three-bearing swivel nozzle and roll-post nozzles at the wingtips complete the hover system, which transitions from wingborne flight to fanborne hover in under 10 seconds.",
+      },
+      {
+        title: "F135 Propulsion",
+        body: "The F135 is the most powerful fighter engine ever built, producing 43,000 lbf with afterburner — more than any previous production fighter powerplant. Three variants (F135-100/400/600) serve the A/B/C airframes while sharing a common core, enabling a single logistics and maintenance chain across all three services.",
+      },
+    ],
   },
   {
     slug: "sukhoi-su-57",
+    role: "Stealth · Agility",
+    roleColor: "#a855f7",
     name: "Sukhoi Su-57 Felon",
     detail: "Russia · Sukhoi",
     year: 2020,
@@ -474,9 +569,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Combat radius", value: "~1,080 nmi (2,000 km)" },
       { label: "Max takeoff weight", value: "77,162 lb (35,000 kg)" },
     ],
+    engineeringFeatures: [
+      {
+        title: "3D Thrust-Vectoring Nozzles",
+        body: "The AL-41F1 engines feature nozzles with rotational axes canted at different angles relative to each other, enabling simultaneous pitch, yaw, and roll thrust vectoring. No other production fighter replicates this post-stall manoeuvrability — the Su-57 can sustain controlled flight at angles of attack that would cause any conventional jet to depart.",
+      },
+      {
+        title: "L-Band Counter-Stealth Radar",
+        body: "AESA radar arrays are embedded in the wing leading edges and tuned to the L-band frequency — the band at which Western stealth coatings, optimised for X-band, provide the least attenuation. This asymmetric approach is specifically designed to detect F-22s and F-35s that are nearly invisible to conventional X-band radar.",
+      },
+      {
+        title: "Hybrid Stealth / Payload Architecture",
+        body: "Dedicated internal weapons bays provide a low-observable configuration for primary engagements, while four external hardpoints allow additional payload when radar signature is a lower priority. This deliberate compromise between stealth and weapons capacity reflects a different design philosophy than the all-internal approach of the F-22.",
+      },
+    ],
   },
   {
     slug: "eurofighter-typhoon",
+    role: "Air Superiority",
+    roleColor: "#ef4444",
     name: "Eurofighter Typhoon",
     detail: "UK / Germany / Italy / Spain",
     year: 2003,
@@ -495,9 +606,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Max takeoff weight", value: "51,809 lb (23,500 kg)" },
       { label: "Supercruise", value: "Mach 1.1–1.2 (no afterburner)" },
     ],
+    engineeringFeatures: [
+      {
+        title: "Deliberate Aerodynamic Instability",
+        body: "The airframe is intentionally designed to depart controlled flight without continuous fly-by-wire intervention — the computers fire control surfaces up to 40 times per second simply to maintain equilibrium. This instability is the direct source of the Typhoon's extreme agility: the same control authority that prevents departure also executes manoeuvres impossible in a statically stable design.",
+      },
+      {
+        title: "Close-Coupled Delta-Canard",
+        body: "Small forward canard fins placed close to the main delta wing generate powerful vortices that energise the airflow over the wing surface, delaying stall to extreme angles of attack. The resulting lift coefficient pushes the thrust-to-weight ratio above 1.07 at typical combat weight — the aircraft can accelerate while climbing vertically.",
+      },
+      {
+        title: "EJ200 Supercruise",
+        body: "Each Eurojet EJ200 produces 20,250 lbf with afterburner, but the Typhoon's aerodynamic efficiency allows sustained Mach 1.1–1.2 in military power alone. Flying supercruise rather than using afterburner preserves fuel, reduces infrared signature, and extends combat time on station.",
+      },
+    ],
   },
   {
     slug: "dassault-rafale",
+    role: "Omnirole",
+    roleColor: "#10b981",
     name: "Dassault Rafale",
     detail: "France · Dassault Aviation",
     year: 2001,
@@ -516,9 +643,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Max takeoff weight", value: "54,013 lb (24,500 kg)" },
       { label: "Composite content", value: "~70% of airframe surface" },
     ],
+    engineeringFeatures: [
+      {
+        title: "SPECTRA Electronic Warfare Suite",
+        body: "SPECTRA combines laser missile approach warning, radar warning receivers, and a Doppler radar jammer with the ability to generate deceptive false radar signatures — projecting a ghost image of a different aircraft at a different location. The system operates autonomously without pilot input, freeing the crew for other tasks during the most time-critical phase of an engagement.",
+      },
+      {
+        title: "RBE2-AA AESA Radar",
+        body: "The active electronically scanned array simultaneously maps terrain for strike missions while tracking airborne targets for BVR combat — a dual-mode capability that removes the traditional mode-switching penalty. The electronically steered beam can be repositioned in microseconds, enabling rapid target handoff between air and ground threats.",
+      },
+      {
+        title: "Omnirole Single-Sortie Architecture",
+        body: "The same airframe performs BVR air combat, precision ground strike, carrier operations, and nuclear delivery within a single sortie without reconfiguration. The 70% composite airframe content keeps maximum landing weight within carrier limits despite the broad mission payload envelope.",
+      },
+    ],
   },
   {
     slug: "fa-18-super-hornet",
+    role: "Carrier Strike",
+    roleColor: "#f97316",
     name: "F/A-18E Super Hornet",
     detail: "USA · Boeing",
     year: 1999,
@@ -537,9 +680,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Max takeoff weight", value: "66,000 lb (29,937 kg)" },
       { label: "Landing speed (carrier)", value: "~150 mph (241 km/h)" },
     ],
+    engineeringFeatures: [
+      {
+        title: "Carrier-Hardened Structure",
+        body: "The airframe is reinforced for catapult launch loads and arrested landing deceleration forces that would destroy a land-based fighter. Folding outer wing panels, salt-spray-resistant alloys throughout, and a corrosion-resistant tailhook system allow indefinite operation from carrier decks with no special maintenance cycle beyond standard naval aviation procedures.",
+      },
+      {
+        title: "Buddy Tanking System",
+        body: "A centreline hose-and-drogue refuelling pod turns any Super Hornet into an aerial tanker, allowing it to refuel other aircraft mid-mission before recovering to the carrier itself. This capability removes the need for a dedicated tanker aircraft in the carrier air wing, freeing deck space and increasing strike package flexibility.",
+      },
+      {
+        title: "EA-18G Growler Platform",
+        body: "The same airframe supports a full-spectrum electronic warfare variant by replacing all air-to-air weapons with ALQ-99/218 jamming pods and adding a second crew station for an electronic warfare officer. Structural and electrical commonality means Growler aircrew require only a short differences course from the Super Hornet, maintaining interoperability in carrier deck operations.",
+      },
+    ],
   },
   {
     slug: "sr-71-blackbird",
+    role: "Strategic Recon",
+    roleColor: "#eab308",
     name: "SR-71 Blackbird",
     detail: "USA · Lockheed Skunk Works",
     year: 1966,
@@ -559,9 +718,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Skin temperature at cruise", value: "316°C (nose) / up to 593°C (engine nacelles)" },
       { label: "Airframe material", value: ">90% titanium alloy" },
     ],
+    engineeringFeatures: [
+      {
+        title: "Thermal Titanium Airframe",
+        body: "Over 90% of the structure is titanium — a metal purchased covertly from the Soviet Union because it was the world's principal supplier. Gaps were deliberately designed into the fuel tanks on the ground; these gaps only sealed when the airframe expanded at operating temperature, with skin reaching 316°C at the nose and 593°C at the engine nacelles.",
+      },
+      {
+        title: "J58 Turboramjet Cycle",
+        body: "Above Mach 3, the engine core itself contributes only 17.6% of total thrust — the variable-geometry intake spike contributes 54% and the ejector exhaust nozzle 28.4%. The aircraft functions effectively as a ramjet at cruise speed, with the turbojet acting as a pump and ignitor rather than a primary thrust generator.",
+      },
+      {
+        title: "JP-7 Fuel as Structural Coolant",
+        body: "The SR-71 used JP-7, a specially developed fuel with an extremely high flash point that circulated through the airframe as a heat sink before reaching the combustion chambers. JP-7 was so difficult to ignite that each takeoff required injection of triethylborane — a pyrophoric compound — to initiate combustion.",
+      },
+    ],
   },
   {
     slug: "f-14-tomcat",
+    role: "Fleet Defense",
+    roleColor: "#3b82f6",
     name: "F-14 Tomcat",
     detail: "USA · Grumman",
     year: 1974,
@@ -581,9 +756,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Max missile range (AIM-54)", value: "100+ nmi (185+ km)" },
       { label: "Max takeoff weight", value: "74,350 lb (33,724 kg)" },
     ],
+    engineeringFeatures: [
+      {
+        title: "Variable-Geometry Wing",
+        body: "The wing sweeps automatically between 20° and 68° based on airspeed data from the central air data computer — without pilot input during normal flight. Fully spread for carrier approach, fully swept for Mach 2.34 dash: the same wing serves both regimes without compromise.",
+      },
+      {
+        title: "AWG-9 / AIM-54 Phoenix System",
+        body: "The Hughes AWG-9 pulse-Doppler radar can simultaneously track 24 targets and direct fire on 6 of them at ranges exceeding 100 nautical miles. The AIM-54 Phoenix missile was the longest-range air-to-air weapon ever deployed operationally; the combined system remained unmatched in BVR intercept capability for over two decades.",
+      },
+      {
+        title: "Palletised Avionics Bay",
+        body: "All combat avionics and weapons systems were packaged in modular standardised pallets that could be swapped on a carrier deck in under one hour. This was a deliberate logistics decision: the entire combat system could be upgraded between deployments by replacing pallets rather than rewiring the aircraft.",
+      },
+    ],
   },
   {
     slug: "f-15-eagle",
+    role: "Air Superiority",
+    roleColor: "#ef4444",
     name: "F-15 Eagle",
     detail: "USA · McDonnell Douglas",
     year: 1976,
@@ -602,9 +793,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Max takeoff weight", value: "68,000 lb (30,845 kg)" },
       { label: "Air-to-air combat record", value: "100+ kills / 0 losses" },
     ],
+    engineeringFeatures: [
+      {
+        title: "High Thrust-to-Weight Powerplant",
+        body: "Twin Pratt & Whitney F100 engines in closely-spaced nacelles produce a combined thrust exceeding the aircraft's takeoff weight at typical combat loading, enabling vertical acceleration from level flight. The wide nacelle spacing minimises interference drag while providing full propulsion redundancy if one engine is lost.",
+      },
+      {
+        title: "APG-63 Pulse-Doppler Radar",
+        body: "The first fighter radar capable of detecting and tracking aircraft flying low against ground clutter — a fundamental blind spot of all previous look-down systems. Its architecture of interleaved pulse-Doppler waveforms at multiple PRFs became the design template for every subsequent Western fighter radar, including the APG-70, APG-73, and their AESA successors.",
+      },
+      {
+        title: "Conformal Fuel Tanks",
+        body: "The FAST (Fuel and Sensor Tactical) packs add 2,900 lb of fuel flush with the fuselage contour, with no increase in radar cross-section and no weapons stations consumed. The aerodynamic drag increase is under 2% — effectively free range extension that keeps the full weapons load available.",
+      },
+    ],
   },
   {
     slug: "f-16-fighting-falcon",
+    role: "Multirole",
+    roleColor: "#06b6d4",
     name: "F-16 Fighting Falcon",
     detail: "USA · General Dynamics",
     year: 1978,
@@ -623,9 +830,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Max G-load", value: "9-G (structural limit = human physiological limit)" },
       { label: "Max takeoff weight", value: "42,300 lb (19,187 kg)" },
     ],
+    engineeringFeatures: [
+      {
+        title: "Fly-by-Wire Without Manual Backup",
+        body: "The prototype had no mechanical flight control backup whatsoever — if the digital computers failed, the aircraft immediately departed controlled flight. This was the first production fighter to commit entirely to digital FBW, made viable only by quadruple-redundant computer channels ensuring that a single failure would never leave the pilot without control.",
+      },
+      {
+        title: "Blended Wing-Body Lift",
+        body: "The fuselage generates substantial lift alongside the wing through a continuously curved forebody that blends smoothly into the wing root — an approach borrowed from NASA research into highly manoeuvrable designs. This increases the effective lifting area, reduces induced drag at high angles of attack, and was essential for making a lightweight single-engine fighter competitive with heavier twin-engine designs.",
+      },
+      {
+        title: "30° Reclined Ejection Seat",
+        body: "The pilot sits at a 30° recline instead of the traditional upright position, redistributing blood pooling forces during high-G pulls and increasing sustainable G-tolerance from approximately 7G to 9G. The side-mounted force-sensing stick — the pilot's hand barely moves during a maximum-G turn — was a direct consequence of this seating posture.",
+      },
+    ],
   },
   {
     slug: "f-117-nighthawk",
+    role: "Stealth Strike",
+    roleColor: "#a855f7",
     name: "F-117 Nighthawk",
     detail: "USA · Lockheed Skunk Works",
     year: 1983,
@@ -645,9 +868,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Max takeoff weight", value: "52,500 lb (23,814 kg)" },
       { label: "Radar cross-section", value: "~0.001 m² (estimated)" },
     ],
+    engineeringFeatures: [
+      {
+        title: "Faceted Stealth Geometry",
+        body: "All external surfaces are flat facets angled to scatter radar energy away from the transmitter rather than reflecting it back — a result of applying Pyotr Ufimtsev's 1960s Soviet electromagnetic scattering theory to arbitrary facet combinations. The design was so aerodynamically poor that Lockheed had to borrow F-16 fly-by-wire computers just to make the aircraft flyable.",
+      },
+      {
+        title: "Radar-Absorbent Material Coating",
+        body: "Ferrite-loaded RAM tiles cover all external surfaces to absorb residual radar energy that the facet geometry alone cannot scatter. The combined effect of geometry plus RAM produces an estimated radar cross-section of ~0.001 m² — roughly equivalent to a golf ball — making it the first aircraft in history invisible to operational air defence radars.",
+      },
+      {
+        title: "De-tuned Non-Afterburning Engines",
+        body: "The GE F404 engines were deliberately throttled and fitted with slotted exhaust gratings, sacrificing thrust to reduce the infrared bloom that would otherwise make the aircraft visible to heat-seeking missiles. Operating subsonic-only was a calculated trade-off: the F-117 relied entirely on not being detected rather than on being able to escape.",
+      },
+    ],
   },
   {
     slug: "mig-29-fulcrum",
+    role: "Close Combat",
+    roleColor: "#ef4444",
     name: "MiG-29 Fulcrum",
     detail: "Russia · Mikoyan",
     year: 1983,
@@ -666,9 +905,25 @@ export const fighterJets: Aircraft[] = [
       { label: "Max takeoff weight", value: "40,785 lb (18,500 kg)" },
       { label: "Helmet-mounted sight", value: "R-73 missiles cued up to 60° off boresight" },
     ],
+    engineeringFeatures: [
+      {
+        title: "Helmet-Mounted Sight / R-73 Integration",
+        body: "The pilot's helmet cues the R-73 Archer missile to any target within 60° of the aircraft's nose simply by looking at it — no need to manoeuvre the aircraft onto the target's bearing. This within-visual-range engagement envelope shocked Western intelligence when first uncovered and remained unmatched until the JHMCS was fielded on F-15s and F-16s in the late 1990s.",
+      },
+      {
+        title: "IRST Passive Targeting",
+        body: "An infrared search-and-track sensor mounted ahead of the cockpit detects jet exhaust plumes at 45 km range in a fully passive mode that emits nothing detectable. The MiG-29 can locate, track, and fire on targets while remaining completely electronically silent — a critical advantage in an environment where radar emissions can be detected at several times the engagement range.",
+      },
+      {
+        title: "Variable-Geometry Intake Louvers",
+        body: "The primary engine intakes close entirely during ground operations, preventing foreign object ingestion on unprepared surfaces. Auxiliary inlet doors above the wing roots open simultaneously to maintain engine airflow — an elegant solution that enables operations from rough-field airstrips and carrier decks without risk of engine damage from debris.",
+      },
+    ],
   },
   {
     slug: "saab-jas-39-gripen",
+    role: "Multirole",
+    roleColor: "#06b6d4",
     name: "Saab JAS 39 Gripen",
     detail: "Sweden · Saab",
     year: 1997,
@@ -687,12 +942,28 @@ export const fighterJets: Aircraft[] = [
       { label: "Max takeoff weight", value: "31,000 lb (14,000 kg)" },
       { label: "Min. road strip requirement", value: "9 m wide, 800 m long" },
     ],
+    engineeringFeatures: [
+      {
+        title: "Road-Strip Operations Engineering",
+        body: "The entire aircraft and its logistics chain were designed around operations from 9-metre-wide public roads. The engine can be removed and replaced by a single technician; refuelling and rearming requires a crew of five conscripts and takes under 10 minutes — a dispersal survival capability built in from the first design brief, not added as an afterthought.",
+      },
+      {
+        title: "Automatic Departure Recovery FBW",
+        body: "The Saab-developed fly-by-wire system includes automatic recovery modes that regain controlled flight from a post-stall departure or incipient spin without pilot input. For a single-engine aircraft operating from dispersed road strips far from rescue, departure recovery is a mission-survival function — not merely a handling quality enhancement.",
+      },
+      {
+        title: "Delta-Canard Short-Field Performance",
+        body: "The close-coupled canard-delta configuration generates extremely high lift coefficients at low speeds, enabling short takeoff and landing runs on road-width strips. Unlike the Typhoon's instability-driven canard arrangement, the Gripen's geometry was optimised to balance short-field performance with supersonic dash — the two requirements of Sweden's total-defence doctrine.",
+      },
+    ],
   },
 ]
 
 export const engines: Aircraft[] = [
   {
     slug: "ge90-115b",
+    role: "Maximum Thrust",
+    roleColor: "#ef4444",
     name: "GE90-115B",
     detail: "GE Aviation · High-bypass turbofan",
     year: 1995,
@@ -712,6 +983,8 @@ export const engines: Aircraft[] = [
   },
   {
     slug: "rolls-royce-trent-xwb",
+    role: "Peak Efficiency",
+    roleColor: "#22c55e",
     name: "Trent XWB-97",
     detail: "Rolls-Royce · High-bypass turbofan",
     year: 2014,
@@ -730,6 +1003,8 @@ export const engines: Aircraft[] = [
   },
   {
     slug: "cfm-leap-1a",
+    role: "Volume · Savings",
+    roleColor: "#3b82f6",
     name: "CFM LEAP-1A",
     detail: "CFM International · High-bypass turbofan",
     year: 2016,
@@ -749,6 +1024,8 @@ export const engines: Aircraft[] = [
   },
   {
     slug: "ge9x",
+    role: "Widebody Efficiency",
+    roleColor: "#22c55e",
     name: "GE9X-105B1A",
     detail: "GE Aviation · High-bypass turbofan",
     year: 2018,
@@ -769,6 +1046,8 @@ export const engines: Aircraft[] = [
   },
   {
     slug: "pw-f135",
+    role: "Fighter Power",
+    roleColor: "#ef4444",
     name: "Pratt & Whitney F135",
     detail: "Pratt & Whitney · Low-bypass afterburning turbofan",
     year: 2006,
@@ -787,6 +1066,8 @@ export const engines: Aircraft[] = [
   },
   {
     slug: "olympus-593",
+    role: "Supersonic Cruise",
+    roleColor: "#f59e0b",
     name: "Olympus 593",
     detail: "Rolls-Royce / Snecma · Turbojet",
     year: 1966,
@@ -807,6 +1088,8 @@ export const engines: Aircraft[] = [
   },
   {
     slug: "ge-f110",
+    role: "Combat Performance",
+    roleColor: "#f97316",
     name: "GE F110-GE-129",
     detail: "GE Aviation · Low-bypass afterburning turbofan",
     year: 1984,

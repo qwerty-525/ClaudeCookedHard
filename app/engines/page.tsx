@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link"
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import PlaneCard from "@/components/PlaneCard"
@@ -45,6 +46,7 @@ export default function EnginesPage() {
 
   const titleY = useTransform(heroProgress, [0, 1], [0, -100])
   const titleOpacity = useTransform(heroProgress, [0, 0.65], [1, 0])
+  const featuredEngines = engines.slice(0, 3)
 
   return (
     <main className="bg-[#04060a]">
@@ -163,8 +165,50 @@ export default function EnginesPage() {
         </motion.div>
       </section>
 
+      <section className="relative border-y border-white/[0.06] bg-[#120d07]">
+        <div className="avia-grid absolute inset-0 opacity-15" />
+        <div className="relative mx-auto grid max-w-6xl gap-6 px-6 py-10 md:grid-cols-[1.35fr_0.85fr] md:px-12 lg:px-24">
+          <div className="avia-panel rounded-[28px] p-7 md:p-8">
+            <p className="text-[10px] font-medium uppercase tracking-[0.45em] text-[#fbbf24]">
+              Core Thesis
+            </p>
+            <h2 className="mt-4 max-w-2xl text-3xl font-bold tracking-tight text-white md:text-4xl">
+              The engine page should feel hotter, denser, and more mechanical than the airframe pages.
+            </h2>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[#94a3b8] md:text-base">
+              Less romance, more pressure ratios. The goal here is to make the technical detail feel heavy and expensive.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link
+                href="#engines"
+                className="avia-pill-button inline-flex items-center gap-2 rounded-full border border-amber-400/25 bg-amber-400/10 px-5 py-3 text-sm font-medium text-white transition-all duration-200 hover:border-amber-400/45 hover:bg-amber-400/16"
+              >
+                Browse Engines
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
+                  <path d="M6.5 2v9M2 6.5l4.5 4.5L11 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </div>
+          </div>
+
+          <div className="avia-panel rounded-[28px] p-7">
+            <p className="text-[10px] font-medium uppercase tracking-[0.45em] text-[#fb923c]">
+              Power Band
+            </p>
+            <div className="mt-5 grid grid-cols-3 gap-3">
+              {featuredEngines.map((engine) => (
+                <div key={engine.slug} className="rounded-2xl border border-white/[0.07] bg-black/20 px-3 py-4 text-center">
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-[#fdba74]">{engine.year}</p>
+                  <p className="mt-2 text-sm font-semibold text-white">{engine.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Intro block */}
-      <section className="relative bg-gradient-to-b from-[#04060a] via-[#080601] to-[#0b0b10] px-6 md:px-12 lg:px-24 py-24">
+      <section className="relative bg-gradient-to-b from-[#04060a] via-[#080601] to-[#0b0b10] px-6 py-24 md:px-12 lg:px-24">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs tracking-[0.4em] text-amber-400/70 uppercase mb-4">The Power Behind Flight</p>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -178,21 +222,22 @@ export default function EnginesPage() {
       </section>
 
       {/* Engine type carousel */}
-      <section className="bg-[#0b0b10] px-6 md:px-12 lg:px-24 py-24 border-t border-white/[0.04]">
+      <section className="relative bg-[#0b0b10] px-6 py-24 md:px-12 lg:px-24 border-t border-white/[0.04]">
         <div className="max-w-5xl mx-auto">
           <EngineTypeCarousel />
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="bg-[#04060a] px-6 md:px-12 lg:px-24 py-24 border-t border-white/[0.04]">
+      <section className="relative bg-[#04060a] px-6 py-24 md:px-12 lg:px-24 border-t border-white/[0.04]">
         <div className="max-w-3xl mx-auto">
           <EngineFaq />
         </div>
       </section>
 
       {/* Engine cards */}
-      <section id="engines" className="bg-[#0b0b10] px-6 md:px-12 lg:px-24 pb-36 border-t border-white/[0.04]">
+      <section id="engines" className="relative bg-[#0b0b10] px-6 pb-36 md:px-12 lg:px-24 border-t border-white/[0.04]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(245,158,11,0.12),transparent_38%)]" />
         <div className="max-w-5xl mx-auto">
           <div className="mb-12">
             <p className="text-xs tracking-[0.4em] text-amber-400 uppercase mb-4 font-medium">
@@ -204,7 +249,7 @@ export default function EnginesPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {engines.map((engine, i) => (
               <PlaneCard
                 key={engine.name}
@@ -216,6 +261,8 @@ export default function EnginesPage() {
                 index={i}
                 accent="#f59e0b"
                 image={engine.image}
+                role={engine.role}
+                roleColor={engine.roleColor}
               />
             ))}
           </div>

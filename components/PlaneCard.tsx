@@ -21,6 +21,9 @@ interface PlaneCardProps {
   accent?: string
   image?: string
   status?: "active" | "legacy" | "retired"
+  role?: string
+  roleColor?: string
+  routes?: string[]
 }
 
 export default function PlaneCard({
@@ -33,6 +36,9 @@ export default function PlaneCard({
   accent = "#3b82f6",
   image,
   status,
+  role,
+  roleColor,
+  routes,
 }: PlaneCardProps) {
   const statusCfg = STATUS_CONFIG[status ?? "active"]
   const spinControls = useAnimation()
@@ -50,23 +56,22 @@ export default function PlaneCard({
       viewport={{ once: true, margin: "-80px" }}
       whileHover={{ scale: 1.015, transition: { duration: 0.2 } }}
       onClick={() => router.push(href)}
-      className="group relative bg-[#232328] border border-[#1e293b] rounded-2xl p-6 overflow-hidden cursor-pointer"
+      className="group relative overflow-hidden rounded-[26px] border border-white/[0.08] bg-[linear-gradient(180deg,#171822_0%,#10131b_100%)] p-6 cursor-pointer shadow-[0_18px_60px_rgba(2,6,23,0.22)]"
     >
-      {/* Top glow on hover — pointer-events-none so it never blocks clicks */}
       <div
-        className="pointer-events-none absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{ background: `linear-gradient(to right, transparent, ${accent}66, transparent)` }}
       />
-      {/* Subtle bg glow on hover — pointer-events-none */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
-        style={{ background: `radial-gradient(ellipse at top, ${accent}0d, transparent 70%)` }}
+        className="pointer-events-none absolute inset-0 rounded-[26px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{ background: `radial-gradient(ellipse at top, ${accent}12, transparent 70%)` }}
       />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.04),transparent_32%)]" />
 
       <div className="relative z-10 flex flex-col h-full">
         {image && (
           <div
-            className="mb-4 flex justify-end"
+            className="mb-6 flex justify-end"
             onMouseEnter={(e) => {
               e.stopPropagation()
               spinControls.start({
@@ -92,11 +97,14 @@ export default function PlaneCard({
         )}
 
         <div className="flex-1">
-          <div className="flex items-center justify-between gap-2 mb-0">
-            <span className="text-xs font-semibold tracking-widest" style={{ color: accent }}>
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <span
+              className="rounded-full border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em]"
+              style={{ color: accent, borderColor: `${accent}33`, backgroundColor: `${accent}14` }}
+            >
               {year}
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1.5">
               <span
                 className="w-1.5 h-1.5 rounded-full flex-shrink-0"
                 style={{ background: statusCfg.dot, boxShadow: `0 0 5px ${statusCfg.dot}99` }}
@@ -106,13 +114,42 @@ export default function PlaneCard({
               </span>
             </span>
           </div>
-          <h3 className="text-xl font-semibold mt-2 mb-1 text-[#f8fafc]">{name}</h3>
-          <p className="text-sm text-[#94a3b8] mb-4">{detail}</p>
-          <div className="w-8 h-px bg-[#1e293b] mb-4" />
-          <p className="text-sm text-[#94a3b8] leading-relaxed">{fact}</p>
+          {role && roleColor && (
+            <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1"
+              style={{ borderColor: `${roleColor}40`, backgroundColor: `${roleColor}12` }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                style={{ background: roleColor, boxShadow: `0 0 5px ${roleColor}bb` }}
+              />
+              <span className="text-[9px] font-bold uppercase tracking-[0.28em]" style={{ color: roleColor }}>
+                {role}
+              </span>
+            </div>
+          )}
+          <h3 className="mt-2 mb-2 text-xl font-semibold leading-tight text-[#f8fafc] md:text-[1.35rem]">{name}</h3>
+          <p className="mb-5 text-xs uppercase tracking-[0.22em] text-[#94a3b8]">{detail}</p>
+          <div className="mb-5 h-px w-10 bg-white/10" />
+          <p className="text-sm leading-7 text-[#b5c1d3]">{fact}</p>
         </div>
 
-        <div className="mt-6">
+        {routes && routes.length > 0 && (
+          <div className="mt-5 pt-4 border-t border-white/[0.06]">
+            <p className="text-[9px] font-medium uppercase tracking-[0.32em] text-[#94a3b8] mb-2.5">Known Routes</p>
+            <div className="flex flex-wrap gap-1.5">
+              {routes.map((route) => (
+                <span
+                  key={route}
+                  className="inline-flex items-center gap-1 rounded-md border border-white/[0.07] bg-white/[0.03] px-2 py-1 font-mono text-[10px] text-[#94a3b8]"
+                >
+                  <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: accent, opacity: 0.6 }} />
+                  {route}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="mt-6 border-t border-white/[0.07] pt-5">
           <FlowButton text="Read more" accent={accent} />
         </div>
       </div>

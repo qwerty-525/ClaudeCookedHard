@@ -24,6 +24,41 @@
 
 body {
   font-family: var(--font-inter);
+  background:
+    radial-gradient(circle at top, rgba(59,130,246,0.08), transparent 28%),
+    linear-gradient(180deg, #0b0b10 0%, #080b13 42%, #0b0b10 100%);
+}
+
+.avia-grid {
+  background-image:
+    linear-gradient(rgba(148,163,184,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148,163,184,0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.avia-panel {
+  background:
+    linear-gradient(180deg, rgba(18,18,26,0.95) 0%, rgba(12,16,28,0.92) 100%);
+  border: 1px solid rgba(148,163,184,0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    0 24px 80px rgba(2,6,23,0.35);
+}
+
+.avia-pill-button {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 16px 40px rgba(15,23,42,0.35);
+}
+
+.avia-detail-shell {
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,0.04), transparent 24%),
+    linear-gradient(180deg, rgba(7,10,18,0.98) 0%, rgba(11,11,16,1) 100%);
+  border: 1px solid rgba(148,163,184,0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    0 28px 90px rgba(2,6,23,0.4);
 }
 
 @keyframes streak {

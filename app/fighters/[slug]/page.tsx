@@ -22,68 +22,118 @@ export default async function FighterDetailPage({
   return (
     <main className="min-h-screen bg-[#04060a] text-[#f8fafc]">
       {isSR71 && <SR71VideoPlayer detail={jet.detail} name={jet.name} year={jet.year} />}
-      <div className="pt-28 pb-24 px-6 md:px-12 lg:px-24">
-      <div className="max-w-3xl mx-auto">
-        {/* Back */}
-        <Link
-          href="/fighters"
-          className="inline-flex items-center gap-2 text-sm text-[#94a3b8] hover:text-white transition-colors mb-12"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-            <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          Back to Fighter Jets
-        </Link>
+      <div className="px-6 pb-24 pt-28 md:px-12 lg:px-24">
+        <div className="avia-detail-shell mx-auto max-w-4xl rounded-[32px] p-7 md:p-10">
 
-        {/* Header */}
-        <p className="text-xs tracking-[0.4em] text-red-400 uppercase mb-4 font-medium">
-          {jet.detail}
-        </p>
-        <h1 className="text-5xl md:text-6xl font-bold mb-3">{jet.name}</h1>
-        <p className="text-[#94a3b8] text-sm mb-10">Entered service · {jet.year}</p>
+          {/* Back */}
+          <Link
+            href="/fighters"
+            className="mb-12 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-2 text-sm text-[#94a3b8] transition-colors hover:text-white"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+              <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Back to Fighter Jets
+          </Link>
 
-        {/* Image */}
-        {jet.image && (
-          <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden mb-10 border border-[#1e293b]">
-            <Image src={jet.image} alt={jet.name} fill className="object-contain p-6" />
+          {/* Header */}
+          <p className="text-xs tracking-[0.4em] text-red-400 uppercase mb-4 font-medium">{jet.detail}</p>
+          <h1 className="mb-3 text-5xl font-bold md:text-6xl">{jet.name}</h1>
+          <div className="mb-10 flex flex-wrap items-center gap-3">
+            <span className="text-sm uppercase tracking-[0.24em] text-[#94a3b8]">
+              Entered service · {jet.year}
+            </span>
+            {jet.mach && (
+              <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-xs font-mono text-[#94a3b8]">
+                Mach {jet.mach}
+              </span>
+            )}
+            {jet.role && jet.roleColor && (
+              <span
+                className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.28em]"
+                style={{ borderColor: `${jet.roleColor}40`, backgroundColor: `${jet.roleColor}12`, color: jet.roleColor }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: jet.roleColor, boxShadow: `0 0 5px ${jet.roleColor}bb` }} />
+                {jet.role}
+              </span>
+            )}
           </div>
-        )}
 
-        {/* Quick fact */}
-        <div className="bg-[#232328] border border-[#1e293b] rounded-2xl p-6 mb-10">
-          <p className="text-xs tracking-widest text-red-400 uppercase mb-2">Key Fact</p>
-          <p className="text-[#f8fafc] leading-relaxed">{jet.fact}</p>
-        </div>
-
-        {/* Specs */}
-        {jet.specs && jet.specs.length > 0 && (
-          <div className="mb-10">
-            <h2 className="text-xl font-semibold mb-4">Specifications</h2>
-            <div className="grid grid-cols-2 gap-3">
-              {jet.specs.map((s) => (
-                <div key={s.label} className="bg-[#232328] border border-[#1e293b] rounded-xl p-4">
-                  <p className="text-xs text-[#94a3b8] mb-1">{s.label}</p>
-                  <p className="font-medium">{s.value}</p>
-                </div>
-              ))}
+          {/* Image */}
+          {jet.image && (
+            <div className="relative mb-10 h-64 w-full overflow-hidden rounded-[28px] border border-white/[0.08] bg-black/20 md:h-80">
+              <Image src={jet.image} alt={jet.name} fill className="object-contain p-6" />
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Description */}
-        {jet.description ? (
-          <div className="prose prose-invert max-w-none">
-            <p className="text-[#94a3b8] leading-relaxed">{jet.description}</p>
+          {/* Key fact */}
+          <div className="mb-10 rounded-[28px] border border-red-400/18 bg-red-400/[0.07] p-6">
+            <p className="text-xs tracking-widest text-red-400 uppercase mb-2">Key Fact</p>
+            <p className="text-[#f8fafc] leading-relaxed">{jet.fact}</p>
           </div>
-        ) : (
-          <div className="border border-dashed border-[#1e293b] rounded-2xl p-10 text-center text-[#94a3b8]">
-            <p className="text-sm">More information coming soon.</p>
-            <p className="text-xs mt-2 opacity-60">
-              Add <code className="text-red-400">description</code> and <code className="text-red-400">specs</code> fields in <code className="text-red-400">lib/data.ts</code>
-            </p>
-          </div>
-        )}
-      </div>
+
+          {/* Summary / Overview */}
+          {jet.description && (
+            <div className="mb-12">
+              <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.4em] text-[#94a3b8]">Overview</p>
+              <p className="whitespace-pre-line leading-8 text-[#b8c7dc]">{jet.description}</p>
+            </div>
+          )}
+
+          {/* Engineering Features */}
+          {jet.engineeringFeatures && jet.engineeringFeatures.length > 0 && (
+            <div className="mb-12">
+              <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.4em] text-[#94a3b8]">
+                Engineering
+              </p>
+              <div className="flex flex-col gap-4">
+                {jet.engineeringFeatures.map((feature, i) => (
+                  <div
+                    key={feature.title}
+                    className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0e0e16] p-6"
+                  >
+                    {/* Left accent bar */}
+                    <div
+                      className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl"
+                      style={{ background: `linear-gradient(to bottom, #ef4444cc, #ef444400)` }}
+                    />
+                    {/* Feature number */}
+                    <span className="mb-3 inline-block font-mono text-[10px] tracking-[0.3em] text-red-400/60 uppercase">
+                      Feature {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="mb-3 text-lg font-semibold text-white">{feature.title}</h3>
+                    <p className="text-sm leading-7 text-[#94a3b8]">{feature.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Specifications */}
+          {jet.specs && jet.specs.length > 0 && (
+            <div>
+              <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.4em] text-[#94a3b8]">
+                Specifications
+              </p>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                {jet.specs.map((s) => (
+                  <div key={s.label} className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4">
+                    <p className="mb-1 text-xs uppercase tracking-[0.18em] text-[#94a3b8]">{s.label}</p>
+                    <p className="font-medium">{s.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Fallback */}
+          {!jet.description && !jet.engineeringFeatures && (
+            <div className="rounded-[28px] border border-dashed border-[#1e293b] p-10 text-center text-[#94a3b8]">
+              <p className="text-sm">More information coming soon.</p>
+            </div>
+          )}
+
+        </div>
       </div>
     </main>
   )

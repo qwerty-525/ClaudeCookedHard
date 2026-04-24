@@ -179,6 +179,24 @@ function PlaneSlide({
               </div>
             )}
 
+            {/* Routes */}
+            {plane.routes && plane.routes.length > 0 && (
+              <div className="mt-5 pt-4 border-t border-white/[0.06]">
+                <p className="text-[9px] font-medium uppercase tracking-[0.32em] text-[#94a3b8] mb-2.5">Known Routes</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {plane.routes.map((route) => (
+                    <span
+                      key={route}
+                      className="inline-flex items-center gap-1 rounded-md border border-white/[0.07] bg-white/[0.03] px-2 py-1 font-mono text-[10px] text-[#94a3b8]"
+                    >
+                      <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: accent, opacity: 0.6 }} />
+                      {route}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Read more */}
             <div className="mt-5" onClick={(e) => e.stopPropagation()}>
               <a href={href}>
@@ -229,36 +247,36 @@ export default function CompetitorCarousel() {
 
   return (
     <div
-      className="w-full"
+      className="avia-panel w-full rounded-[32px] px-5 py-8 md:px-8 md:py-10"
       onMouseEnter={() => { paused.current = true }}
       onMouseLeave={() => { paused.current = false }}
     >
       {/* Section header */}
-      <div className="flex items-end justify-between mb-8">
+      <div className="mb-8 flex items-end justify-between gap-6">
         <div>
-          <p className="text-[10px] tracking-[0.4em] text-[#3b82f6] uppercase mb-3 font-medium">
+          <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.4em] text-[#7dd3fc]">
             The Great Rivalry
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
+          <h2 className="text-3xl font-bold text-white md:text-4xl">
             Boeing vs. Airbus.
           </h2>
-          <p className="text-[#94a3b8] mt-2 text-sm max-w-md leading-relaxed">
+          <p className="mt-2 max-w-md text-sm leading-relaxed text-[#94a3b8]">
             Five rivalries that defined commercial aviation — head to head, pair by pair.
           </p>
         </div>
         {/* Nav arrows */}
-        <div className="hidden md:flex items-center gap-2 ml-8 flex-shrink-0">
+        <div className="ml-8 hidden flex-shrink-0 items-center gap-2 md:flex">
           <button
             onClick={() => { advance(-1); startTimer() }}
             aria-label="Previous pair"
-            className="p-2 rounded-full border border-white/10 bg-white/[0.03] text-white hover:bg-white/10 transition-all duration-200"
+            className="rounded-full border border-white/10 bg-white/[0.03] p-2 text-white transition-all duration-200 hover:bg-white/10"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
           <button
             onClick={() => { advance(1); startTimer() }}
             aria-label="Next pair"
-            className="p-2 rounded-full border border-[#3b82f6]/40 bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6]/20 transition-all duration-200"
+            className="rounded-full border border-[#3b82f6]/40 bg-[#3b82f6]/10 p-2 text-[#7dd3fc] transition-all duration-200 hover:bg-[#3b82f6]/20"
           >
             <ChevronRight className="h-4 w-4" />
           </button>
@@ -266,7 +284,7 @@ export default function CompetitorCarousel() {
       </div>
 
       {/* Grid: Boeing | VS strip | Airbus */}
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_180px_1fr] gap-4 items-stretch">
+      <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-[1fr_180px_1fr]">
         {/* Boeing card */}
         <div className="flex flex-col">
           <div
@@ -285,7 +303,7 @@ export default function CompetitorCarousel() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.1 } }}
             exit={{ opacity: 0, y: -10, transition: { duration: 0.25 } }}
-            className="flex flex-col items-center justify-center gap-4 py-6 md:py-0"
+            className="flex flex-col items-center justify-center gap-4 rounded-[28px] border border-white/[0.07] bg-black/20 py-6 md:py-0"
           >
             {/* VS badge */}
             <div className="relative flex items-center justify-center">
@@ -294,7 +312,7 @@ export default function CompetitorCarousel() {
             </div>
 
             {/* Rivalry label */}
-            <div className="text-center space-y-1.5">
+            <div className="space-y-1.5 text-center">
               <p className="text-[11px] font-bold text-white tracking-wide leading-snug">
                 {pair.rivalry}
               </p>
@@ -302,7 +320,7 @@ export default function CompetitorCarousel() {
             </div>
 
             {/* Context */}
-            <p className="text-[11px] text-[#94a3b8] leading-relaxed text-center max-w-[140px]">
+            <p className="max-w-[140px] text-center text-[11px] leading-relaxed text-[#94a3b8]">
               {pair.context}
             </p>
 
@@ -338,10 +356,10 @@ export default function CompetitorCarousel() {
       </div>
 
       {/* Mobile nav */}
-      <div className="flex items-center justify-center gap-3 mt-6 md:hidden">
+      <div className="mt-6 flex items-center justify-center gap-3 md:hidden">
         <button
           onClick={() => { advance(-1); startTimer() }}
-          className="p-2 rounded-full border border-white/10 bg-white/[0.03] text-white"
+          className="rounded-full border border-white/10 bg-white/[0.03] p-2 text-white"
         >
           <ChevronLeft className="h-4 w-4" />
         </button>
@@ -361,7 +379,7 @@ export default function CompetitorCarousel() {
         </div>
         <button
           onClick={() => { advance(1); startTimer() }}
-          className="p-2 rounded-full border border-[#3b82f6]/40 bg-[#3b82f6]/10 text-[#3b82f6]"
+          className="rounded-full border border-[#3b82f6]/40 bg-[#3b82f6]/10 p-2 text-[#7dd3fc]"
         >
           <ChevronRight className="h-4 w-4" />
         </button>
