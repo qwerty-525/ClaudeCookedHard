@@ -8,7 +8,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    loader: "custom",
+    loaderFile: "./image-loader.ts",
     domains: ["images.unsplash.com"],
   },
 }
