@@ -46,9 +46,40 @@ export default async function EngineDetailPage({
           <p className="text-[#f8fafc] leading-relaxed">{engine.fact}</p>
         </div>
 
+        {/* Overview */}
+        {engine.description && (
+          <div className="mb-12">
+            <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.4em] text-[#94a3b8]">Overview</p>
+            <p className="whitespace-pre-line leading-8 text-[#b8c7dc]">{engine.description}</p>
+          </div>
+        )}
+
+        {/* Engineering Features */}
+        {engine.engineeringFeatures && engine.engineeringFeatures.length > 0 && (
+          <div className="mb-12">
+            <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.4em] text-[#94a3b8]">Engineering</p>
+            <div className="flex flex-col gap-4">
+              {engine.engineeringFeatures.map((feature, i) => (
+                <div key={feature.title} className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-[#0e0e16] p-6">
+                  <div
+                    className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl"
+                    style={{ background: "linear-gradient(to bottom, #f59e0bcc, #f59e0b00)" }}
+                  />
+                  <span className="mb-3 inline-block font-mono text-[10px] tracking-[0.3em] text-amber-400/60 uppercase">
+                    Feature {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mb-3 text-lg font-semibold text-white">{feature.title}</h3>
+                  <p className="text-sm leading-7 text-[#94a3b8]">{feature.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Specifications */}
         {engine.specs && engine.specs.length > 0 && (
-          <div className="mb-10">
-            <h2 className="text-xl font-semibold mb-4">Specifications</h2>
+          <div>
+            <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.4em] text-[#94a3b8]">Specifications</p>
             <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {engine.specs.map((s) => (
                 <div key={s.label} className="rounded-2xl border border-white/[0.08] bg-white/[0.03] p-4">
@@ -60,14 +91,9 @@ export default async function EngineDetailPage({
           </div>
         )}
 
-        {engine.description ? (
-          <p className="whitespace-pre-line leading-8 text-[#b8c7dc]">{engine.description}</p>
-        ) : (
+        {!engine.description && !engine.engineeringFeatures && (
           <div className="rounded-[28px] border border-dashed border-[#1e293b] p-10 text-center text-[#94a3b8]">
             <p className="text-sm">More information coming soon.</p>
-            <p className="text-xs mt-2 opacity-60">
-              Add <code className="text-amber-400">description</code> and <code className="text-amber-400">specs</code> in <code className="text-amber-400">lib/data.ts</code>
-            </p>
           </div>
         )}
       </div>

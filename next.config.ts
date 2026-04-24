@@ -1,15 +1,17 @@
 import type { NextConfig } from "next"
 
+const isProd = process.env.NODE_ENV === "production"
+
 const nextConfig: NextConfig = {
-  output: "export",
-  basePath: "/ClaudeCookedHard",
-  assetPrefix: "/ClaudeCookedHard/",
+  output: isProd ? "export" : undefined,
+  basePath: isProd ? "/ClaudeCookedHard" : "",
+  assetPrefix: isProd ? "/ClaudeCookedHard/" : "",
   typescript: {
     ignoreBuildErrors: true,
   },
   images: {
-    loader: "custom",
-    loaderFile: "./image-loader.ts",
+    loader: isProd ? "custom" : "default",
+    loaderFile: isProd ? "./image-loader.ts" : undefined,
     domains: ["images.unsplash.com"],
   },
 }
