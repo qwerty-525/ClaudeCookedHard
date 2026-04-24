@@ -3,7 +3,6 @@ import Link from "next/link"
 import FlyingPlane from "@/components/FlyingPlane"
 import YouTubeClipLoop from "@/components/YouTubeClipLoop"
 import FleetMarquee from "@/components/ui/cta-with-text-marquee"
-import { HorizonHeroSection } from "@/components/ui/horizon-hero-section"
 import CompetitorCarousel from "@/components/CompetitorCarousel"
 import PlaneCard from "@/components/PlaneCard"
 import { commercialPlanes } from "@/lib/data"
@@ -27,9 +26,6 @@ export default function CommercialPage() {
 
   return (
     <main className="bg-[#0b0b10]">
-      {/* Hero — Three.js starfield + mountain horizon */}
-      <HorizonHeroSection />
-
       <section className="relative border-y border-white/[0.06] bg-[#090d15]">
         <div className="avia-grid absolute inset-0 opacity-20" />
         <div className="relative mx-auto grid max-w-6xl gap-6 px-6 py-10 md:grid-cols-[1.4fr_0.8fr] md:px-12 lg:px-24">
