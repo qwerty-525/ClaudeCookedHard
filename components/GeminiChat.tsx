@@ -39,6 +39,10 @@ export default function GeminiChat() {
     if (open) setTimeout(() => inputRef.current?.focus(), 50)
   }, [open])
 
+  // GEMINI_KEY is a build-time constant — always the same value, never toggles.
+  // Hooks above always run; we just skip rendering on GitHub Pages where key is absent.
+  if (!GEMINI_KEY) return null
+
   async function send() {
     const text = input.trim()
     if (!text || loading || !GEMINI_KEY) return
