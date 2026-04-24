@@ -21,7 +21,10 @@
       "Bash(curl -s http://localhost:3000/scrollytelling)",
       "Bash(node -e \"const fm = require\\('framer-motion'\\); console.log\\(typeof fm.useMotionValueEvent\\)\")",
       "Bash(grep -v \"^$\")",
-      "WebSearch"
+      "WebSearch",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)"
     ]
   }
 }

@@ -58,16 +58,18 @@ export default function GeminiChat() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            system_instruction: { parts: [{ text: systemInstruction }] },
+            systemInstruction: { parts: [{ text: systemInstruction }] },
             contents: next.map((m) => ({ role: m.role, parts: [{ text: m.text }] })),
           }),
         }
       )
       const data = await res.json()
+      if (data.error) throw new Error(data.error.message)
       const reply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "Sorry, no response."
       setMessages([...next, { role: "model", text: reply }])
-    } catch {
-      setMessages([...next, { role: "model", text: "Something went wrong. Please try again." }])
+    } catch (err) {
+      console.error("Gemini error:", err)
+      setMessages([...next, { role: "model", text: `Error: ${err instanceof Error ? err.message : "Something went wrong."}` }])
     } finally {
       setLoading(false)
     }
