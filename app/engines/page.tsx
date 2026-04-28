@@ -221,6 +221,130 @@ export default function EnginesPage() {
         </div>
       </section>
 
+      {/* Jet engine history timeline */}
+      <section className="relative bg-[#08060a] px-6 py-24 md:px-12 lg:px-24 border-t border-white/[0.04]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(245,158,11,0.06),transparent_70%)]" />
+        <div className="relative max-w-4xl mx-auto">
+          <p className="text-xs tracking-[0.4em] text-amber-400/70 uppercase mb-4">A Century of Development</p>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">The History of the Jet Engine.</h2>
+          <p className="text-[#94a3b8] text-lg leading-relaxed mb-20 max-w-2xl">
+            From Frank Whittle&apos;s patent in 1930 to a 134-inch fan spinning at 2,200 RPM — ninety years of compressing, igniting, and exhausting the impossible.
+          </p>
+
+          {/* Timeline */}
+          <div className="relative">
+            {/* Vertical spine */}
+            <div className="absolute left-[7px] top-0 bottom-0 w-px bg-gradient-to-b from-amber-400/60 via-amber-400/20 to-transparent" />
+
+            {[
+              {
+                year: "1930",
+                era: "The Patent",
+                heading: "Whittle Files the First Jet Engine Patent",
+                body: "On January 16, 1930, Frank Whittle — a 22-year-old RAF cadet — filed British Patent 347,206 for a turbine-based aircraft engine. The Air Ministry declined to fund development, calling the concept impractical. Whittle formed his own company, Power Jets Ltd, on private financing, and ran his first successful bench test in April 1937. The principle was elegant and brutal: compress incoming air, add fuel, ignite the mixture, and direct the expanding exhaust to turn a turbine that drives the compressor. Everything since has been a refinement of that cycle.",
+              },
+              {
+                year: "1939",
+                era: "First Flight",
+                heading: "He 178 — The First Jet Aircraft Takes Off",
+                body: "On August 27, 1939, the Heinkel He 178 made the world's first flight under turbojet power, powered by Hans von Ohain's HeS 3 engine producing 992 lbf of thrust. Von Ohain had been working independently of Whittle in Germany, arriving at the same thermodynamic conclusions through different engineering routes. The He 178's flight lasted only minutes, but it ended the piston-engine monopoly on powered flight. Simultaneously, in Britain, Whittle's W.1 engine was nearing readiness for the Gloster E.28/39, which flew in May 1941.",
+              },
+              {
+                year: "1944",
+                era: "Operational Combat",
+                heading: "The Messerschmitt Me 262 Enters Service",
+                body: "The Me 262 Schwalbe became the first jet aircraft to see operational combat, powered by two Junkers Jumo 004B axial-flow turbojets producing 1,980 lbf each. It was 100 mph faster than any piston fighter it encountered. The Jumo 004 introduced the axial-flow compressor — stages of rotating and stationary blades that compress air more efficiently than the centrifugal compressors in Whittle's design — establishing the architecture that every high-performance jet engine has followed since. Some 1,400 were produced before the war ended. Allied aeronautical engineers captured examples for dissection, and the knowledge accelerated every post-war jet programme.",
+              },
+              {
+                year: "1952",
+                era: "Jet Age Begins",
+                heading: "The De Havilland Comet Opens Commercial Jet Travel",
+                body: "On May 2, 1952, BOAC operated the world's first commercial jet service, London to Johannesburg, aboard the De Havilland Comet. Its four de Havilland Ghost centrifugal turbojets, buried in the wing roots, produced 5,000 lbf each and cut London–New York time from fourteen hours to under eight. The Comet's fatigue failures in 1954 — caused by stress concentrations at the square window corners — grounded the fleet and allowed Boeing time to develop the 707. The engineering lessons of those failures are why every pressurised airliner since has elliptical windows.",
+              },
+              {
+                year: "1958",
+                era: "Transatlantic Jet Era",
+                heading: "The Boeing 707 and the JT3D Turbofan",
+                body: "Pan American launched transatlantic jet service with the 707 on October 4, 1958. The aircraft's early JT3C turbojets gave way to the Pratt & Whitney JT3D turbofan in 1960 — a conversion that added a large-diameter fan ahead of the compressor to accelerate a secondary bypass airstream around the core. Turbofans move more air more slowly, generating the same thrust more efficiently than turbojets. The JT3D established the high-bypass principle as the definitive architecture for subsonic commercial transport. Every airliner since has used a turbofan. The turbojet era lasted exactly eleven years.",
+              },
+              {
+                year: "1969",
+                era: "Wide-Body Revolution",
+                heading: "The Pratt & Whitney JT9D and the Boeing 747",
+                body: "The Boeing 747 required an engine that did not exist. Pratt & Whitney's JT9D, producing 45,000 lbf from a 93-inch fan, was the first high-bypass turbofan scaled to widebody requirements — a bypass ratio nearly three times that of contemporary military engines. Early JT9Ds had reliability problems that caused Pan Am to keep 747s grounded when replacement engines couldn't be sourced; Boeing reportedly parked aircraft nose-to-tail down the Everett runway awaiting serviceable powerplants. Within three years, the problems were resolved, and the JT9D established the template that GE's CF6 and Rolls-Royce's RB211 competed against for the next four decades.",
+              },
+              {
+                year: "1976",
+                era: "Supersonic Commercial",
+                heading: "Concorde and the Olympus 593",
+                body: "On January 21, 1976, British Airways and Air France simultaneously inaugurated Concorde commercial service. The Olympus 593 turbojet — developed jointly by Rolls-Royce and Snecma from a Bristol Siddeley military engine — cruised at Mach 2.04 using variable-geometry intakes to manage the supersonic shockwave. At cruise, the intake alone recovered more thrust energy from ram compression than the combustor added — the engine had become a heat exchanger. The 593 used afterburner only for takeoff and transonic acceleration; above Mach 1.7, dry power sustained the cruise. It remains the only commercial engine to achieve sustained supersonic cruise without afterburner.",
+              },
+              {
+                year: "1972",
+                era: "Fighter Turbofan",
+                heading: "The F100 — Pratt & Whitney Reinvents the Fighter Engine",
+                body: "The Pratt & Whitney F100 was designed for the F-15 Eagle from a blank sheet, producing 23,770 lbf with afterburner from a bypass ratio of 0.63:1 — threading the needle between the high bypass of commercial engines and the near-zero bypass of earlier military turbojets. The result was a thrust-to-weight ratio above 7.8:1, enabling the F-15 to accelerate vertically from a standing start. It later powered the F-16 as well, until the Air Force deliberately introduced GE's F110 as a second-source competitor in 1984 to break Pratt & Whitney's monopoly and drive down cost. The ensuing 'engine wars' — contested procurement rounds where the USAF split orders between the F100 and F110 based on price and performance bids — produced a decade of improvements that neither manufacturer would have achieved alone. The F100's core architecture directly seeded the F119 that came after it.",
+              },
+              {
+                year: "1984",
+                era: "Narrowbody Efficiency War",
+                heading: "The CFM56 and the Single-Aisle Standard",
+                body: "The CFM56 — a joint venture between GE Aviation and Snecma — entered service on the Boeing 737 Classic in 1984, eventually powering the 737NG, Airbus A320, and KC-135 tanker fleet. With over 30,000 engines delivered across its variants, it became the best-selling jet engine in history. Its 5.9:1 bypass ratio was double that of the JT8D it replaced. The CFM56's commercial success funded the research that produced its successor, the LEAP — and demonstrated that an engine joint venture between American and French manufacturers could sustain technical leadership for four consecutive decades.",
+              },
+              {
+                year: "1995",
+                era: "Power Record",
+                heading: "The GE90-115B — 115,000 lbf on a Single Spool",
+                body: "The GE90 was designed clean-sheet for the Boeing 777. Its -115B variant, certified in 2003, produced 115,000 lbf of rated thrust — and 127,900 lbf during a certification ground test, setting a record that stood until 2017. The engine's 22 carbon-fibre composite fan blades, each over four feet long, were curved like an eagle's wing and fabricated from materials originally developed for aerospace structural applications rather than rotating machinery. The composite fan case — a single hoop rather than a segmented metal assembly — was certified to contain a blade release event without structural penetration. At 128 inches, the fan was wider than a 737 fuselage.",
+              },
+              {
+                year: "1997",
+                era: "Supercruise",
+                heading: "The F119 — Thrust Vectoring and Flight Without Afterburner",
+                body: "The Pratt & Whitney F119, developed for the F-22 Raptor under the Advanced Tactical Fighter programme, represented the first clean-sheet military turbofan since the F100 twenty-five years earlier. Its two-dimensional thrust-vectoring nozzle pitches ±20° in the vertical plane, giving the F-22 nose-pointing authority that aerodynamic surfaces alone cannot provide at high angles of attack. The engine's defining achievement is supercruise: the F119 sustains Mach 1.5 on dry power, without afterburner, making the F-22 the first production fighter to cruise supersonically without the fuel penalty of reheat. Afterburner pushes thrust to 35,000 lbf but is needed only for burst performance. The F119's core was then scaled, modified, and mated to a Rolls-Royce lift fan to become the F135 — the engine in every F-35 variant — making it the common ancestor of the most widely produced fifth-generation fighter powerplant in history.",
+              },
+              {
+                year: "2010",
+                era: "The Geared Turbofan",
+                heading: "Pratt & Whitney's PW1000G Separates Fan from Turbine",
+                body: "The Pratt & Whitney PW1000G (Geared Turbofan) solved a fundamental tension in turbofan design: the fan wants to spin slowly for efficiency, the low-pressure turbine wants to spin fast to extract energy. Previous engines compromised both. The GTF inserts a planetary reduction gearbox between them, allowing each to rotate at its optimal speed. The result: 12:1 bypass ratio on the A320neo variant, 16% better fuel burn than the V2500 it replaced, and a noise footprint reduced by 75% in area. Certification took seventeen years of development. The gearbox itself operates at 24,000 HP and must be replaced — intact — at scheduled maintenance intervals without disturbing either the fan or turbine modules.",
+              },
+              {
+                year: "2016",
+                era: "Volume at Scale",
+                heading: "The CFM LEAP Accumulates 20,000+ Orders",
+                body: "The LEAP (Leading Edge Aviation Propulsion) succeeded the CFM56 with three-dimensional woven carbon-fibre fan blades and a ceramic matrix composite combustor liner — the first commercial hot-section use of CMC, capable of sustaining temperatures 500°F beyond what nickel superalloys tolerate. Three variants serve the A320neo, 737 MAX, and COMAC C919. Combined with the GTF on the A320neo, the two engines represent the largest re-engine campaign in commercial aviation history. The LEAP achieved over 20,000 orders before the first aircraft entered service — a milestone driven by fuel economics that no airline could ignore.",
+              },
+              {
+                year: "2022 →",
+                era: "Next Frontier",
+                heading: "134-Inch Fans, Open Rotors, and Hybrid-Electric Futures",
+                body: "The GE9X, at 134 inches in diameter the largest commercial engine fan ever certified, powers the Boeing 777X with a full ceramic matrix composite hot section and 60:1 core pressure ratio. Beyond it: Rolls-Royce's UltraFan, targeting 25% better fuel burn than the Trent 700 through a geared architecture and advanced composite fan at 140 inches; CFM's RISE (Revolutionary Innovation for Sustainable Engines) open-rotor concept, which removes the nacelle entirely and runs contra-rotating unducted fans at bypass ratios above 70:1; and a generation of hybrid-electric regional concepts that use turbogenerators to supply power to distributed electric fans. The thermodynamic ceiling of the Brayton cycle — the core principle Whittle patented in 1930 — is approaching. What comes after it is genuinely open.",
+              },
+            ].map((item, i) => (
+              <div key={item.year} className="relative flex gap-8 pb-16 last:pb-0">
+                {/* Dot */}
+                <div className="relative flex-none mt-1">
+                  <div className="w-[15px] h-[15px] rounded-full border border-amber-400/50 bg-[#08060a] flex items-center justify-center">
+                    <div className="w-[5px] h-[5px] rounded-full bg-amber-400/80" />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-baseline gap-3 mb-3">
+                    <span className="text-amber-400 font-mono text-sm font-semibold tracking-widest">{item.year}</span>
+                    <span className="text-[10px] uppercase tracking-[0.32em] text-[#94a3b8]/60">{item.era}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 leading-snug">{item.heading}</h3>
+                  <p className="text-[#94a3b8] text-sm leading-relaxed">{item.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Engine type carousel */}
       <section className="relative bg-[#0b0b10] px-6 py-24 md:px-12 lg:px-24 border-t border-white/[0.04]">
         <div className="max-w-5xl mx-auto">

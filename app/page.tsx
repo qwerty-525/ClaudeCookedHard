@@ -3,6 +3,7 @@ import Link from "next/link"
 import FlyingPlane from "@/components/FlyingPlane"
 import YouTubeClipLoop from "@/components/YouTubeClipLoop"
 import FleetMarquee from "@/components/ui/cta-with-text-marquee"
+import { HorizonHeroSection } from "@/components/ui/horizon-hero-section"
 import CompetitorCarousel from "@/components/CompetitorCarousel"
 import PlaneCard from "@/components/PlaneCard"
 import { commercialPlanes } from "@/lib/data"
@@ -26,6 +27,9 @@ export default function CommercialPage() {
 
   return (
     <main className="bg-[#0b0b10]">
+      {/* Three.js starfield + mountain horizon hero */}
+      <HorizonHeroSection />
+
       <section className="relative border-y border-white/[0.06] bg-[#090d15]">
         <div className="avia-grid absolute inset-0 opacity-20" />
         <div className="relative mx-auto grid max-w-6xl gap-6 px-6 py-10 md:grid-cols-[1.4fr_0.8fr] md:px-12 lg:px-24">
@@ -149,6 +153,27 @@ export default function CommercialPage() {
               </span>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Flight deck scrollytelling teaser */}
+      <section className="relative flex h-[52vh] items-end overflow-hidden border-t border-white/[0.05] bg-gradient-to-b from-[#070d1a] to-[#0b0b10]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_30%,rgba(59,130,246,0.10),transparent_70%)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0b0b10] to-transparent" />
+
+        <div className="relative z-10 w-full px-8 pb-14 text-center">
+          <p className="mb-3 text-xs uppercase tracking-[0.4em] text-[#7dd3fc]/60">Boeing / Airbus</p>
+          <h2 className="text-4xl font-bold text-white md:text-5xl">The Flight Deck</h2>
+          <p className="mt-2 text-sm text-white/55">Inside the cockpit — where precision meets the horizon</p>
+          <Link
+            href="/commercial"
+            className="avia-pill-button mt-8 inline-flex items-center gap-2 rounded-full border border-[#3b82f6]/25 bg-[#3b82f6]/10 px-7 py-3 text-sm font-medium text-white/90 backdrop-blur-sm transition-all duration-200 hover:border-[#3b82f6]/50 hover:bg-[#3b82f6]/16"
+          >
+            Enter the Flight Deck
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden>
+              <path d="M2 6.5h9M6.5 2l4.5 4.5L6.5 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </Link>
         </div>
       </section>
 

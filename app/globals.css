@@ -103,8 +103,15 @@ body {
   outline: none !important;
 }
 
+@keyframes flow {
+  from { stroke-dashoffset: 28; }
+  to   { stroke-dashoffset: 0;  }
+}
+.animate-flow { animation: flow linear infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   .animate-streak { animation: none; }
+  .animate-flow   { animation: none; }
 }
 
 /* Scrollytelling page — hide nav border on dark bg */
