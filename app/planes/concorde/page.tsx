@@ -76,7 +76,7 @@ const POSES = [
   // Fuel trim — pull back wide, pure side profile shows full fuselage tank layout
   { scrollStart: 0.89, scrollEnd: 0.93, posX: -1.45, posY:  2.80, rotX:  0.31, rotY:  -3.14,  rotZ: -0.14,    camZ: 1.0, scale: 1.90 },
   // Specs — clean left-profile wide shot for the summary stats strip
-  { scrollStart: 0.93, scrollEnd: 1.0,  posX:  -1.45, posY:  2.80, rotX:  0.31, rotY:  -3.14,   rotZ:  -2.2,    camZ: 1.0, scale: 1.90v},
+  { scrollStart: 0.93, scrollEnd: 1.0,  posX:  -1.45, posY:  2.80, rotX:  0.31, rotY:  -3.14,   rotZ:  -2.2,    camZ: 1.0, scale: 1.90},
 ]
 
 const POSE_LABELS = ["Hero", "Delta", "Engines", "Intakes", "Thermal", "Nose", "Fuel", "Specs"]
