@@ -168,19 +168,19 @@ export default function ThermodynamicsPage() {
               eq={<>pv = RT<br/><br/>p = ρRT</>}
               note="v is specific volume (m³/kg), R is the specific gas constant (287 J/kg·K for air). Valid when intermolecular forces are negligible — a good approximation for air below ~10 MPa and above ~200 K. Deviations at extreme conditions require compressibility factor Z: pv = ZRT." />
             <EqCard label="Specific Heats"
-              eq={<>c<sub>p</sub> − c<sub>v</sub> = R<br/><br/>γ = <Fr n="c<sub>p</sub>" d="c<sub>v</sub>"/> = 1.4 (air)</>}
+              eq={<>c<sub>p</sub> − c<sub>v</sub> = R<br/><br/>γ = <Fr n={<>c<sub>p</sub></>} d={<>c<sub>v</sub></>}/> = 1.4 (air)</>}
               note="c_p is heat added per unit mass at constant pressure; c_v at constant volume. For air: c_p = 1005 J/kg·K, c_v = 718 J/kg·K, R = 287 J/kg·K. γ (gamma) governs compressibility effects and isentropic relations. At high temperatures in combustors, γ drops toward 1.3 as vibrational modes activate." />
             <EqCard label="Internal Energy and Enthalpy"
               eq={<>u = c<sub>v</sub>T<br/><br/>h = u + pv = c<sub>p</sub>T</>}
               note="For an ideal gas, u and h depend only on temperature (Joule's law). Enthalpy h = u + pv is the natural energy variable for open systems (turbines, compressors) because it accounts for the flow work pv needed to push fluid through control volume boundaries." />
             <EqCard label="Entropy Relations — Ideal Gas"
-              eq={<>ds = c<sub>p</sub><Fr n="dT" d="T"/> − R<Fr n="dp" d="p"/><br/><br/>Δs = c<sub>p</sub>ln<Fr n="T<sub>2</sub>" d="T<sub>1</sub>"/> − R ln<Fr n="p<sub>2</sub>" d="p<sub>1</sub>"/></>}
+              eq={<>ds = c<sub>p</sub><Fr n="dT" d="T"/> − R<Fr n="dp" d="p"/><br/><br/>Δs = c<sub>p</sub>ln<Fr n={<>T<sub>2</sub></>} d={<>T<sub>1</sub></>}/> − R ln<Fr n={<>p<sub>2</sub></>} d={<>p<sub>1</sub></>}/></>}
               note="Entropy change depends on both temperature and pressure changes. A compression that raises T while raising p proportionally (isentropic, Δs=0) results in zero entropy generation. Real compressors generate entropy through viscous dissipation — the isentropic efficiency η_c quantifies this loss." />
             <EqCard label="Isentropic Process (Δs = 0)"
-              eq={<>TV<sup>γ−1</sup> = const<br/><br/><Fr n="T<sub>2</sub>" d="T<sub>1</sub>"/> = <span className="text-base">(</span><Fr n="p<sub>2</sub>" d="p<sub>1</sub>"/><span className="text-base">)</span><sup>(γ−1)/γ</sup></>}
+              eq={<>TV<sup>γ−1</sup> = const<br/><br/><Fr n={<>T<sub>2</sub></>} d={<>T<sub>1</sub></>}/> = <span className="text-base">(</span><Fr n={<>p<sub>2</sub></>} d={<>p<sub>1</sub></>}/><span className="text-base">)</span><sup>(γ−1)/γ</sup></>}
               note="An isentropic process is both adiabatic (no heat transfer) and reversible (no entropy generation). The p-T relation is the key equation for compressor and turbine analysis: given a pressure ratio, the isentropic temperature ratio follows directly. Real machines are quantified by their deviation from this ideal." />
             <EqCard label="Carnot Efficiency — Upper Bound"
-              eq={<>η<sub>Carnot</sub> = 1 − <Fr n="T<sub>cold</sub>" d="T<sub>hot</sub>"/></>}
+              eq={<>η<sub>Carnot</sub> = 1 − <Fr n={<>T<sub>cold</sub></>} d={<>T<sub>hot</sub></>}/></>}
               note="The maximum possible efficiency of any heat engine operating between T_hot and T_cold. No engine — not even a theoretically perfect one — can exceed this. For a modern turbofan: T_hot ≈ 1800 K (turbine entry), T_cold ≈ 250 K (ambient at altitude). η_Carnot ≈ 86%. Real cycle efficiency is 45–55%." />
           </div>
         </div>
@@ -198,22 +198,22 @@ export default function ThermodynamicsPage() {
           </p>
           <div className="grid gap-5 md:grid-cols-2">
             <EqCard label="Process 1→2 — Isentropic Compression"
-              eq={<><Fr n="T<sub>2</sub>" d="T<sub>1</sub>"/> = <span className="text-base">(</span><Fr n="p<sub>2</sub>" d="p<sub>1</sub>"/><span className="text-base">)</span><sup>(γ−1)/γ</sup><br/><br/>w<sub>c</sub> = c<sub>p</sub>(T<sub>2</sub> − T<sub>1</sub>)</>}
+              eq={<><Fr n={<>T<sub>2</sub></>} d={<>T<sub>1</sub></>}/> = <span className="text-base">(</span><Fr n={<>p<sub>2</sub></>} d={<>p<sub>1</sub></>}/><span className="text-base">)</span><sup>(γ−1)/γ</sup><br/><br/>w<sub>c</sub> = c<sub>p</sub>(T<sub>2</sub> − T<sub>1</sub>)</>}
               note="The compressor raises pressure from p₁ to p₂. For a pressure ratio of 40:1 (GE90-115B), the isentropic temperature ratio is 40^(0.4/1.4) ≈ 3.1. T₁ = 220 K at altitude → T₂,ideal ≈ 680 K. Real compressor T₂ is higher (typically 720–740 K) due to isentropic efficiency η_c = 85–92%." />
             <EqCard label="Process 2→3 — Isobaric Combustion (Constant Pressure)"
               eq={<>q<sub>in</sub> = c<sub>p</sub>(T<sub>3</sub> − T<sub>2</sub>)<br/><br/>T<sub>3</sub> : Turbine Entry Temperature</>}
               note="Heat addition at constant pressure — in a real combustor, p₃ ≈ 0.95 p₂ (small pressure drop). T₃ is the turbine entry temperature (TET), the most thermodynamically critical parameter. Modern aero-engines achieve TET of 1700–1900 K. Turbine blade material limits are ~1200 K metal temperature; the gap is bridged by film cooling and thermal barrier coatings." />
             <EqCard label="Process 3→4 — Isentropic Expansion"
-              eq={<><Fr n="T<sub>4</sub>" d="T<sub>3</sub>"/> = <span className="text-base">(</span><Fr n="p<sub>4</sub>" d="p<sub>3</sub>"/><span className="text-base">)</span><sup>(γ−1)/γ</sup><br/><br/>w<sub>t</sub> = c<sub>p</sub>(T<sub>3</sub> − T<sub>4</sub>)</>}
+              eq={<><Fr n={<>T<sub>4</sub></>} d={<>T<sub>3</sub></>}/> = <span className="text-base">(</span><Fr n={<>p<sub>4</sub></>} d={<>p<sub>3</sub></>}/><span className="text-base">)</span><sup>(γ−1)/γ</sup><br/><br/>w<sub>t</sub> = c<sub>p</sub>(T<sub>3</sub> − T<sub>4</sub>)</>}
               note="The turbine extracts work from the hot, high-pressure gas. In a jet engine, the turbine extracts only enough work to drive the compressor (w_t = w_c). The remaining enthalpy drop is converted to kinetic energy in the propelling nozzle. In a turboshaft (helicopter), the power turbine extracts virtually all available work." />
             <EqCard label="Thermal Efficiency — Ideal Brayton"
-              eq={<>η<sub>th</sub> = 1 − <Fr n="T<sub>1</sub>" d="T<sub>2</sub>"/> = 1 − <span className="text-base">(</span><Fr n="1" d="r<sub>p</sub>"/><span className="text-base">)</span><sup>(γ−1)/γ</sup></>}
+              eq={<>η<sub>th</sub> = 1 − <Fr n={<>T<sub>1</sub></>} d={<>T<sub>2</sub></>}/> = 1 − <span className="text-base">(</span><Fr n="1" d={<>r<sub>p</sub></>}/><span className="text-base">)</span><sup>(γ−1)/γ</sup></>}
               note="r_p = p₂/p₁ is the overall pressure ratio. Higher r_p means higher T₂ and better efficiency — the thermodynamic argument for ever-increasing compressor pressure ratios. At r_p = 40, η_th,ideal ≈ 57%. Real cycle efficiency is lower due to component losses, cooling air mixing, and nozzle inefficiencies." />
             <EqCard label="Specific Net Work Output"
               eq={<>w<sub>net</sub> = w<sub>t</sub> − w<sub>c</sub> = c<sub>p</sub>[(T<sub>3</sub>−T<sub>4</sub>) − (T<sub>2</sub>−T<sub>1</sub>)]</>}
               note="The net work is the turbine work minus the compressor work. The compressor work penalty grows faster than turbine work as pressure ratio increases, defining an optimal pressure ratio for maximum specific work. For fixed T₃, optimal r_p for max work is lower than for max efficiency — the designer must choose a compromise." />
             <EqCard label="Work-Back Fraction — Compressor Work Ratio"
-              eq={<>β = <Fr n="w<sub>c</sub>" d="w<sub>t</sub>"/> = <Fr n="T<sub>2</sub>−T<sub>1</sub>" d="T<sub>3</sub>−T<sub>4</sub>"/></>}
+              eq={<>β = <Fr n={<>w<sub>c</sub></>} d={<>w<sub>t</sub></>}/> = <Fr n={<>T<sub>2</sub>−T<sub>1</sub></>} d={<>T<sub>3</sub>−T<sub>4</sub></>}/></>}
               note="β is the fraction of turbine work consumed by the compressor. For a modern high-bypass turbofan, β ≈ 0.55–0.65 — more than half the turbine's output goes straight back to the compressor. This is why turbine entry temperature matters so much: raising T₃ increases the denominator, reducing β and improving the work-back fraction." />
           </div>
         </div>
@@ -231,22 +231,22 @@ export default function ThermodynamicsPage() {
           </p>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             <EqCard label="Isentropic Efficiency — Compressor"
-              eq={<>η<sub>c</sub> = <Fr n="w<sub>c,ideal</sub>" d="w<sub>c,actual</sub>"/> = <Fr n="T<sub>2s</sub>−T<sub>1</sub>" d="T<sub>2</sub>−T<sub>1</sub>"/></>}
+              eq={<>η<sub>c</sub> = <Fr n={<>w<sub>c,ideal</sub></>} d={<>w<sub>c,actual</sub></>}/> = <Fr n={<>T<sub>2s</sub>−T<sub>1</sub></>} d={<>T<sub>2</sub>−T<sub>1</sub></>}/></>}
               note="T₂s is the isentropic exit temperature; T₂ is the actual (higher) exit temperature. A less efficient compressor requires more work to achieve the same pressure ratio, delivering hotter air to the combustor. Modern axial compressors achieve η_c = 87–92%." />
             <EqCard label="Isentropic Efficiency — Turbine"
-              eq={<>η<sub>t</sub> = <Fr n="w<sub>t,actual</sub>" d="w<sub>t,ideal</sub>"/> = <Fr n="T<sub>3</sub>−T<sub>4</sub>" d="T<sub>3</sub>−T<sub>4s</sub>"/></>}
+              eq={<>η<sub>t</sub> = <Fr n={<>w<sub>t,actual</sub></>} d={<>w<sub>t,ideal</sub></>}/> = <Fr n={<>T<sub>3</sub>−T<sub>4</sub></>} d={<>T<sub>3</sub>−T<sub>4s</sub></>}/></>}
               note="The turbine extracts less work than the isentropic ideal. T₄s is the isentropic exit temperature (colder than actual T₄). Modern high-pressure turbines achieve η_t = 88–93% despite operating at temperatures far above material limits, enabled by sophisticated cooling." />
             <EqCard label="Polytropic Efficiency"
-              eq={<>η<sub>∞,c</sub> = <Fr n="(γ−1)/γ" d="n−1)/n"/> → n = <Fr n="γ" d="1−(γ−1)/η<sub>∞</sub>"/></>}
+              eq={<>η<sub>∞,c</sub> = <Fr n="(γ−1)/γ" d="(n−1)/n"/> → n = <Fr n="γ" d={<>1−(γ−1)/η<sub>∞</sub></>}/></>}
               note="Polytropic efficiency is the isentropic efficiency of an infinitesimal stage — it is independent of pressure ratio and reflects true blade row performance. Overall isentropic efficiency falls as pressure ratio increases even at constant polytropic efficiency, because errors compound stage by stage." />
             <EqCard label="Euler Turbomachinery Equation"
               eq={<>w = U<sub>1</sub>C<sub>θ1</sub> − U<sub>2</sub>C<sub>θ2</sub></>}
               note="The specific work input/output depends on blade speed U and the change in tangential (swirl) velocity C_θ of the working fluid. For a compressor, swirl is added (C_θ2 > C_θ1); for a turbine, swirl is extracted. This is the fundamental velocity triangle equation from which all blade design follows." />
             <EqCard label="Degree of Reaction"
-              eq={<>R = 1 − <Fr n="C<sub>θ1</sub>+C<sub>θ2</sub>" d="2U"/></>}
+              eq={<>R = 1 − <Fr n={<>C<sub>θ1</sub>+C<sub>θ2</sub></>} d="2U"/></>}
               note="Reaction R is the fraction of the stage enthalpy rise that occurs in the rotor (vs. stator). R = 0.5 (50% reaction) distributes pressure rise equally between rotor and stator — minimising blade loading and improving efficiency. High-pressure turbine stages use R ≈ 0.3–0.5; first-stage impulse turbines approach R = 0." />
             <EqCard label="Corrected Mass Flow and Speed"
-              eq={<>ṁ<sub>corr</sub> = ṁ<Fr n="√T<sub>0</sub>/T<sub>ref</sub>" d="p<sub>0</sub>/p<sub>ref</sub>"/>&ensp;N<sub>corr</sub> = <Fr n="N" d="√T<sub>0</sub>/T<sub>ref</sub>"/></>}
+              eq={<>ṁ<sub>corr</sub> = ṁ<Fr n={<>√T<sub>0</sub>/T<sub>ref</sub></>} d={<>p<sub>0</sub>/p<sub>ref</sub></>}/>&ensp;N<sub>corr</sub> = <Fr n="N" d={<>√T<sub>0</sub>/T<sub>ref</sub></>}/></>}
               note="Corrected (referred) quantities collapse compressor and turbine maps to a single characteristic curve independent of inlet conditions. Engine performance maps are drawn in corrected coordinates; the operating point is determined by matching these across all components simultaneously." />
           </div>
         </div>
