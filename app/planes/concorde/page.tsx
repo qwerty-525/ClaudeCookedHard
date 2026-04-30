@@ -182,7 +182,7 @@ export default function ConcordePage() {
       let model: InstanceType<typeof THREE.Group> | null = null
 
       new (GLTFLoader as any)().load(
-        "/models/concorde.glb",
+        `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/models/concorde.glb`,
         (gltf: any) => {
           if (cancelled) return
           const mesh = gltf.scene as InstanceType<typeof THREE.Group>

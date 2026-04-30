@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   output: isProd ? "export" : undefined,
   basePath: isProd ? "/ClaudeCookedHard" : "",
   assetPrefix: isProd ? "/ClaudeCookedHard/" : "",
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isProd ? "/ClaudeCookedHard" : "",
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
