@@ -1,0 +1,65 @@
+Key Fact
+
+The only supersonic passenger jet in commercial service. Crossed the Atlantic in under 3.5 hours at Mach 2 — twice the speed of sound.
+
+Overview
+
+Concorde was not merely fast — it was a complete reimagining of what a passenger aircraft could be. Its ogival delta wing had no separate tailplane; instead, the entire wing-body generated lift and stability through complex vortex aerodynamics that worked best above Mach 1.3. This forced the aircraft to take off and land at unusually high angles of attack, giving crews the distinctive 'droop-nose' mechanism that lowered the nose section so pilots could actually see the runway.
+
+The airframe was constructed primarily from aluminium alloy — specifically an alloy developed for aero-engine pistons, because at cruise the skin temperature reached 127°C and the nose tip hit 180°C. Titanium was used only where unavoidable, because its cost and weight would have been prohibitive across the entire fuselage. The four Olympus 593 engines used reheat (afterburner) during takeoff and the transonic acceleration to Mach 1, but cruised supersonically in dry power — the only commercial aircraft ever to do so economically. Each flight consumed roughly 25,000 litres of fuel while carrying just 100 passengers.
+
+Engineering
+
+Feature 01
+Ogival Delta Wing — No Tailplane
+Concorde has no separate horizontal stabiliser. The delta wing generates lift, pitch, and stability simultaneously through complex vortex aerodynamics that only work effectively above Mach 1.3 — meaning the aircraft is most naturally stable at supersonic speed. The consequence was the droop-nose: a hydraulically lowered nose section that let pilots see the runway at the extreme angles of attack required for subsonic approach.
+
+Feature 02
+Variable-Geometry Intake Shock Management
+Each engine intake contains variable ramps that automatically adjust throughout the flight envelope to manage the supersonic shock wave, decelerating inlet air from Mach 2 to subsonic speed before the compressor face. At cruise, the intake shock-compression system recovers more thrust energy than the engine core itself contributes — an unusual inversion in which the intake does more thermodynamic work than the combustor.
+
+Feature 03
+High-Temperature Aluminium Alloy Airframe
+Aerodynamic heating raises the skin to 127°C at cruise and 180°C at the nose tip — temperatures that would cause standard aircraft aluminium to creep and fatigue. Concorde's structure used an alloy originally developed for aero-engine pistons. Titanium was used only where unavoidable, as its cost and weight penalty across an entire fuselage would have made the programme economically impossible.
+
+Specifications
+
+Wingspan
+
+83 ft 10 in (25.6 m)
+
+Length
+
+202 ft 4 in (61.66 m)
+
+Engines
+
+4× Rolls-Royce/Snecma Olympus 593 Mk 610
+
+Thrust (each)
+
+38,050 lbf (169.3 kN) with reheat
+
+Cruise speed
+
+Mach 2.04 (1,354 mph / 2,179 km/h)
+
+Cruise altitude
+
+60,000 ft (18,300 m)
+
+Range
+
+3,900 nmi (7,223 km)
+
+Passengers
+
+92–128
+
+Max takeoff weight
+
+408,000 lb (185,065 kg)
+
+Skin temperature at cruise
+
+up to 180°C (nose tip)
