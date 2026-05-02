@@ -1,243 +1,604 @@
 # AVIA — Aviation Encyclopedia
 
-https://www.heritageconcorde.com/fuel-transfer
-
-A scroll-animated aviation info site featuring commercial airliners, fighter jets, and jet engines. Built with Next.js 15, Framer Motion, and Tailwind CSS.
-
 **Live site:** https://qwerty-525.github.io/ClaudeCookedHard/
+
+A scroll-animated aviation encyclopedia covering commercial airliners, fighter jets, and jet engines — with a live global flight tracker, canvas-based scrollytelling, and page transition animations.
+
+Built with Next.js 15, React 19, Tailwind CSS v3, and Framer Motion.
 
 ---
 
-## Running on a new machine
+## Table of Contents
 
-### 1. Prerequisites
+1. [What this project is](#what-this-project-is)
+2. [Tech stack — explained for beginners](#tech-stack--explained-for-beginners)
+3. [Getting started (running locally)](#getting-started-running-locally)
+4. [Folder structure](#folder-structure)
+5. [Pages and routes](#pages-and-routes)
+6. [Components](#components)
+7. [Data — how aircraft info is stored](#data--how-aircraft-info-is-stored)
+8. [Live flight data (OpenSky Network)](#live-flight-data-opensky-network)
+9. [Animations — how they work](#animations--how-they-work)
+10. [Colour system](#colour-system)
+11. [Adding new content](#adding-new-content)
+12. [Deployment to GitHub Pages](#deployment-to-github-pages)
+13. [Project conventions](#project-conventions)
 
-| Requirement | Version |
-|---|---|
-| Node.js | **18.x** (not 16, not 20+) |
-| npm | 9+ (comes with Node 18) |
+---
 
-> **Why exactly Node 18?** Tailwind CSS v3 is used here. v4 requires Node 20+, and v3 doesn't run cleanly on Node 16. Node 18 LTS is the sweet spot.
+## What this project is
 
+AVIA is an aviation reference site that feels more like a museum than a Wikipedia article. It has:
+
+- **A live global flight tracker** — shows British Airways, Singapore Airlines, and Air France flights currently in the air, plotted on a 3D globe
+- **Scroll-linked canvas animations** — hundreds of PNG frames stitched together so scrolling "plays" a video (like Apple's product pages)
+- **Animated page transitions** — full-screen colour wipes when switching between sections
+- **Aircraft deep-dives** — specs, history, and engineering breakdowns for commercial planes, fighter jets, and engines
+- **An AI chat assistant** (local dev only) powered by Google Gemini, contextual to whichever aircraft section you're in
+
+---
+
+## Tech stack — explained for beginners
+
+If you're new to web development, here's what each piece of the stack actually does:
+
+| Tool | What it does | Beginner analogy |
+|---|---|---|
+| **Next.js 15** | The framework that runs the whole site — handles routing (URLs), builds the final files, and serves pages | The scaffolding of a building |
+| **React 19** | Lets you write the UI as reusable components (like `<PlaneCard />`, `<Nav />`) rather than raw HTML | Lego bricks for the interface |
+| **TypeScript** | JavaScript with type safety — you declare what kind of data a variable holds, and the compiler warns you if you misuse it | Spell-check, but for your code logic |
+| **Tailwind CSS v3** | Utility-first styling — instead of writing separate CSS files, you put class names directly in the HTML like `className="text-white bg-black"` | Inline styles, but with superpowers |
+| **Framer Motion** | A React library for animations — scroll effects, hover effects, page transitions | A choreographer for your components |
+| **GSAP** | Another animation library, used for a few specific high-performance sequences | A second choreographer for the tricky parts |
+| **react-globe.gl** | Renders the 3D globe using WebGL (your GPU) | A spinning Earth that you can plot data on |
+| **Three.js** | The 3D graphics engine behind the globe | The engine in the globe car |
+| **Radix UI** | Pre-built accessible UI primitives (accordions, sliders, tooltips) that work correctly with screen readers | Pre-built furniture you can re-upholster |
+
+> **Why Node 18 specifically?** Tailwind CSS v3 (used here) runs on Node 18. v4 requires Node 20+. Node 16 has too-old internals. Node 18 LTS is the exact sweet spot for this project.
+
+---
+
+## Getting started (running locally)
+
+### Step 1 — Install Node 18
+
+Check your version first:
 ```bash
-node --version   # confirm version
+node --version
 ```
 
-Install Node 18 via nvm if needed:
+If it's not `v18.x.x`, install Node 18 using `nvm` (Node Version Manager):
 ```bash
 nvm install 18
 nvm use 18
 ```
 
-### 2. Clone and install
+### Step 2 — Clone and install dependencies
 
 ```bash
-git clone <your-repo-url>
-cd motion
+git clone https://github.com/qwerty-525/ClaudeCookedHard.git
+cd ClaudeCookedHard
 npm install
 ```
 
-### 3. Run
+`npm install` reads `package.json` and downloads all the libraries the project needs into a `node_modules/` folder.
+
+### Step 3 — Run the development server
 
 ```bash
-npm run dev      # dev server at http://localhost:3000
-npm run build    # production export → out/
+npm run dev
 ```
 
----
+Open http://localhost:3000 in your browser. Changes you make to files update live in the browser (this is called "hot reloading").
 
-## Pages
+### Step 4 — (Optional) Refresh the live flight snapshot
 
-| URL | Description |
+The flight data shown on the globe is saved in a JSON file at build time. To refresh it with real live flights:
+
+```bash
+npm run snapshot
+```
+
+This calls `scripts/snapshot-opensky.mjs`, which reaches out to the OpenSky Network API, grabs all currently-airborne BA/SQ/AF flights, fetches aircraft metadata for each, and writes the results to `lib/opensky-snapshot.json`. No API key needed — OpenSky is free.
+
+### All available scripts
+
+| Command | What it does |
 |---|---|
-| `/` | Commercial airliners — starfield hero, A380 fly-through, Concorde video, fleet cards |
-| `/fighters` | Fighter jets — F-35 video hero, drop-bomb section, Mach scale, dogfight carousel, squadron cards |
-| `/engines` | Jet engines — afterburner fire hero, engine type carousel, engine cards, FAQ |
-| `/scrollytelling` | B-2 Spirit — 156-frame canvas scroll sequence with 4 text sections |
-| `/fighters/f35` | F-35 dedicated deep-dive with stage-light scroll sequence |
-| `/fighters/f117` | F-117 Nighthawk dedicated deep-dive with scroll sequence |
-| `/planes/[slug]` | Commercial plane detail page (description + specs from `lib/data.ts`) |
-| `/fighters/[slug]` | Fighter jet detail page |
-| `/engines/[slug]` | Engine detail page |
-| `/commercial` | Alternate commercial route (aliased from `/`) |
+| `npm run dev` | Start the dev server at http://localhost:3000 |
+| `npm run build` | Build the production static site into the `out/` folder |
+| `npm run snapshot` | Fetch fresh live flight data and save to `lib/opensky-snapshot.json` |
 
 ---
 
-## Tech stack
+## Folder structure
 
-| Library | Version | Purpose |
-|---|---|---|
-| Next.js | 15 | App Router, static export |
-| React | 19 | UI framework |
-| TypeScript | 6 | Type safety |
-| Tailwind CSS | v3 | Utility styling + custom keyframes |
-| Framer Motion | 12 | Scroll animations, page transitions, hover effects |
-| GSAP | 3 | Supplemental animation (select sequences) |
-| Three.js | 0.184 | 3D (available, used selectively) |
-| lucide-react | — | Icons |
-| Radix UI | — | Accessible accordion, slider, tooltip primitives |
-| shadcn/ui | — | `Button`, `cn()` utility |
+```
+ClaudeCookedHard/
+│
+├── app/                        ← Next.js pages (every folder = a URL)
+│   ├── layout.tsx              ← Root layout: Nav, page transition provider, chat widget
+│   ├── page.tsx                ← Home page "/"
+│   ├── globals.css             ← Global CSS variables and base styles
+│   ├── commercial/page.tsx     ← "/commercial"
+│   ├── planes/[slug]/page.tsx  ← "/planes/boeing-747", "/planes/concorde", etc.
+│   ├── fighters/page.tsx       ← "/fighters"
+│   ├── fighters/[slug]/page.tsx← "/fighters/f-22-raptor", etc.
+│   ├── fighters/f35/page.tsx   ← "/fighters/f35" (dedicated page)
+│   ├── fighters/f117/page.tsx  ← "/fighters/f117" (dedicated page)
+│   ├── engines/page.tsx        ← "/engines"
+│   ├── engines/[slug]/page.tsx ← "/engines/ge90", etc.
+│   ├── b-2/page.tsx            ← "/b-2" (B-2 Spirit showcase)
+│   ├── thermodynamics/page.tsx ← "/thermodynamics"
+│   ├── gas-dynamics/page.tsx
+│   ├── heat-transfer/page.tsx
+│   ├── aerodynamics/page.tsx
+│   ├── spacecraft/page.tsx
+│   └── api/                    ← API routes (dev only — excluded from static build)
+│       ├── aviationstack/refresh/route.dev.ts
+│       └── opensky/positions/route.dev.ts
+│
+├── components/                 ← Reusable React components
+│   ├── ui/                     ← Small, generic UI building blocks
+│   └── *.tsx                   ← Feature-specific components (globe, cards, scroll sequences)
+│
+├── lib/                        ← Data, types, and API logic
+│   ├── data.ts                 ← All aircraft/engine information (39 KB)
+│   ├── famous.ts               ← Famous airports, airlines, and routes
+│   ├── opensky.ts              ← OpenSky API integration and types
+│   ├── aviationstack.ts        ← AviationStack API integration (backup data source)
+│   ├── utils.ts                ← Utility: cn() for combining class names
+│   ├── opensky-snapshot.json   ← Cached live flight data (updated via npm run snapshot)
+│   └── aviationstack-snapshot.json ← Backup cached flight data
+│
+├── scripts/                    ← Node.js scripts that run outside the browser
+│   ├── snapshot-opensky.mjs    ← Fetches live flights from OpenSky (run with npm run snapshot)
+│   └── snapshot-aviationstack.mjs ← Alternative snapshot script (requires API key)
+│
+├── public/                     ← Static files served directly (images, videos, 3D models)
+│   ├── planes/                 ← Aircraft PNG images (a380.png, boeing747.png, etc.)
+│   ├── models/                 ← 3D models (concorde.glb)
+│   ├── sr71d2n.mp4             ← SR-71 video
+│   ├── concorded2n.mp4         ← Concorde video
+│   ├── sequence/               ← 156 PNG frames for the B-2 Spirit scroll animation
+│   ├── sequence_dropbombs/     ← 33 frames for the bomb drop animation
+│   ├── sequence_f117/          ← 144 frames for the F-117 reveal
+│   ├── sequence_f35stagelight/ ← 131 frames for the F-35 stage light animation
+│   ├── sequence_papermorphing/ ← 53 frames for paper → aircraft morph
+│   └── sequence_planecockpit/  ← 207 frames for the cockpit reveal
+│
+├── .github/workflows/
+│   └── deploy.yml              ← GitHub Actions: auto-deploy to GitHub Pages on every push
+│
+├── next.config.ts              ← Next.js configuration (static export, basePath, image loader)
+├── tailwind.config.ts          ← Tailwind theme customisation and custom animations
+├── tsconfig.json               ← TypeScript settings
+├── package.json                ← Project info and dependency list
+└── image-loader.ts             ← Custom image URL resolver for GitHub Pages sub-path
+```
 
-Custom Tailwind keyframes: `animate-streak`, `animate-marquee-vertical`, `animate-fade-in-up`.
+### What `[slug]` means in a folder name
+
+`[slug]` is Next.js's syntax for a **dynamic route** — a single page file that handles many different URLs. `/planes/[slug]/page.tsx` handles `/planes/boeing-747`, `/planes/airbus-a380`, `/planes/concorde`, and every other plane slug. The page reads the `slug` from the URL and looks up the matching aircraft in `lib/data.ts`.
+
+### What `.dev.ts` means in a filename
+
+Files ending in `.dev.ts` are **excluded from the production build**. This is configured in `next.config.ts` using `pageExtensions`. These are API routes that write to local files — something that only makes sense in development, not on a static GitHub Pages site.
+
+---
+
+## Pages and routes
+
+| URL | What you see |
+|---|---|
+| `/` | Home — live flight globe, A380 fly-through, Concorde video, competitor carousel, fleet cards |
+| `/commercial` | Alternative commercial landing (same content, different slug) |
+| `/planes/[slug]` | Detail page for any commercial aircraft (specs, description, engineering notes) |
+| `/planes/concorde` | Concorde-specific showcase with dedicated video player |
+| `/fighters` | Fighter jets — F-35 hero, bomb drop animation, Mach speed chart, dogfight carousel, squadron cards |
+| `/fighters/f35` | F-35 deep-dive with 131-frame stage-light scroll sequence |
+| `/fighters/f117` | F-117 Nighthawk deep-dive: paper → aircraft morph, then 144-frame reveal |
+| `/fighters/[slug]` | Detail page for any fighter jet |
+| `/engines` | Jet engines — afterburner hero, engine type carousel, FAQ, engine cards |
+| `/engines/[slug]` | Detail page for any jet engine |
+| `/b-2` | B-2 Spirit — 156-frame canvas scroll sequence with 4 annotated sections |
+| `/thermodynamics` | Thermodynamics reference page |
+| `/gas-dynamics` | Gas dynamics reference page |
+| `/heat-transfer` | Heat transfer reference page |
+| `/aerodynamics` | Aerodynamics reference page |
+| `/spacecraft` | Spacecraft reference page |
 
 ---
 
 ## Components
 
-### Page-level scroll sequences
+### The navigation (`Nav.tsx`)
 
-| Component | Sequence folder | Frames | Used on |
+The top navigation is a fixed pill bar with tabs for each major section. Each tab:
+- Uses a `TextScramble` effect on hover (letters cycle through random characters before resolving to the real word)
+- Triggers a full-screen colour wipe transition instead of a normal page link
+- Highlights in the accent colour of the current page (blue for commercial, red for fighters, amber for engines)
+
+### Page transitions (`PageTransitionOverlay.tsx`)
+
+When you click a tab, a coloured overlay slides in, the URL changes, then the overlay slides out. This is managed by a React Context (`usePageTransition`) so any component anywhere can trigger a transition without tangling the navigation code.
+
+### The live flight globe (`CommercialDashboard.tsx` + `FlightGlobe.tsx`)
+
+Two components work together:
+
+- **`CommercialDashboard.tsx`** — the overall panel. It holds the current snapshot in React state, displays four tabs (Flights, Airports, Airlines, Airplanes), has a manual refresh button (dev only), and auto-refreshes flight positions every 60 seconds in dev mode.
+- **`FlightGlobe.tsx`** — the actual 3D globe. It uses `react-globe.gl` to render:
+  - Animated arcs for famous routes (LHR→JFK, SIN→CDG, etc.)
+  - Cyan dots for live aircraft positions
+  - Country name labels faintly printed across continents
+  - Cycling amber labels that show the flight number and altitude of one aircraft at a time
+
+### Scroll sequence components
+
+These are the most technically interesting components. Each one:
+1. Pre-loads hundreds of PNG frames into memory using `new Image()`
+2. Creates a sticky scroll container (400vh tall, or similar) so the viewport stays "inside" the component for a long scroll
+3. Uses `useScroll` + `useTransform` from Framer Motion to turn the scroll position into a number from 0–1
+4. Multiplies that number by the total frame count to get the current frame index
+5. Draws that frame onto a `<canvas>` element 60 times per second using `requestAnimationFrame`
+6. Fades in/out text sections at specific scroll milestones
+
+| Component | Folder | Frames | Location |
 |---|---|---|---|
-| `ChipScroll.tsx` | `public/sequence/` | 156 | `/scrollytelling` — B-2 Spirit |
+| `ChipScroll.tsx` | `public/sequence/` | 156 | `/b-2` (B-2 Spirit reveal) |
+| `CockpitScroll.tsx` | `public/sequence_planecockpit/` | 207 | Home page |
 | `F35Scroll.tsx` | `public/sequence_f35stagelight/` | 131 | `/fighters/f35` |
-| `F117Scroll.tsx` | `public/sequence_f117/` | 144 | `/fighters/f117` |
-| `CockpitScroll.tsx` | `public/sequence_planecockpit/` | 207 | commercial page |
+| `F117Scroll.tsx` | `public/sequence_f117/` + `sequence_papermorphing/` | 144 + 53 | `/fighters/f117` |
 | `DropBombSection.tsx` | `public/sequence_dropbombs/` | 33 | `/fighters` |
 
-Each is a sticky 400vh (or similar) scroll container that maps `scrollYProgress` to a canvas frame index, overlaid with animated text sections.
+### Cards (`PlaneCard.tsx`)
 
-To change the frame count for any sequence, update the `TOTAL_FRAMES` constant at the top of the relevant component.
+Every aircraft in a grid or list is a `PlaneCard`. It accepts:
+- `name`, `detail`, `year`, `fact` — text content
+- `accent` — a hex colour string that tints the card border and button (blue for commercial, red for fighters, amber for engines)
+- `image` — optional path to a PNG in `public/`
+- `href` — the URL to navigate to when clicked
+- `status` — `"active"`, `"legacy"`, or `"retired"` — shows a coloured dot
 
-### Shared UI components
+The whole card is a clickable area (uses `router.push` on the `<motion.article>` wrapper) rather than a nested `<Link>`, which avoids invalid HTML nesting issues.
 
-| Component | Purpose |
+### AI chat (`GeminiChat.tsx`)
+
+A floating chat bubble in the bottom-right corner that connects to the Google Gemini API. It reads which page you're on and injects the relevant aircraft data as context, so you can ask "what's the range of the A380?" and get a grounded answer. Requires `NEXT_PUBLIC_GEMINI_API_KEY` in a `.env.local` file — this file is not committed to git, so the chat is invisible on the deployed GitHub Pages site.
+
+### Other notable components
+
+| Component | What it does |
 |---|---|
-| `Nav.tsx` | Fixed pill nav — 3 tabs (Commercial, Fighter Jets, Engines). TextScramble on hover. Active tab colour matches page theme. Uses `usePageTransition` context. |
-| `PlaneCard.tsx` | Grid card for fleet/squadron/engine listings. Accepts `accent` colour prop. Whole card navigates via `router.push`. Image 3D-spins on hover. |
-| `FlyingPlane.tsx` | Scroll-driven plane fly-in + scale-up (phase 1: `-120vw → 0`, phase 2: `5.5×` scale). |
-| `PageTransitionOverlay.tsx` | Full-screen wipe on tab change. Shows destination label in accent colour. |
-| `YouTubeClipLoop.tsx` | YouTube IFrame API clip looper (150 ms poll interval). |
-| `MachScale.tsx` | Animated Mach speed comparison bar chart. |
-| `DogfightCarousel.tsx` | Horizontal drag carousel for dogfight stats. |
-| `CompetitorCarousel.tsx` | Similar carousel for engine competitor comparisons. |
-| `ConcordeVideoPlayer.tsx` | Autoplay video section for Concorde footage. |
-| `SR71VideoPlayer.tsx` | SR-71 video section. |
-| `GeminiChat.tsx` | Gemini AI chat assistant (local dev only — hidden on GitHub Pages build). |
+| `FlyingPlane.tsx` | A plane image that flies in from off-screen left as you scroll, then scales up to fill the screen in a second phase |
+| `MachScale.tsx` | A horizontal bar chart comparing aircraft maximum speeds on a Mach scale, with a colour gradient from orange to deep red |
+| `CompetitorCarousel.tsx` | Horizontal drag carousel showing head-to-head Boeing vs Airbus matchups (737 vs A320, 747 vs A380, etc.) |
+| `DogfightCarousel.tsx` | Same idea for fighter jets (F-15 vs MiG-29, F-35 vs Su-57, etc.) with combat records |
+| `YouTubeClipLoop.tsx` | Embeds a YouTube video and loops a specific clip (defined by start/end seconds) using the YouTube IFrame API |
+| `SR71VideoPlayer.tsx` | Plays a local SR-71 video file; the background switches between day and night themes using a pull-cord toggle |
+| `AviationLoader.tsx` | A loading spinner that shows aviation-themed verbs ("TAXIING…", "CLIMBING…", etc.) |
 
-### `components/ui/`
+### UI building blocks (`components/ui/`)
 
-| File | Purpose |
+| File | What it does |
 |---|---|
-| `text-scramble.tsx` | Cipher scramble on hover. Props: `text`, `textClassName`, `showUnderline`. |
-| `typewriter.tsx` | Cycling typewriter effect. Mounted-guard prevents hydration mismatch. |
-| `flow-button.tsx` | "Read more" pill → expanding circle fill, arrow slide. Accent-coloured. |
-| `cta-with-text-marquee.tsx` | Vertical plane-name marquee with opacity fade. |
-| `horizon-hero-section.tsx` | Hero section with horizon line effect. |
-| `engine-type-carousel.tsx` | Scroll carousel for engine type illustrations. |
-| `engine-faq.tsx` | Accordion FAQ for the engines page. |
-| `spotlight.tsx` | Mouse-tracking spotlight highlight. |
-| `text-explode.tsx` | Letter-explode reveal animation. |
-| `container-scroll-animation.tsx` | Scroll-linked container transform. |
-| `light-pull-theme-switcher.tsx` | Pull-cord theme switcher. |
+| `text-scramble.tsx` | Text that scrambles through random characters before settling — used on Nav hover |
+| `typewriter.tsx` | Text that types itself out letter by letter, cycling through multiple strings |
+| `flow-button.tsx` | A "Read more" button that morphs from pill to rectangle with a circular fill animation |
+| `cta-with-text-marquee.tsx` | A vertical scrolling list of aircraft names with an opacity fade at the edges |
+| `spotlight.tsx` | A circular spotlight that follows your mouse cursor |
+| `text-explode.tsx` | Individual letters that explode outward on a trigger |
+| `engine-type-carousel.tsx` | A carousel specific to the engines page showing turbofan, turbojet, turboprop, etc. |
+| `engine-faq.tsx` | An accordion FAQ component for the engines page |
+| `light-pull-theme-switcher.tsx` | A pull-cord toggle that switches between light and dark themes |
 
 ---
 
-## Data
+## Data — how aircraft info is stored
 
-All aircraft and engine data lives in `lib/data.ts`:
+All aircraft and engine data lives in `lib/data.ts`. It's a plain TypeScript file — no database, no API call. Just exported arrays of objects.
 
 ```ts
+// Three arrays, one for each section
 export const commercialPlanes: Aircraft[]
 export const fighterJets: Aircraft[]
 export const engines: Aircraft[]
 ```
 
-The `Aircraft` interface:
+Each item follows the `Aircraft` interface:
 
 ```ts
 interface Aircraft {
-  slug: string         // URL segment: /planes/<slug>
-  name: string
-  detail: string       // e.g. "Boeing · USA"
-  year: number
-  fact: string         // one-liner shown on the card
-  image?: string       // path in /public, e.g. "/planes/a380.png"
-  description?: string // paragraph(s) for the detail page
-  specs?: { label: string; value: string }[]
+  slug: string          // The URL path: "boeing-747" → /planes/boeing-747
+  name: string          // Display name: "Boeing 747"
+  detail: string        // Subtitle: "Boeing · USA"
+  year: number          // Year of first flight or service entry
+  fact: string          // One-liner shown on the card: "The original jumbo jet."
+  role?: string         // Optional role label: "Wide-body", "Supersonic", etc.
+  roleColor?: string    // Hex colour for the role badge
+  status?: string       // "active" | "legacy" | "retired"
+  image?: string        // Path from /public: "/planes/a380.png"
+  description?: string  // Multi-paragraph text for the detail page
+  specs?: {
+    label: string       // e.g. "Range"
+    value: string       // e.g. "13,450 km"
+  }[]
+  routes?: string[]     // Notable routes this aircraft flies
+  // ... and more optional fields for engineering details
 }
+```
+
+The detail pages (`/planes/[slug]/page.tsx`, `/fighters/[slug]/page.tsx`, `/engines/[slug]/page.tsx`) look up the matching object from these arrays by slug and render the `description` and `specs` automatically. If an aircraft has no `description`, the page shows a placeholder.
+
+`lib/famous.ts` stores a separate set of reference data that the globe and dashboard use:
+- `FAMOUS_AIRPORTS` — 20 major global airports with IATA codes, ICAO codes, coordinates, and countries
+- `FAMOUS_AIRLINES` — 15 major airlines with IATA/ICAO codes and callsigns
+- `FAMOUS_ROUTES` — 22 scheduled routes between famous airports (used for the globe arcs)
+
+---
+
+## Live flight data (OpenSky Network)
+
+### The problem with real-time data on a static site
+
+GitHub Pages serves static files — there's no server running. You can't make live API calls from a static site. The solution is a **snapshot pattern**:
+
+1. Run `npm run snapshot` on your local machine
+2. This fetches live data and saves it to `lib/opensky-snapshot.json`
+3. Commit and push that file
+4. The Next.js build bundles the JSON file into the static site
+5. Visitors see real flight data — frozen at the moment you ran the snapshot
+
+### What OpenSky Network provides
+
+[OpenSky Network](https://opensky-network.org) is a non-profit that aggregates ADS-B signals from volunteer receiver stations around the world. ADS-B is the transponder system that aircraft use to broadcast their position, altitude, speed, and callsign to air traffic controllers.
+
+- **Free** — no API key, no monthly limits for anonymous use
+- **Genuinely live** — data is seconds old, not hours
+- **What you get per flight**: ICAO24 transponder code, callsign, position (lat/lon), altitude (metres), ground speed (m/s), heading, vertical rate, and whether the aircraft is on the ground
+
+### How the snapshot script works (`scripts/snapshot-opensky.mjs`)
+
+```
+1. Fetch https://opensky-network.org/api/states/all
+   → Returns ~8,000+ aircraft currently tracked worldwide
+
+2. Filter: keep only flights whose callsign starts with BAW (British Airways),
+   SIA (Singapore Airlines), or AFR (Air France)
+   → Down to ~60-75 flights
+
+3. Exclude aircraft on the ground
+
+4. For each aircraft, in batches of 8:
+   a. Fetch https://opensky-network.org/api/metadata/aircraft/icao/{icao24}
+      → Gets registration (e.g. G-STBA), model (e.g. Boeing 777-336ER), manufacturer
+   b. Fetch https://opensky-network.org/api/flights/aircraft?icao24={}&begin={}&end={}
+      → Gets the departure and arrival airport for the current flight (ICAO codes)
+
+5. Convert ICAO airport codes → country names
+   (e.g. EGLL → United Kingdom, WSSS → Singapore)
+
+6. Convert callsigns to IATA flight numbers
+   (e.g. BAW173 → BA173, SIA22 → SQ22, AFR7 → AF7)
+
+7. Interleave airlines in round-robin order so the table shows
+   BA/SQ/AF mixed, not all BA then all SQ then all AF
+
+8. Write lib/opensky-snapshot.json
+```
+
+### Auto-refresh in dev mode
+
+When running `npm run dev`, the dashboard automatically refreshes flight positions every 60 seconds by calling `/api/opensky/positions` (a local API route defined in `app/api/opensky/positions/route.dev.ts`). This route re-fetches `states/all` and updates the positions of flights already in the snapshot, without re-downloading metadata and routes. The `.dev.ts` extension means this route is excluded from the production build.
+
+### The data flow
+
+```
+npm run snapshot
+    ↓
+scripts/snapshot-opensky.mjs   (Node.js, runs once locally)
+    ↓
+lib/opensky-snapshot.json      (committed to git)
+    ↓
+app/page.tsx                   (imports the JSON at build time)
+    ↓
+CommercialDashboard.tsx        (receives it as a prop, holds it in React state)
+    ↓
+FlightGlobe.tsx                (renders dots on the globe)
+    ↓
+FlightsTable / AircraftTable   (renders the data tables)
 ```
 
 ---
 
-## Adding content
+## Animations — how they work
 
-### Add a new aircraft or engine
+### Scroll-linked animations (Framer Motion)
 
-Edit `lib/data.ts` and append to `commercialPlanes`, `fighterJets`, or `engines`:
+Most animations use `useScroll()` and `useTransform()` from Framer Motion:
 
-```ts
-{
-  slug: "boeing-777",
-  name: "Boeing 777",
-  detail: "Boeing · USA",
-  year: 1994,
-  fact: "The world's largest twinjet.",
-  image: "/planes/boeing777.png",   // place file in public/planes/
-  description: `Longer text for the detail page. Use backtick strings for multi-line.`,
-  specs: [
-    { label: "Range",   value: "13,650 km" },
-    { label: "Engines", value: "2× GE90" },
-  ],
-}
+```tsx
+const { scrollYProgress } = useScroll({ target: containerRef })
+// scrollYProgress is a value from 0 to 1 as you scroll through the container
+
+const x = useTransform(scrollYProgress, [0, 1], ["-120vw", "0vw"])
+// x goes from -120vw (off-screen left) to 0vw (centred) as you scroll
 ```
 
-The detail page (`/planes/<slug>`, `/fighters/<slug>`, or `/engines/<slug>`) is populated automatically. If `description` or `specs` are omitted, the page shows a *"More information coming soon"* placeholder.
+### Canvas frame sequences
 
-### Add a plane image
+The scroll-linked "video" effect works like a flip book. For example, the B-2 Spirit sequence (`ChipScroll.tsx`):
 
-Drop a PNG into `public/planes/` and reference it as `image: "/planes/filename.png"`. Cards display it at 120×48 px with a 3D-spin on hover.
+```
+public/sequence/ezgif-frame-001.png
+public/sequence/ezgif-frame-002.png
+...
+public/sequence/ezgif-frame-156.png
+```
 
-### Add a canvas scroll sequence
+On component mount, all 156 images are pre-loaded into an array. Then on every animation frame:
 
-1. Drop numbered frames (`ezgif-frame-001.png` … `ezgif-frame-NNN.png`) into a new folder under `public/`.
-2. Create a component modelled on `ChipScroll.tsx` or `F35Scroll.tsx`.
-3. Update `TOTAL_FRAMES` and the `src` path pattern in the new component.
+```
+frameIndex = Math.round(scrollProgress × 155)  // 0 to 155
+ctx.drawImage(images[frameIndex], 0, 0)         // paint that frame to canvas
+```
+
+This is why scrolling through these sections feels like a video — it's hundreds of still images played back at scroll speed.
+
+### Page transitions
+
+Clicking a nav tab:
+1. Calls `triggerTransition(href, accentColor, label)` from the `PageTransitionOverlay` context
+2. A full-screen coloured div animates in (Framer Motion `animate` from `scaleX: 0` to `scaleX: 1`)
+3. `router.push(href)` navigates to the new page while the overlay is covering the screen
+4. The overlay animates out
 
 ---
 
 ## Colour system
 
-| Page | Accent | Nav wipe overlay |
+Each section of the site has a consistent accent colour:
+
+| Section | Accent colour | Use |
 |---|---|---|
-| Commercial `/` | `#3b82f6` blue | `#0e2244` |
-| Fighter Jets `/fighters` | `#ef4444` red | `#3b0a0a` |
-| Engines `/engines` | `#f59e0b` amber | `#3d1a00` |
+| Commercial `/` | `#3b82f6` (blue) | Nav active tab, card borders, globe arcs |
+| Fighter Jets `/fighters` | `#ef4444` (red) | Nav active tab, card borders |
+| Engines `/engines` | `#f59e0b` (amber) | Nav active tab, card borders |
 
-Base background: `#04060a` / `#0b0b10` · Muted text: `#94a3b8`
+Base background throughout: `#04060a` or `#0b0b10` (near-black, slightly blue-tinted)
 
-CSS variables (in `globals.css`):
+Muted text: `#94a3b8` (slate-400)
+
+Accent for globe flight labels: `#f59e0b` (amber)
+
+Accent for live position dots: `#22d3ee` (cyan-400)
+
+CSS variables defined in `globals.css` and used by Radix components:
+
 ```css
---primary:            45 85% 62%;   /* amber-gold scramble highlight */
---foreground:         210 40% 98%;
---border:             215 28% 17%;
---background:         222 84% 3%;
---muted-foreground:   215 16% 65%;
---secondary:          215 28% 17%;
---secondary-foreground: 210 40% 98%;
+--primary:               45 85% 62%;   /* amber-gold */
+--foreground:            210 40% 98%;  /* near-white */
+--border:                215 28% 17%;  /* dark slate */
+--background:            222 84% 3%;   /* near-black */
+--muted-foreground:      215 16% 65%;  /* grey */
+--secondary:             215 28% 17%;
+--secondary-foreground:  210 40% 98%;
 ```
 
 ---
 
-## Deployment
+## Adding new content
 
-Pushes to `main` auto-deploy to GitHub Pages via `.github/workflows/deploy.yml`:
+### Add a new commercial aircraft
 
-1. `actions/setup-node@v4` with Node 18
-2. `npm ci` → `npm run build` (static export into `out/`)
-3. `actions/upload-pages-artifact` → `actions/deploy-pages`
+Open `lib/data.ts` and add an entry to the `commercialPlanes` array:
 
-Production builds set `output: "export"`, `basePath: "/ClaudeCookedHard"`, and a custom image loader (`image-loader.ts`) so Next.js image paths resolve correctly under the sub-path.
+```ts
+{
+  slug: "boeing-777",                    // becomes /planes/boeing-777
+  name: "Boeing 777",
+  detail: "Boeing · USA",
+  year: 1994,
+  fact: "The world's largest twinjet.",
+  role: "Wide-body",
+  roleColor: "#3b82f6",
+  status: "active",
+  image: "/planes/boeing777.png",        // put the image in public/planes/
+  description: `
+    The 777 set the record for the longest non-stop commercial flight
+    and remains the backbone of long-haul fleets worldwide.
+  `,
+  specs: [
+    { label: "Range",      value: "13,650 km" },
+    { label: "Engines",    value: "2× GE90-115B" },
+    { label: "Passengers", value: "396 (3-class)" },
+  ],
+}
+```
 
-The Gemini AI chat (`GeminiChat.tsx`) is excluded from GitHub Pages builds — it reads `NEXT_PUBLIC_GEMINI_API_KEY` from `.env.local`, which is not committed.
+The detail page at `/planes/boeing-777` is generated automatically — no other files need editing.
+
+### Add a plane image
+
+Drop a PNG into `public/planes/` and reference it in the data entry as `image: "/planes/filename.png"`. The image appears on both the card (small, 3D-spins on hover) and the detail page header.
+
+### Add a new canvas scroll sequence
+
+1. Export your animation as numbered PNG frames: `frame-001.png`, `frame-002.png`, ... `frame-NNN.png`
+2. Drop the folder into `public/` (e.g. `public/sequence_mynewplane/`)
+3. Copy `ChipScroll.tsx` or `F35Scroll.tsx` and rename it
+4. Update `TOTAL_FRAMES` and the image `src` pattern inside the new component
+5. Import and use the component in whichever page you want
+
+### Add a new page
+
+Create `app/mynewpage/page.tsx`. That file automatically becomes the route `/mynewpage`. It just needs to export a default React component:
+
+```tsx
+export default function MyNewPage() {
+  return (
+    <main className="bg-[#0b0b10] text-white">
+      <h1>My new page</h1>
+    </main>
+  )
+}
+```
+
+---
+
+## Deployment to GitHub Pages
+
+Every push to the `main` branch triggers an automatic deployment via GitHub Actions (`.github/workflows/deploy.yml`). You don't need to do anything manually.
+
+What happens:
+
+1. GitHub spins up a temporary Ubuntu machine
+2. It installs Node 18 and runs `npm ci` (clean install of dependencies)
+3. It runs `npm run build`, which generates the `out/` folder (a static site — just HTML, CSS, and JS files)
+4. The `out/` folder is uploaded to GitHub Pages
+
+**Important:** the static build has no server. That means:
+- No API routes (the `.dev.ts` routes are excluded)
+- No auto-refresh of flight data
+- Flight data is frozen from whatever was in `lib/opensky-snapshot.json` when you last ran `npm run snapshot` and pushed
+
+### Production vs development differences
+
+`next.config.ts` detects `NODE_ENV === "production"` and switches behaviour:
+
+| Setting | Development | Production (GitHub Pages) |
+|---|---|---|
+| Output | Next.js dev server | Static HTML/JS/CSS in `out/` |
+| Base path | *(none)* | `/ClaudeCookedHard` |
+| API routes | Active (`.dev.ts` files included) | Excluded |
+| Image loader | Next.js default | Custom loader (handles sub-path URLs) |
+| Auto-refresh | Every 60 seconds | Disabled |
+
+### GitHub Pages setup (one-time)
+
+In your GitHub repo settings, go to **Settings → Pages → Source** and set it to **"GitHub Actions"** (not "Deploy from a branch"). Otherwise GitHub Pages won't know to serve the Actions-uploaded artifact.
 
 ---
 
 ## Project conventions
 
-- No comments unless the WHY is non-obvious.
-- Deterministic pseudo-random values for animations — index arithmetic only, never `Math.random()` (causes hydration mismatch).
-- Hydration-sensitive components use a `mounted` guard (`useState(false)` + `useEffect → setMounted(true)`).
-- Overlay/decorative divs always get `pointer-events-none`.
-- `PlaneCard` navigates via `router.push` on the whole card — no nested `<Link>` inside `<motion.article>`.
-- `<p>` tags never contain `<div>` children — use `<span>` for inline animated components.
-- Tab transitions use `PageTransitionOverlay` context — Nav buttons call `triggerTransition(href, accent, label)` instead of linking directly.
+These are rules followed throughout the codebase to keep things consistent:
+
+**No `Math.random()` in components** — random-looking values use index arithmetic instead (e.g. `index * 137.5 % 360`). This is because components render twice: once on the server, once in the browser. If `Math.random()` gives different values each time, React throws a hydration mismatch error.
+
+**Mounted guard for client-only components** — components that depend on browser APIs (like window size) use a `mounted` flag:
+```tsx
+const [mounted, setMounted] = useState(false)
+useEffect(() => { setMounted(true) }, [])
+if (!mounted) return null
+```
+This prevents server-rendered HTML from mismatching the browser's first render.
+
+**`pointer-events-none` on decorative overlays** — grid backgrounds, radial gradients, and other purely decorative `<div>` layers always get `pointer-events-none` so they don't accidentally block clicks.
+
+**No nested `<Link>` inside `<motion.article>`** — `PlaneCard` makes the whole card clickable using `router.push()` on the outer element, not by wrapping content in a `<Link>`. Nested interactive elements cause invalid HTML and accessibility issues.
+
+**`<p>` tags never contain `<div>` children** — HTML spec doesn't allow block-level elements inside `<p>`. Use `<span>` for inline animated components instead.
+
+**No comments unless the WHY is non-obvious** — code should be readable from variable and function names alone. Comments are reserved for hidden constraints, non-obvious workarounds, or surprising behaviour.

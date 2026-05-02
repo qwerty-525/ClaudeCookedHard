@@ -1,12 +1,13 @@
-"use client"
 import Link from "next/link"
 import FlyingPlane from "@/components/FlyingPlane"
 import YouTubeClipLoop from "@/components/YouTubeClipLoop"
 import FleetMarquee from "@/components/ui/cta-with-text-marquee"
-import { HorizonHeroSection } from "@/components/ui/horizon-hero-section"
+import CommercialDashboard from "@/components/CommercialDashboard"
 import CompetitorCarousel from "@/components/CompetitorCarousel"
 import PlaneCard from "@/components/PlaneCard"
 import { commercialPlanes } from "@/lib/data"
+import snapshot from "@/lib/opensky-snapshot.json"
+import type { OpenSkySnapshot } from "@/lib/opensky"
 
 const COMPETITOR_SLUGS = new Set([
   "boeing-737", "airbus-a320",
@@ -27,8 +28,7 @@ export default function CommercialPage() {
 
   return (
     <main className="bg-[#0b0b10]">
-      {/* Three.js starfield + mountain horizon hero */}
-      <HorizonHeroSection />
+      <CommercialDashboard initial={snapshot as unknown as OpenSkySnapshot} />
 
       <section className="relative border-y border-white/[0.06] bg-[#090d15]">
         <div className="avia-grid absolute inset-0 opacity-20" />

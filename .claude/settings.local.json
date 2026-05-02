@@ -24,7 +24,13 @@
       "WebSearch",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(npx tsc *)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s --max-time 60 -o /tmp/dash_final.html -w \"HTTP %{http_code} · %{size_download}b\\\\n\" http://localhost:3001/)",
+      "Read(//private/tmp/**)",
+      "WebFetch(domain:www.flightradar24.com)",
+      "WebFetch(domain:www.flightaware.com)"
     ]
   }
 }

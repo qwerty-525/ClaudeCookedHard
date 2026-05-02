@@ -170,7 +170,7 @@ export default function FightersPage() {
               The stealth bomber that turned strategic bombing into something ghostlike, silent, and unnervingly precise.
             </p>
             <Link
-              href="/scrollytelling"
+              href="/b-2"
               className="avia-pill-button mt-8 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-7 py-3 text-sm font-medium text-white backdrop-blur-sm transition-all duration-200 hover:border-white/40 hover:bg-white/14"
             >
               Explore the B-2
@@ -227,7 +227,13 @@ export default function FightersPage() {
             {fighterJets.map((jet, i) => (
               <PlaneCard
                 key={jet.name}
-                href={`/fighters/${jet.slug}`}
+                href={
+                  jet.slug === "f-35-lightning-ii"
+                    ? "/fighters/f35"
+                    : jet.slug === "f-117-nighthawk"
+                    ? "/fighters/f117"
+                    : `/fighters/${jet.slug}`
+                }
                 name={jet.name}
                 detail={jet.detail}
                 fact={jet.fact}

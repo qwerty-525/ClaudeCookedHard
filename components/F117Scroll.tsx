@@ -7,6 +7,7 @@ import {
   motion,
 } from "framer-motion"
 import { TextScramble } from "@/components/ui/text-scramble"
+import AviationLoader from "@/components/AviationLoader"
 
 const FRAMES_MORPH  = 53
 const FRAMES_F117   = 144
@@ -89,14 +90,28 @@ export default function F117Scroll() {
   }, [])
 
   useEffect(() => {
+    const loaded = new Set<number>()
+    let cancelled = false
     const images: HTMLImageElement[] = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
       const img = new Image()
+      const mark = () => {
+        if (cancelled || loaded.has(i)) return
+        loaded.add(i)
+        setLoadedCount(loaded.size)
+      }
+      img.onload = mark
+      img.onerror = mark
       img.src = frameUrl(i)
-      img.onload = () => setLoadedCount((n) => n + 1)
-      img.onerror = () => setLoadedCount((n) => n + 1)
       return img
     })
     imagesRef.current = images
+    return () => {
+      cancelled = true
+      for (const img of images) {
+        img.onload = null
+        img.onerror = null
+      }
+    }
   }, [])
 
   useEffect(() => {
@@ -122,28 +137,7 @@ export default function F117Scroll() {
 
   return (
     <>
-      <motion.div
-        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#04060a]"
-        animate={{ opacity: isLoaded ? 0 : 1, pointerEvents: isLoaded ? "none" : "auto" }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="flex flex-col items-center gap-6">
-          <div className="relative w-16 h-16">
-            <div className="absolute inset-0 rounded-full border border-red-400/10" />
-            <div className="absolute inset-0 rounded-full border-t border-red-400/70 animate-spin" />
-          </div>
-          <div className="w-48 h-px bg-red-400/10 overflow-hidden rounded-full">
-            <motion.div
-              className="h-full bg-red-400/60 rounded-full"
-              style={{ width: `${loadPct}%` }}
-              transition={{ type: "spring", stiffness: 60 }}
-            />
-          </div>
-          <p className="text-red-400/40 text-xs tracking-[0.3em] uppercase">
-            Loading · {loadPct}%
-          </p>
-        </div>
-      </motion.div>
+      <AviationLoader loadPct={loadPct} isLoaded={isLoaded} category="fighters" />
 
       <div ref={containerRef} className="relative h-[600vh]">
         <div className="sticky top-0 h-screen w-full overflow-hidden">

@@ -1,0 +1,5 @@
+- [x] spinner verbs/fun fact for loading pages 
+- [ ] why does the GEMINI icon not appear, because the API key is not present in .env.local i would assume 
+- [ ] verify whether flight data is accurate 
+- [ ] ensure GitHub Pages are being rendered properly 
+- [ ] only flights with Flight_Status active should be displayed

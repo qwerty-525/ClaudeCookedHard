@@ -1,11 +1,18 @@
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { fighterJets } from "@/lib/data"
 import SR71VideoPlayer from "@/components/SR71VideoPlayer"
 
+const REDIRECTED_SLUGS: Record<string, string> = {
+  "f-35-lightning-ii": "/fighters/f35",
+  "f-117-nighthawk": "/fighters/f117",
+}
+
 export function generateStaticParams() {
-  return fighterJets.map((j) => ({ slug: j.slug }))
+  return fighterJets
+    .filter((j) => !(j.slug in REDIRECTED_SLUGS))
+    .map((j) => ({ slug: j.slug }))
 }
 
 export default async function FighterDetailPage({
@@ -14,6 +21,7 @@ export default async function FighterDetailPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  if (REDIRECTED_SLUGS[slug]) redirect(REDIRECTED_SLUGS[slug])
   const jet = fighterJets.find((j) => j.slug === slug)
   if (!jet) notFound()
 
