@@ -1,10 +1,10 @@
 import Link from "next/link"
 import FlyingPlane from "@/components/FlyingPlane"
 import YouTubeClipLoop from "@/components/YouTubeClipLoop"
-import FleetMarquee from "@/components/ui/cta-with-text-marquee"
 import CommercialDashboard from "@/components/CommercialDashboard"
 import CompetitorCarousel from "@/components/CompetitorCarousel"
 import PlaneCard from "@/components/PlaneCard"
+import SnapScrollShowcase from "@/components/SnapScrollShowcase"
 import { commercialPlanes } from "@/lib/data"
 import snapshot from "@/lib/opensky-snapshot.json"
 import type { OpenSkySnapshot } from "@/lib/opensky"
@@ -177,8 +177,8 @@ export default function CommercialPage() {
         </div>
       </section>
 
-      {/* Fleet intro marquee */}
-      <FleetMarquee planeNames={commercialPlanes.filter((p) => p.status !== "retired" || p.slug === "concorde").map((p) => p.name)} speed={7} />
+      {/* Snap-scroll fleet showcase — 747-8 / A380 / Concorde / DC-3 + Fleet. Redefined coda */}
+      <SnapScrollShowcase />
 
       {/* Competitor carousel */}
       <section id="fleet" className="relative px-6 pb-24 pt-10 md:px-12 lg:px-24">

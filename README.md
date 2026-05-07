@@ -1,5 +1,14 @@
 # AVIA — Aviation Encyclopedia
 
+how to get started:
+1. npm install, npm run build
+2. npm start/ npm run dev
+
+components resources:
+https://21st.dev/home
+https://omma.build/
+
+
 **Live site:** https://qwerty-525.github.io/ClaudeCookedHard/
 
 A scroll-animated aviation encyclopedia covering commercial airliners, fighter jets, and jet engines — with a live global flight tracker, canvas-based scrollytelling, and page transition animations.
@@ -485,6 +494,149 @@ CSS variables defined in `globals.css` and used by Radix components:
 --secondary:             215 28% 17%;
 --secondary-foreground:  210 40% 98%;
 ```
+
+---
+
+## Editing the Concorde deep-dive pages (beginner guide)
+
+This section explains how to change the text and numbers on the two sub-pages that open when you click "Explore more" on the Concorde page:
+
+- **Wing page** — `app/planes/concorde/wing/page.tsx`
+- **Flight control page** — `app/planes/concorde/flightcontrol/page.tsx`
+
+Both files have exactly the same structure, so if you learn one you know both.
+
+---
+
+### Opening the file
+
+Open the file in VS Code. You don't need to understand most of it — you only need to edit three areas, all near the top of the file.
+
+---
+
+### Area 1 — The hero text (the big title at the top of the page)
+
+Scroll down until you see this block (it's inside the `return` section, after the specs strip):
+
+```tsx
+<section className="px-10 py-20 md:px-16">
+  <p ...>
+    01 — Aerodynamics        {/* ← small label above the title */}
+  </p>
+  <h1 ...>
+    Ogival Delta Wing        {/* ← the big page title */}
+  </h1>
+  <p ...>
+    An S-curved leading edge...   {/* ← the subtitle paragraph */}
+  </p>
+</section>
+```
+
+**To change the title**, find the text between `<h1 ...>` and `</h1>` and replace it.
+
+**To change the subtitle**, find the text between the second `<p ...>` and `</p>` and replace it.
+
+---
+
+### Area 2 — The four number boxes (`SPECS`)
+
+Near the very top of the file, find the `SPECS` array. It looks like this:
+
+```tsx
+const SPECS = [
+  { value: "167.2 m²", label: "Wing Area" },
+  { value: "25.6 m",   label: "Wing Span" },
+  { value: "84°",      label: "Apex Sweep" },
+  { value: "7.5 : 1",  label: "L/D at Cruise" },
+]
+```
+
+Each `{ value: "...", label: "..." }` is one of the four number boxes that appear in a row near the top of the page.
+
+- `value` — the big number or stat shown in white (e.g. `"167.2 m²"`)
+- `label` — the small caption underneath it (e.g. `"Wing Area"`)
+
+**To change a number**, replace the text inside the quotes next to `value:`.
+
+**To change a label**, replace the text inside the quotes next to `label:`.
+
+**Keep the commas** — every entry except the last one has a comma after the closing `}`.
+
+---
+
+### Area 3 — The main content sections (`SECTIONS`)
+
+This is where all the article-style text lives. Find the `SECTIONS` array near the top of the file:
+
+```tsx
+const SECTIONS = [
+  {
+    label: "Geometry",
+    title: "The Ogee Planform",
+    body: "The term 'ogival delta' describes...",
+    stats: [{ value: "55°", label: "Root Sweep" }, { value: "84°", label: "Apex Sweep" }],
+  },
+  {
+    label: "Vortex Lift",
+    title: "Conical Vortex at Low Speed",
+    body: "Below Mach 0.5, Concorde flies...",
+    stats: [{ value: "10–17°", label: "Approach AoA" }, { value: "40%", label: "Vortex Lift" }],
+  },
+  // ... more sections
+]
+```
+
+Each `{ ... }` block inside `SECTIONS` is one article section on the page. It has four fields:
+
+| Field | What it controls |
+|---|---|
+| `label` | The small text above the title (e.g. `"Geometry"`) |
+| `title` | The large section heading |
+| `body` | The paragraph of text (the long string in quotes) |
+| `stats` | Two stat boxes below the paragraph — each has a `value` and a `label` |
+
+**To change body text**, replace the long string next to `body:`. Keep the opening and closing `"` quote marks (or backticks `` ` `` if the text is already wrapped in them).
+
+**To add a new section**, copy one of the existing blocks (from `{` to `},`) and paste it at the end of the array, just before the closing `]`. Change all four fields to your new content.
+
+**To remove a section**, delete the entire block from its opening `{` to its closing `},` (including the comma).
+
+---
+
+### Quick example — changing the Wing page title and first section body
+
+Open `app/planes/concorde/wing/page.tsx`. Find:
+
+```tsx
+<h1 ...>
+  Ogival Delta Wing
+</h1>
+```
+
+Change `Ogival Delta Wing` to whatever you want, e.g. `The Delta Wing — How It Works`.
+
+Then find the first entry in `SECTIONS`:
+
+```tsx
+{
+  label: "Geometry",
+  title: "The Ogee Planform",
+  body: "The term 'ogival delta' describes an S-curved leading edge...",
+  ...
+}
+```
+
+Replace the `body` string with your own text. Save the file — the browser will update automatically if you have `npm run dev` running.
+
+---
+
+### Adding a brand-new deep-dive page for another Concorde section
+
+1. Copy `app/planes/concorde/wing/page.tsx` into a new folder, e.g. `app/planes/concorde/propulsion/page.tsx`
+2. Edit the `SPECS`, `SECTIONS`, and hero text at the top of your new file
+3. Open `app/planes/concorde/page.tsx`, find the relevant entry in `SECTIONS`, and add `href: "/planes/concorde/propulsion"` to it (look at how the wing and flightcontrol sections already have their `href` set — copy the same pattern)
+
+That's it — the "Explore more" button on that section will now link to your new page.
 
 ---
 
