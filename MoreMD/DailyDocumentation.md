@@ -1,3 +1,135 @@
+# Daily Documentation — 2026-05-08
+
+Covers commit `e5bbfc6` "wed thu commits" (Thu May 7) plus uncommitted work-in-progress on Friday May 8.
+
+---
+
+## Part A — Committed (`e5bbfc6` · wed-thu commits)
+
+### A1. Two Concorde deep-dive subpages
+
+New routes off the Concorde page, each linked from a section's "Explore more" `FlowButton`:
+
+| Route | Section |
+|---|---|
+| `app/planes/concorde/wing/page.tsx` | 01 — Aerodynamics (Ogival Delta Wing) |
+| `app/planes/concorde/flightcontrol/page.tsx` | 02 — Flight Control (Elevon-Delta) |
+
+Both pages share the same shape: back link → hero (`label`/`h1`/subtitle) → 4-cell `SPECS` strip → 4-section `SECTIONS` array (each with `label`, `title`, `body`, two `stats`) → footer. Each section is a 128-line client component, accent `#3b82f6`.
+
+Wing page covers: Ogee planform geometry (55°→84° sweep), conical vortex lift at low speed (10–17° AoA, ~40% lift contribution), shock attachment at Mach 1.3+, integrated pitch stability via fuel transfer (45%→53% AC shift).
+
+Flight control page covers: 6 elevons doing pitch+roll on one surface, FBW with 3 hydraulic systems (Blue/Green/Yellow), two-segment rudder + differential thrust at Mach 2, fuel-transfer trim replacing elevon deflection.
+
+### A2. Concorde main page restructured
+
+`app/planes/concorde/page.tsx`:
+- Inserted new "02 — Flight Control" section between Aerodynamics and Propulsion. Renumbered cascade: Propulsion now 03, Intake 04, Thermal 05, Pilot Visibility 06, Stability 07.
+- Added `href` field on the wing + flight-control sections (link targets for `FlowButton`).
+- Added a `partner` landing-gear card paired alongside the Intake section (side-by-side on `md:`).
+- Reworked the 9-keyframe `POSES` array to insert a "Flight control" pose (rear-top angle of trailing-edge elevons) at scrollStart 0.20–0.30, with all later poses shifted to keep their spacing.
+- Added imports: `FlowButton` and the new `ConcordeGallery` component.
+
+### A3. `ConcordeGallery` component (3D rotating cylinder)
+
+`components/ConcordeGallery.tsx` — 119-line client component. Nine slides from `public/concorde-gallery/01.jpg`–`09.jpg` (no 07 — gap intentional, rendered as missing-image placeholder). Each card sits on a circular rotor (`rotateY(angle) translateZ(-RADIUS)`) animated by 34s linear `@keyframes cg-spin`. Tunables: `CARD_W=320`, `CARD_H=208`, `RADIUS=350`, `PERSPECTIVE=700`, `SHIFT=300`. The `SHIFT` wrapper translates the rotation pivot toward the camera so cards orbit the viewer instead of a far axis. Honors `prefers-reduced-motion`.
+
+### A4. Fighters page snap-scroll redesign
+
+`components/FightersSnapScroll.tsx` (780 lines) replaces three sections that were ripped out of `app/fighters/page.tsx`: the cinematic F-35 YouTube hero, the B-2 teaser, and the F-117 teaser. The new component is a single full-viewport snap-scrolling container with five frames — Hero (F-35 video) · F-35 detail · B-2 (video) · F-117 · SR-71. Active-frame tracking via `requestAnimationFrame` on the scroller's `scroll` event, plus a `goTo(i)` jump function. F-35 frame has 3 click-to-reveal hotspots (EOTS sensor at 38%/42%, F135 engine at 56%/54%, RAM skin at 72%/38%).
+
+### A5. Commercial page snap-scroll showcase
+
+`components/SnapScrollShowcase.tsx` (820 lines) replaces `FleetMarquee` on `app/page.tsx`. Frames: 747-8 · A380 · Concorde · DC-3 · "Fleet. Redefined" coda.
+
+### A6. Concorde gallery photos
+
+`public/concorde-gallery/` populated with `01.jpg`–`09.jpg` (skipping 07). Sizes range from 56 KB to 9.4 MB — `04.jpg` is the 9.4 MB one (worth flagging if build size becomes an issue).
+
+### A7. README — beginner guide for editing Concorde subpages
+
+152 lines appended to `README.md`. Walks through editing `wing/page.tsx` and `flightcontrol/page.tsx`:
+- Area 1 — hero text (the `<h1>` + subtitle paragraph)
+- Area 2 — the four `SPECS` boxes
+- Area 3 — the `SECTIONS` content array
+- Quick worked example, plus instructions for adding a brand-new deep-dive page (copy file → edit → add `href:` to the matching entry in `concorde/page.tsx`).
+
+Also added a 9-line preamble at the top of the README ("how to get started" + 21st.dev / omma.build component-library links).
+
+### A8. Root `ANNOTATIONS.md` (60 lines) — Concorde aerodynamics personal notes
+
+Long-form notes on ogival delta geometry, vortex lift, why-ogival, why-delta, with the Concordski cautionary aside. (Later moved to `MoreMD/` — see B6.)
+
+### A9. `MoreMD/InnerMonologue.md` checklist updates
+
+Three new lines: ☑ insert more photos into rotating gallery, ☐ creative brainjuice + remove A380 scrollthrough, ☑ **SNAP SCROLL**. Plus a free-form note ("the animations appear before the text appears").
+
+### A10. Snapshot churn
+
+`lib/opensky-snapshot.json` rewrote 2106 lines (1053 changed) — routine refresh from clicking REFRESH LIVE DATA in dev. No code change, just new flight positions.
+
+---
+
+## Part B — Uncommitted (Friday May 8)
+
+### B1. Six new Concorde deep-dive subpages
+
+Following the same file template as `wing/` and `flightcontrol/`, six more sections now have their own pages:
+
+| Route | Section | Topics |
+|---|---|---|
+| `app/planes/concorde/propulsion/page.tsx` | 03 — Propulsion | TSR-2 heritage, reheat envelope (Mach 0.95→1.7), Mach 2.04 dry cruise, 1,150°C TIT hot section |
+| `app/planes/concorde/intake/page.tsx` | 04 — Intake | Variable ramps, Mach 2→0.5 shock decel (>90% pressure recovery), spill doors, 63% intake thrust split |
+| `app/planes/concorde/landinggear/page.tsx` | 05 — Landing Gear | Twin-bogie layout, Dunlop carbon-carbon brakes (1,000°C), 16 Hz anti-skid, 100 MJ RTO energy |
+| `app/planes/concorde/thermal/page.tsx` | 06 — Thermal | RR.58 (AU2GN) alloy, 127°C/180°C skin map, 300 mm elongation, fuel as heat sink |
+| `app/planes/concorde/nose/page.tsx` | 07 — Pilot Visibility | Why delta can't see runway, hydraulic articulation (5°/12.5°), metal visor at Mach 1.7+, op sequence |
+| `app/planes/concorde/fueltrim/page.tsx` | 08 — Stability | AC shift physics, Tank 11 (11,500 L / 9.2 t), Mach-indexed CG indicator, 1–2% fuel saved |
+
+Each is the same 128-line `"use client"` shell — back link, hero, `SPECS` strip, four `SECTIONS` articles, footer. All use `ACCENT = "#3b82f6"`.
+
+### B2. Concorde main page wiring
+
+`app/planes/concorde/page.tsx`:
+- Added `href` to every section that now has a subpage: propulsion → `/planes/concorde/propulsion`, intake → `/intake`, partner landing-gear → `/landinggear`, thermal → `/thermal`, nose → `/nose`, fueltrim → `/fueltrim`.
+- Promoted the partner landing-gear card to a numbered section (`05 — Landing Gear`); cascade renumbered: Thermal 06, Pilot Visibility 07, Stability 08.
+- Updated `<SectionCard>` invocation for partner cards to pass `href={s.partner.href}` (was previously omitted).
+- Rebalanced `POSES` ranges across the 9 poses to give Thermal the widest scroll band (0.60→0.78) and tighten Hero (0→0.11):
+  ```
+  Hero      0.00–0.11   Engines   0.35–0.45   Nose      0.78–0.88
+  Delta     0.11–0.20   Intakes   0.45–0.60   Fuel      0.88–0.98
+  FlightCtl 0.20–0.35   Thermal   0.60–0.78   Specs     0.98–1.00
+  ```
+
+### B3. Flight-control body edit
+
+`flightcontrol/page.tsx` — the Fly-by-Wire section body now opens "Concorde was among the first **passenger jet** to use fly-by-wire signalling…" (from "first civil aircraft") and adds two sentences on PCFUs + 4000 psi hydraulics: *"The aerodynamic forces at Mach 2.0, too immense that no pilot could move these surfaces manually. The PCFUs provided the necessary force using high-pressure hydraulics of 4000 psi."*
+
+### B4. `app/loading.tsx` — global route-aware loader
+
+New 27-line client component. Implements Next.js's reserved `app/loading.tsx` slot (auto-shown during route transitions). Reads `usePathname()` and maps to a `LoaderCategory`: `/fighters` or `/b-2` → `"fighters"`, `/engines` → `"engines"`, anything else → `"commercial"`. Drives `loadPct` from 6 → 92 with an exponential easing tick every 180 ms, hands off to `<AviationLoader>`.
+
+### B5. `MoreMD/InnerMonologue.md`
+
+Added one line: ☐ navigation bar SUCKS!
+
+### B6. `ANNOTATIONS.md` relocated root → `MoreMD/`
+
+- Deleted at repo root (committed in A8 above).
+- Re-created at `MoreMD/ANNOTATIONS.md` with the same Ogival Delta Wing + Vortex Lift content, plus two new (currently empty) section headers: `## Flight Control` and `## The last of the fleet`. Reads like the next two writing prompts.
+
+---
+
+## Verification status
+
+Not yet run today. Things worth checking before the next commit:
+
+- `npm run build` — all 6 new subpages should be picked up automatically by Next.js's file-system routing; no change needed in any list.
+- The "Explore more" buttons on `concorde/page.tsx` for each newly-linked section should navigate correctly.
+- `app/loading.tsx` interaction with `app/page.tsx` (server component reading the snapshot JSON) — ensure the loader doesn't flash on first paint of the static export.
+- `04.jpg` (9.4 MB) — consider running through a compressor before the next deploy.
+
+---
+
 # Daily Documentation — 2026-05-02
 
 Session summary of all work done on the AVIA repo today.

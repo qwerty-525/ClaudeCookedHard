@@ -13,7 +13,7 @@ const SECTIONS = [
   {
     label: "Fly-by-Wire",
     title: "Electrical Signalling with Analogue Backup",
-    body: "Concorde was among the first civil aircraft to use fly-by-wire signalling, introduced because aerodynamic hinge moments at Mach 2 exceed what a pilot can overcome through direct mechanical linkage. Pilot inputs are converted to electrical signals that drive hydraulic actuators at each surface. Three independent hydraulic systems — Blue, Green, and Yellow — can each drive any surface individually; any single system can keep the aircraft controllable. Reversion to manual analogue backup is available if all electrical paths fail. The system was certified to the same failure-rate standards as conventional mechanical controls.",
+    body: "Concorde was among the first passenger jet to use fly-by-wire signalling, introduced because aerodynamic hinge moments at Mach 2 exceed what a pilot can overcome through direct mechanical linkage. The aerodynamic forces at Mach 2.0, too immense that no pilot could move these surfaces manually. The PCFUs provided the necessary force using high-pressure hydraulics of 4000 psi. Pilot inputs are converted to electrical signals that drive hydraulic actuators at each surface. Three independent hydraulic systems — Blue, Green, and Yellow — can each drive any surface individually; any single system can keep the aircraft controllable. Reversion to manual analogue backup is available if all electrical paths fail. The system was certified to the same failure-rate standards as conventional mechanical controls.",
     stats: [{ value: "3", label: "Independent Hydraulic Systems" }, { value: "Mach 2", label: "Design Dynamic Pressure" }],
   },
   {

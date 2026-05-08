@@ -29,6 +29,7 @@ const SECTIONS = [
     body: "Four Olympus 593 Mk610 afterburning turbojets produce 38,050 lbf (169.3 kN) with reheat and 31,000 lbf dry. Reheat is used only for takeoff and the transonic push to Mach 1.7. Above that, the engine sustains Mach 2.04 cruise on dry power alone — possible because intake ram compression at Mach 2 pre-heats the incoming air to 127°C and 2.5× ambient pressure before the compressor stage. The compressor receives air already at conditions a sea-level engine would only reach mid-cycle. Concorde is the only commercial aircraft ever to sustain cruise above Mach 1 without afterburner.",
     stats: [{ value: "38,050 lbf", label: "Reheat Thrust" }, { value: "15.5 : 1", label: "Pressure Ratio" }],
     right: false,
+    href: "/planes/concorde/propulsion",
   },
   {
     label: "04 — Intake Engineering",
@@ -36,33 +37,38 @@ const SECTIONS = [
     body: "Each engine inlet houses hydraulically actuated variable ramps that adjust continuously from Mach 0 to Mach 2.04. The ramps capture the oblique shock wave created at supersonic speed and use it to decelerate intake air from Mach 2 to subsonic before the compressor face — a process called ram recovery. At cruise, this intake system contributes approximately 63% of total propulsive force, more than engine combustion itself. Four spill doors and auxiliary inlets manage excess airflow across the full flight envelope. Thermodynamically, the intake does more work than the engine it feeds.",
     stats: [{ value: "63%", label: "Thrust from Ram at Mach 2" }, { value: "2 → 0.5", label: "Mach at Compressor Face" }],
     right: false,
+    href: "/planes/concorde/intake",
     partner: {
-      label: "Landing Gear",
+      label: "05 — Landing Gear",
       title: "High-Energy Undercarriage",
       body: "Concorde's 12° steep approach angle and 187 mph touchdown speed imposed unique certification demands. The main gear uses twin-wheel bogies with Dunlop carbon brakes — the first carbon braking system certified for commercial aviation — capable of absorbing 100 MJ of kinetic energy in a rejected takeoff. Brake disc temperature rises to 1,000°C within seconds of full application. Anti-skid electronics cycle at 16 times per second to individually optimise retardation per wheel. The undercarriage is rated for multiple rejected-takeoff cycles without mandatory cooldown — an airworthiness requirement unique to Concorde's performance category.",
       stats: [{ value: "187 mph", label: "Approach Speed" }, { value: "100 MJ", label: "Brake Energy Capacity" }],
+      href: "/planes/concorde/landinggear",
     },
   },
   {
-    label: "05 — Thermal Engineering",
+    label: "06 — Thermal Engineering",
     title: "Kinetic Heating and the Aluminium Airframe",
     body: "Aerodynamic friction heats the skin to 127°C at cruise and the nose tip to 180°C — temperatures at which standard aerospace aluminium creeps and fatigues. Concorde uses RR.58 (AU2GN), an aluminium-copper alloy originally developed for aero-engine pistons, whose mechanical properties degrade least across 100–180°C. The airframe elongates approximately 300 mm between cold ground and hot cruise. Fuel serves as a primary heat sink, absorbing thermal energy from hydraulics and avionics before combustion. Titanium was used only where unavoidable; its weight penalty across an entire fuselage would have made the programme commercially impossible.",
     stats: [{ value: "127°C", label: "Skin Temp at Cruise" }, { value: "300 mm", label: "Thermal Elongation" }],
     right: true,
+    href: "/planes/concorde/thermal",
   },
   {
-    label: "06 — Pilot Visibility",
+    label: "07 — Pilot Visibility",
     title: "Variable-Droop Nose Mechanism",
     body: "The delta wing's 10.5–12° approach angle of attack renders the runway invisible from a conventional fixed cockpit. Concorde's nose droops hydraulically to 12.5° for landing and 5° for takeoff, lowering the entire visor section ahead of the flight deck. The mechanism and visor together weigh approximately 1,800 kg and actuate in 8.5 seconds. At supersonic cruise, the nose locks raised and a metal visor shields the cockpit windows — polycarbonate cannot survive sustained Mach 2 kinetic heating at 180°C. The raised visor also restores the ogival nose profile, reducing aerodynamic drag at cruise.",
     stats: [{ value: "12.5°", label: "Max Droop Angle" }, { value: "1,800 kg", label: "Nose + Visor Mass" }],
     right: false,
+    href: "/planes/concorde/nose",
   },
   {
-    label: "07 — Stability",
+    label: "08 — Stability",
     title: "Fuel Transfer for Supersonic Trim",
     body: "As Concorde accelerates through Mach 1, the aerodynamic centre shifts aft by 6–8% of chord — inherent to all supersonic wings. Rather than deflecting trim surfaces (which generate significant drag), Concorde pumps fuel rearward into trim tank 11 (capacity 11,500 L) to shift the centre of gravity aft to match the new aerodynamic centre. The result is zero trim drag at Mach 2 cruise. Deceleration reverses the transfer. Pilots monitor the CG-to-lift margin on a dedicated display throughout acceleration and deceleration. The system saves an estimated 1–2% total fuel burn — significant on a route-limited aircraft carrying 100 passengers over the North Atlantic.",
     stats: [{ value: "11,500 L", label: "Trim Tank 11" }, { value: "6–8%", label: "Chord CG Shift at Mach 1" }],
     right: true,
+    href: "/planes/concorde/fueltrim",
   },
 ]
 
@@ -83,19 +89,19 @@ const POSES = [
   // Delta wing — tilt nose down so the ogee planform is exposed from above
   { scrollStart: 0.11, scrollEnd: 0.20, posX: -0.80, posY:  8.00, rotX:  1.20, rotY:  0.30,  rotZ:  0,     camZ: 3.8,  scale: 3.9  },
   // Flight control — rear-top view shows trailing-edge elevons across the delta
-  { scrollStart: 0.20, scrollEnd: 0.30, posX: -1.95, posY:  8.50, rotX:  0.81, rotY: -0.04,  rotZ:  0.01,  camZ: 3.0,  scale: 3.2  },
+  { scrollStart: 0.20, scrollEnd: 0.35, posX: -1.95, posY:  8.50, rotX:  0.81, rotY: -0.04,  rotZ:  0.01,  camZ: 3.0,  scale: 3.2  },
   // Engines — rotate to rear, expose four Olympus nacelles on underside
-  { scrollStart: 0.30, scrollEnd: 0.42, posX:  0.75, posY:  2.00, rotX: -0.22, rotY: -0.64,  rotZ:  0,     camZ: 3.3,  scale: 1.2  },
+  { scrollStart: 0.35, scrollEnd: 0.53, posX:  0.75, posY:  2.00, rotX: -0.22, rotY: -0.64,  rotZ:  0,     camZ: 3.3,  scale: 1.2  },
   // Intake ramps — front-under angle: slight tilt upward exposes the intake faces
-  { scrollStart: 0.42, scrollEnd: 0.54, posX: -3.50, posY:  6.90, rotX:  0.31, rotY:  1.16,  rotZ: -0.39,  camZ: 3.20, scale: 3.0  },
+  { scrollStart: 0.53, scrollEnd: 0.59, posX: -3.50, posY:  6.90, rotX:  0.31, rotY:  1.16,  rotZ: -0.39,  camZ: 3.20, scale: 3.0  },
   // Thermal — pure side profile, full fuselage skin surface visible end-to-end
-  { scrollStart: 0.54, scrollEnd: 0.66, posX: -0.55, posY:  6.90, rotX:  0.36, rotY:  0.46,  rotZ: -0.39,  camZ: 10.0, scale: 3.0  },
+  { scrollStart: 0.59, scrollEnd: 0.78, posX: -0.55, posY:  6.90, rotX:  0.36, rotY:  0.46,  rotZ: -0.39,  camZ: 10.0, scale: 3.0  },
   // Droop nose — close front view, nose and cockpit fill the frame
-  { scrollStart: 0.66, scrollEnd: 0.78, posX:  0.75, posY:  4.90, rotX:  0.41, rotY:  0.36,  rotZ: -0.04,  camZ: 3.00, scale: 1.90 },
+  { scrollStart: 0.78, scrollEnd: 0.88, posX:  0.75, posY:  4.90, rotX:  0.41, rotY:  0.36,  rotZ: -0.04,  camZ: 3.00, scale: 1.90 },
   // Fuel trim — pull back wide, pure side profile shows full fuselage tank layout
-  { scrollStart: 0.78, scrollEnd: 0.89, posX: -1.45, posY:  2.80, rotX:  0.31, rotY: -3.14,  rotZ: -0.14,  camZ: 1.0,  scale: 1.90 },
+  { scrollStart: 0.88, scrollEnd: 0.98, posX: -1.45, posY:  2.80, rotX:  0.31, rotY: -3.14,  rotZ: -0.14,  camZ: 1.0,  scale: 1.90 },
   // Specs — clean left-profile wide shot for the summary stats strip
-  { scrollStart: 0.89, scrollEnd: 1.0,  posX: -1.45, posY:  2.80, rotX:  0.31, rotY: -3.14,  rotZ: -2.2,   camZ: 1.0,  scale: 1.90 },
+  { scrollStart: 0.98, scrollEnd: 1.0,  posX: -1.45, posY:  2.80, rotX:  0.31, rotY: -3.14,  rotZ: -2.2,   camZ: 1.0,  scale: 1.90 },
 ]
 
 const POSE_LABELS = ["Hero", "Delta", "FlightCtrl", "Engines", "Intakes", "Thermal", "Nose", "Fuel", "Specs"]
@@ -509,7 +515,7 @@ export default function ConcordePage() {
             {s.partner ? (
               <div className="flex w-full flex-col items-start gap-12 md:flex-row md:justify-between">
                 <SectionCard label={s.label} title={s.title} body={s.body} stats={s.stats} href={s.href} />
-                <SectionCard label={s.partner.label} title={s.partner.title} body={s.partner.body} stats={s.partner.stats} />
+                <SectionCard label={s.partner.label} title={s.partner.title} body={s.partner.body} stats={s.partner.stats} href={s.partner.href} />
               </div>
             ) : (
               <SectionCard label={s.label} title={s.title} body={s.body} stats={s.stats} href={s.href} />

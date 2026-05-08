@@ -54,7 +54,11 @@ Air speeds of vortex is high therefore lowering the pressure massively.
 - Sharp leading edge to favour flow separation even at small or moderate AoA
 
 
+## Flight Control 
 
 
 
 
+
+
+## The last of the fleet 

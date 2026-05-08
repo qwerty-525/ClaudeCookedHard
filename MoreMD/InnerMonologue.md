@@ -9,7 +9,7 @@
 - [ ] more creative brainjuice!!!! + remove the a380 scroll through, it's so bad
 
 - [x] **SNAP SCROLL**
-
+- [ ] navigation bar SUCKS!
 
 the animations appear before the text appears so what should change 
 last one has no animations
