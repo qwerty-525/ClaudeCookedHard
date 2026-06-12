@@ -1,5 +1,6 @@
 "use client"
 import Link from "next/link"
+import dynamic from "next/dynamic"
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import PlaneCard from "@/components/PlaneCard"
@@ -7,6 +8,8 @@ import { Typewriter } from "@/components/ui/typewriter"
 import { EngineTypeCarousel } from "@/components/ui/engine-type-carousel"
 import { EngineFaq } from "@/components/ui/engine-faq"
 import { engines } from "@/lib/data"
+
+const EngineTeardown3D = dynamic(() => import("@/components/EngineTeardown3D"), { ssr: false })
 
 // Three tiers of exhaust streaks — white-hot core, orange mid, red outer
 const coreStreaks = Array.from({ length: 10 }, (_, i) => ({
@@ -220,6 +223,9 @@ export default function EnginesPage() {
           </p>
         </div>
       </section>
+
+      {/* 3D turbofan teardown */}
+      <EngineTeardown3D />
 
       {/* Jet engine history timeline */}
       <section className="relative bg-[#08060a] px-6 py-24 md:px-12 lg:px-24 border-t border-white/[0.04]">
