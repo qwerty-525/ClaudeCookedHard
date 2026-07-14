@@ -29,7 +29,7 @@ Built with Next.js 15, React 19, Tailwind CSS v3, and Framer Motion.
 8. [Live flight data (OpenSky Network)](#live-flight-data-opensky-network)
 9. [Animations — how they work](#animations--how-they-work)
 10. [Colour system](#colour-system)
-11. [Adding new content](#adding-new-content)
+11. [Where to add YOUR notes (start here)](#where-to-add-your-notes-start-here)
 12. [Deployment to GitHub Pages](#deployment-to-github-pages)
 13. [Project conventions](#project-conventions)
 
@@ -640,40 +640,155 @@ That's it — the "Explore more" button on that section will now link to your ne
 
 ---
 
-## Adding new content
+## Where to add YOUR notes (start here)
 
-### Add a new commercial aircraft
+This is the section you'll use most. It's written for someone who has **never touched React, TypeScript, or JavaScript**. You do not need to understand the code — you only need to find the right file and edit text inside quotes.
 
-Open `lib/data.ts` and add an entry to the `commercialPlanes` array:
+### The one rule that will save you
+
+Everything you edit lives **inside quote marks** — either `"double quotes"` or `` `backticks` ``. Change the words *between* the quotes; **never delete the quotes themselves**, and **never delete the commas** at the end of a line. If you keep the quotes and commas exactly where they are, you cannot break the site.
+
+Two ways to check you didn't break anything after editing:
+- If `npm run dev` is running, the browser refreshes by itself. If the page still looks right, you're fine.
+- If you see a red error screen, you probably deleted a quote, a comma, or a curly brace `}`. Press **Ctrl+Z** (undo) until it works again.
+
+### Cheat sheet — which file holds what
+
+| I want to add/edit… | Open this file | Find this |
+|---|---|---|
+| A **commercial airliner** (747, A380…) | `lib/data.ts` | the `commercialPlanes` list |
+| A **fighter jet** (F-22, F-35…) | `lib/data.ts` | the `fighterJets` list |
+| A **jet engine** (GE90, Trent XWB…) | `lib/data.ts` | the `engines` list |
+| **Aerodynamics** theory notes | `app/aerodynamics/page.tsx` | the `EqCard` boxes |
+| **Thermodynamics** theory notes | `app/thermodynamics/page.tsx` | the `EqCard` boxes |
+| **Gas dynamics** theory notes | `app/gas-dynamics/page.tsx` | the `EqCard` boxes |
+| **Heat transfer** theory notes | `app/heat-transfer/page.tsx` | the `EqCard` boxes |
+| A **picture** for a plane | drop the file in `public/planes/` | (see below) |
+
+---
+
+### Part 1 — Add notes for an aircraft or engine
+
+Aircraft **and** engines all live in the **same file**: `lib/data.ts`. Open it in VS Code.
+
+Inside that file are three lists. Each one starts with a line like this:
+
+```ts
+export const commercialPlanes = [    // ← airliners
+export const fighterJets = [         // ← fighter jets
+export const engines = [             // ← jet engines
+```
+
+Everything between that line and the matching `]` is a list of aircraft. Each aircraft is one block that starts with `{` and ends with `},` — like a single index card. To add your own, **copy an existing card and change the words**.
+
+#### Step by step
+
+1. Find the list you want (e.g. `fighterJets`).
+2. Pick any existing card in that list — everything from its opening `{` down to its closing `},`.
+3. Copy it and paste it right below, so you now have two identical cards.
+4. Change the text inside the quotes on your new copy.
+
+Here is one card with **every field explained**. Only `slug`, `name`, `detail`, `year`, and `fact` are required — the rest are optional (delete a line you don't want, but keep the comma rule in mind):
 
 ```ts
 {
-  slug: "boeing-777",                    // becomes /planes/boeing-777
-  name: "Boeing 777",
-  detail: "Boeing · USA",
-  year: 1994,
-  fact: "The world's largest twinjet.",
-  role: "Wide-body",
-  roleColor: "#3b82f6",
-  status: "active",
-  image: "/planes/boeing777.png",        // put the image in public/planes/
-  description: `
-    The 777 set the record for the longest non-stop commercial flight
-    and remains the backbone of long-haul fleets worldwide.
-  `,
-  specs: [
+  slug: "boeing-777",          // the web address: becomes /planes/boeing-777
+                               //   → use only lowercase letters and dashes, no spaces
+  name: "Boeing 777",          // the big title shown everywhere
+  detail: "Boeing · USA",      // the small grey subtitle under the name
+  year: 1994,                  // a plain number (NO quotes around numbers)
+  fact: "The world's largest twinjet.",   // the one-line blurb on the card
+  role: "Wide-body",           // optional: little badge label
+  roleColor: "#3b82f6",        // optional: badge colour as a hex code
+  status: "active",            // optional: "active", "legacy", or "retired"
+  image: "/planes/boeing777.png",  // optional: picture (see Part 3)
+  description:                 // optional: the long article on the detail page.
+    "First paragraph goes here.\n\nStart a new paragraph with \\n\\n like this.",
+  specs: [                     // optional: the spec table. Each row is one { } block.
     { label: "Range",      value: "13,650 km" },
     { label: "Engines",    value: "2× GE90-115B" },
     { label: "Passengers", value: "396 (3-class)" },
   ],
-}
+},
 ```
 
-The detail page at `/planes/boeing-777` is generated automatically — no other files need editing.
+**Notes for fighter jets:** they use one extra optional field, `mach` (a plain number, e.g. `mach: 2.25`) — it feeds the speed chart on the fighters page. Copy an existing fighter card to get it for free.
 
-### Add a plane image
+**Notes for engines:** their `specs` use labels like `Type`, `Thrust`, `Bypass ratio` instead of `Range`/`Passengers`. Again, easiest to copy an existing engine card.
 
-Drop a PNG into `public/planes/` and reference it in the data entry as `image: "/planes/filename.png"`. The image appears on both the card (small, 3D-spins on hover) and the detail page header.
+That's it. The detail page (e.g. `/planes/boeing-777`, `/fighters/f-22-raptor`, `/engines/ge90-115b`) is built **automatically** from the card — you don't create any new page.
+
+#### The three things that break the file
+
+1. **A missing comma.** Every field ends with a comma, and every card ends with `},`. If you paste a card and forget the comma after `}`, the site errors.
+2. **A missing quote.** `name: "Boeing 777"` must keep both `"` marks.
+3. **Quotes around a number.** `year: 1994` is correct. `year: "1994"` may misbehave — numbers (`year`, `mach`) get **no quotes**; everything else gets quotes.
+
+---
+
+### Part 2 — Add theory notes (aerodynamics, thermodynamics, gas dynamics, heat transfer)
+
+The four "notes" pages are each a single file:
+
+| Page | File | Accent colour |
+|---|---|---|
+| Aerodynamics | `app/aerodynamics/page.tsx` | cyan |
+| Thermodynamics | `app/thermodynamics/page.tsx` | emerald (green) |
+| Gas dynamics | `app/gas-dynamics/page.tsx` | orange |
+| Heat transfer | `app/heat-transfer/page.tsx` | purple |
+
+All four are built the **same way**, so once you can edit one you can edit all of them.
+
+Each note is a box called an **`EqCard`** — an equation with an explanation under it. In the file they look like this:
+
+```tsx
+<EqCard
+  label="Bernoulli's Equation"
+  eq={<>p + ½ρV² = const</>}
+  note="Your explanation paragraph goes here — this is the plain-English note under the formula."
+/>
+```
+
+There are three parts:
+
+| Part | What it is | How to edit |
+|---|---|---|
+| `label="…"` | the small heading above the formula | change the text inside the quotes |
+| `eq={<>…</>}` | the formula itself | change the text between `<>` and `</>` |
+| `note="…"` | your explanatory paragraph | change the text inside the quotes |
+
+**The easiest and safest note to write is the `note`** — it's just a normal sentence inside quotes. Change it freely.
+
+The `eq` (the formula) is the only slightly fussy part, because symbols are written in code:
+- Plain text works as-is: `eq={<>M = V / a</>}`
+- A subscript (small low letter) uses `<sub>`: `C<sub>L</sub>` shows as C · small L
+- A superscript (small high letter) uses `<sup>`: `V<sup>2</sup>` shows as V squared
+- A stacked fraction uses the built-in `<Fr>` helper: `<Fr n="L" d="W"/>` draws L over W (n = numerator on top, d = denominator on bottom)
+
+If the formula symbols feel intimidating, **just write the equation as plain text** (`eq={<>Lift = half x rho x V squared x S x CL</>}`) and put the real detail in the `note`. It will still render fine.
+
+#### Add a new note to a page
+
+1. Open the page file (e.g. `app/aerodynamics/page.tsx`).
+2. Scroll to the topic area you want — they're marked with big comment banners like `{/* ── 2 · Lift ── */}`.
+3. Find any existing `<EqCard … />` block near there.
+4. Copy the whole block (from `<EqCard` to its closing `/>`) and paste it right after.
+5. Change `label`, `eq`, and `note` on your new copy.
+
+Save. That's a new note on the page.
+
+#### Add a whole new topic section
+
+Each topic is wrapped in a `<section …>…</section>` block with a heading and a grid of `EqCard`s. To add a brand-new topic, copy an entire existing `<section>…</section>` block, paste it below, then change the `<h2>` heading, the intro paragraph, and the `EqCard`s inside it. You do not need to touch anything else — the page shows sections top to bottom in the order they appear in the file.
+
+---
+
+### Part 3 — Add a picture for a plane
+
+1. Put your image file (a PNG works best) into the `public/planes/` folder — e.g. `public/planes/boeing777.png`.
+2. In that aircraft's card in `lib/data.ts`, set `image: "/planes/boeing777.png"` (note the leading `/` and that you do **not** write `public` in the path).
+
+The picture then appears on both the card (small, spins in 3D on hover) and at the top of the detail page.
 
 ### Add a new canvas scroll sequence
 
