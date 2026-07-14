@@ -238,7 +238,7 @@ export const commercialPlanes: Aircraft[] = [
     engineeringFeatures: [
       {
         title: "Integrated CFRP Wing and Winglets",
-        body: "The 64.75-metre wing is a single carbon-fibre torsion box that can flex several metres at the tip — structurally impossible in aluminium, which would fatigue at that deflection. The curved blade winglets are engineered into the wing's load distribution rather than bolted on as afterthoughts, reducing induced drag more efficiently than any retrofit winglet programme.",
+        body: "The 64.75-metre wing is a single carbon-fibre torsion box that can flex several metres at the tip — structurally impossible in aluminium, which would fatigue at that deflection. The curved blade winglets are engineered into the wing's load distribution rather than bolted on as afterthoughts, reducing induced drag more efficiently than any retrofit winglet programme. Trailing-edge surfaces morph shape in flight, adjusting camber between takeoff, climb, and cruise so the wing holds close to its ideal aerodynamic profile across a flight rather than being optimised for one fixed condition.",
       },
       {
         title: "53% Composite Airframe — Industry First",
