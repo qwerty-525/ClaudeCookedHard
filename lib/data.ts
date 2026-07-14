@@ -220,17 +220,19 @@ export const commercialPlanes: Aircraft[] = [
     year: 2013,
     fact: "Curved titanium wingtips and a carbon-fibre fuselage achieve 25% better fuel efficiency versus the aircraft it replaces.",
     description:
-      "The Airbus A350 XWB ('Extra Wide Body') was conceived after Boeing launched the 787, and Airbus's initial response — simply upgrading the A330 — was rejected so emphatically by airlines that Airbus had to start from scratch. The result exceeds the 787 in composite content: 53% of the A350's structure is CFRP, including not only the wing and tail but the fuselage frames and skin panels. The wider fuselage cross-section, at 5.97 metres, gives passengers noticeably more room than the 787.\n\nThe wing is a masterpiece of aerodynamic engineering. At 64.75 metres, it uses a carbon composite torsion box that allows it to flex several metres at the tip — impossible in aluminium — and terminates in blade-like curved winglets that are integrated into the wing structure rather than bolted on. Each Trent XWB engine produces up to 97,000 lbf, giving the A350-1000 enough thrust to fly the world's longest scheduled route: Singapore to New York, 9,537 nautical miles, 18 hours, 45 minutes.",
+      "The Airbus A350 XWB ('Extra Wide Body') was conceived after Boeing launched the 787, and Airbus's initial response — simply upgrading the A330 — was rejected so emphatically by airlines that Airbus had to start from scratch. The result exceeds the 787 in composite content: 53% of the A350's structure is CFRP, including not only the wing and tail but the fuselage frames and skin panels. The wider fuselage cross-section, at 5.97 metres, gives passengers noticeably more room than the 787.\n\nThe wing is a masterpiece of aerodynamic engineering. At 64.75 metres, it uses a carbon composite torsion box that allows it to flex several metres at the tip — impossible in aluminium — and terminates in blade-like curved winglets that are integrated into the wing structure rather than bolted on. Each Trent XWB engine produces up to 97,000 lbf, giving the A350-1000 enough thrust to fly the world's longest scheduled route: Singapore to New York, 9,537 nautical miles, 18 hours, 45 minutes.\n\nThe family spans three variants built on a common wing and cockpit: the A350-900 (66.8 m), the stretched A350-1000 (73.8 m, up to 480 seats high-density), and the A350F freighter derived from the -1000's structure. Airbus rates the family at 25% lower fuel burn and CO2 per seat than the previous generation, up to 9 dB quieter than competing widebodies, and certified to fly on blends of up to 50% sustainable aviation fuel. The 'Airspace' cabin pairs the lower 6,000 ft cabin altitude and 15% humidity with wider seats, higher ceilings, customisable mood lighting, and HEPA-filtered air fully renewed every 2–3 minutes. Final assembly takes place in Toulouse from components built across the global Airbus supply chain; by mid-2020s the programme had logged over 1,500 orders, 700+ deliveries, and 13.5 million-plus flight hours across 38 operators and 1,300+ routes.",
     specs: [
-      { label: "Wingspan", value: "212 ft 5 in (64.75 m)" },
-      { label: "Length", value: "219 ft 2 in (66.8 m) — A350-900" },
+      { label: "Wingspan", value: "212 ft 5 in (64.75 m) — all variants" },
+      { label: "Length", value: "219 ft 2 in (66.8 m) — A350-900 · 242 ft 1 in (73.8 m) — A350-1000" },
       { label: "Engines", value: "2× Rolls-Royce Trent XWB-84 or XWB-97" },
       { label: "Thrust (each)", value: "84,000–97,000 lbf" },
       { label: "Cruise speed", value: "Mach 0.85 (567 mph / 903 km/h)" },
-      { label: "Range", value: "8,100 nmi (15,000 km) — A350-900" },
-      { label: "Passengers", value: "315–440 (2-class)" },
+      { label: "Range", value: "8,100 nmi (15,000 km) — A350-900 · 8,700 nmi (16,100 km) — A350-1000" },
+      { label: "Passengers", value: "300–350 (3-class) — A350-900 · 350–410 (3-class) — A350-1000" },
       { label: "Max takeoff weight", value: "617,300 lb (280,000 kg) — A350-900" },
       { label: "Composite content", value: "53% by weight (more than any other airliner)" },
+      { label: "Variants", value: "A350-900 · A350-1000 · A350F freighter" },
+      { label: "Fleet (as of order book)", value: "1,500+ orders · 700+ deliveries · 38 operators" },
     ],
     engineeringFeatures: [
       {
@@ -244,6 +246,10 @@ export const commercialPlanes: Aircraft[] = [
       {
         title: "Trent XWB Co-Development",
         body: "The engine and airframe were developed concurrently by Airbus and Rolls-Royce rather than adapting an existing engine to a new airframe. The intake, fan cowl, and thrust reverser are tuned to the A350's specific nacelle geometry — an integration benefit impossible when a single engine must serve multiple aircraft types. The result is the Trent XWB-97's 61:1 overall pressure ratio, the highest of any large commercial engine in service.",
+      },
+      {
+        title: "Airspace Cabin and One Common Type Rating",
+        body: "The A350-900, -1000, and A350F share a single wing and cockpit, letting crews fly all three under one type rating. The Airspace cabin built on that shared platform lowers cabin altitude to 6,000 ft and holds humidity at 15%, and Airbus certifies the family to run on up to 50% sustainable aviation fuel blends — the same composite structure that saves weight also underwrites the emissions and noise reductions Airbus advertises against the previous generation.",
       },
     ],
   },
