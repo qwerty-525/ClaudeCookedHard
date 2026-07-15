@@ -1,8 +1,9 @@
 import { notFound, redirect } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { fighterJets } from "@/lib/data"
+import { fighterJets, engines } from "@/lib/data"
 import SR71VideoPlayer from "@/components/SR71VideoPlayer"
+import ChipLinks from "@/components/ChipLinks"
 
 const REDIRECTED_SLUGS: Record<string, string> = {
   "f-35-lightning-ii": "/fighters/f35",
@@ -26,6 +27,7 @@ export default async function FighterDetailPage({
   if (!jet) notFound()
 
   const isSR71 = slug === "sr-71-blackbird"
+  const relatedEngines = engines.filter((e) => jet.relatedEngines?.includes(e.slug))
 
   return (
     <main className="min-h-screen bg-[#04060a] text-[#f8fafc]">
@@ -140,6 +142,29 @@ export default async function FighterDetailPage({
               <p className="text-sm">More information coming soon.</p>
             </div>
           )}
+
+          {/* Cross-links */}
+          <div className="mt-12 flex flex-col gap-8 border-t border-white/[0.06] pt-10">
+            {relatedEngines.length > 0 && (
+              <ChipLinks
+                kicker="Powerplants in the Catalog"
+                chips={relatedEngines.map((e) => ({
+                  href: `/engines/${e.slug}`,
+                  label: e.name,
+                  sub: e.detail.split(" · ")[1] ?? e.detail,
+                  accent: "#f59e0b",
+                }))}
+              />
+            )}
+            <ChipLinks
+              kicker="Theory Behind This Aircraft"
+              chips={[
+                { href: "/aerodynamics#performance", label: "Turn & Energy", sub: "Ps, corner speed, load factor", accent: "#22d3ee" },
+                { href: "/aerodynamics#stability", label: "Stability & FBW", sub: "static margin, relaxed stability", accent: "#22d3ee" },
+                { href: "/gas-dynamics#inlets", label: "Supersonic Inlets", sub: "recovery, unstart, ramjets", accent: "#fb923c" },
+              ]}
+            />
+          </div>
 
         </div>
       </div>

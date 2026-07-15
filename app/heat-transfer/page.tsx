@@ -2,6 +2,17 @@
 import { ReactNode, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Typewriter } from "@/components/ui/typewriter"
+import TheoryToc from "@/components/TheoryToc"
+import ChipLinks from "@/components/ChipLinks"
+
+const TOC = [
+  { id: "modes", label: "Three Modes" },
+  { id: "conduction", label: "Conduction" },
+  { id: "convection", label: "Convection" },
+  { id: "radiation", label: "Radiation" },
+  { id: "exchangers", label: "Heat Exchangers" },
+  { id: "applications", label: "Applications" },
+]
 
 function Fr({ n, d }: { n: ReactNode; d: ReactNode }) {
   return (
@@ -46,6 +57,7 @@ export default function HeatTransferPage() {
 
   return (
     <main className="bg-[#04060a]">
+      <TheoryToc sections={TOC} accent="#c084fc" />
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section ref={heroRef} className="relative flex h-screen items-center justify-center overflow-hidden">
@@ -143,7 +155,7 @@ export default function HeatTransferPage() {
       </section>
 
       {/* ── 1 · The Three Modes ──────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="modes" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Mechanisms</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Conduction, Convection, Radiation.</h2>
@@ -168,7 +180,7 @@ export default function HeatTransferPage() {
       </section>
 
       {/* ── 2 · Conduction ───────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="conduction" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Conduction</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Thermal Resistance and the Heat Equation.</h2>
@@ -202,7 +214,7 @@ export default function HeatTransferPage() {
       </section>
 
       {/* ── 3 · Convection ───────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="convection" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Convection</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Dimensionless Numbers and Nusselt Correlations.</h2>
@@ -231,12 +243,21 @@ export default function HeatTransferPage() {
             <EqCard label="Grashof Number — Natural Convection"
               eq={<>Gr = <Fr n={<>gβ(T<sub>s</sub>−T<sub>∞</sub>)L³</>} d="ν²"/><br/><br/>Ra = Gr·Pr</>}
               note="β is the thermal expansion coefficient (1/T for ideal gases). The Rayleigh number Ra = Gr·Pr governs natural convection. Natural convection dominates on uncooled engine casings and nacelle surfaces at low flight speeds." />
+            <EqCard label="Stanton Number"
+              eq={<>St = <Fr n="Nu" d="Re·Pr"/> = <Fr n="h" d={<>ρVc<sub>p</sub></>}/></>}
+              note="The Stanton number expresses heat transfer per unit of thermal capacity actually flowing past the surface — the most physical of the convection groups. Typical turbulent boundary layer values are St ~ 0.002–0.003. Turbine designers quote blade heat load as a Stanton number because it stays nearly constant while h varies wildly with engine condition." />
+            <EqCard label="Reynolds Analogy — Heat Follows Friction"
+              eq={<>St ≈ <Fr n={<>C<sub>f</sub></>} d="2"/>&ensp;(Pr ≈ 1)<br/><br/>St·Pr<sup>2/3</sup> = <Fr n={<>C<sub>f</sub></>} d="2"/>&ensp;(Chilton–Colburn)</>}
+              note="Momentum and heat are transported by the same turbulent eddies, so skin friction and heat transfer are two faces of one mechanism. Measure drag on a cascade blade and you have estimated its heat load — and vice versa. The analogy carries a hard design truth: any surface with low heat transfer necessarily has low skin friction, and you cannot cool a surface without paying drag for it." />
+            <EqCard label="Flat Plate — Average Nusselt Number"
+              eq={<>Nu<sub>lam</sub> = 0.664&thinsp;Re<sub>L</sub><sup>½</sup>Pr<sup>⅓</sup><br/><br/>Nu<sub>turb</sub> = 0.037&thinsp;Re<sub>L</sub><sup>4/5</sup>Pr<sup>⅓</sup></>}
+              note="The external-flow workhorses, directly mirroring the skin-friction laws through the Reynolds analogy. At Re = 10⁷, the turbulent plate transfers ~5× the heat of a laminar one — the same factor as the drag penalty. First estimate for aircraft skin heating, nacelle surfaces, and any component washed by external flow." />
           </div>
         </div>
       </section>
 
       {/* ── 4 · Radiation ────────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="radiation" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Thermal Radiation</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Blackbody Radiation, Emissivity, and View Factors.</h2>
@@ -270,7 +291,7 @@ export default function HeatTransferPage() {
       </section>
 
       {/* ── 5 · Heat Exchangers ──────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="exchangers" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Heat Exchanger Design</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">LMTD and Effectiveness–NTU Methods.</h2>
@@ -298,7 +319,7 @@ export default function HeatTransferPage() {
       </section>
 
       {/* ── 6 · Aerospace Applications ───────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="applications" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Aerospace Applications</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Turbine Cooling, TPS, and Aerodynamic Heating.</h2>
@@ -350,6 +371,16 @@ export default function HeatTransferPage() {
                 </ul>
               </div>
             ))}
+          </div>
+          <div className="mb-10 border-t border-white/[0.05] pt-8">
+            <ChipLinks
+              kicker="Continue the Notes"
+              chips={[
+                { href: "/thermodynamics#combustion", label: "Combustion", sub: "where the heat comes from", accent: "#34d399" },
+                { href: "/aerodynamics#boundary-layer", label: "Boundary Layer", sub: "the other side of the analogy", accent: "#22d3ee" },
+                { href: "/engines/ge9x", label: "GE9X", sub: "CMC hot sections in service", accent: "#f59e0b" },
+              ]}
+            />
           </div>
           <div className="border-t border-white/[0.05] pt-8 text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-white/20">AVIA · Engineering Theory · Heat Transfer</p>

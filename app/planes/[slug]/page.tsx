@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { commercialPlanes } from "@/lib/data"
+import { commercialPlanes, engines } from "@/lib/data"
 import ConcordeVideoPlayer from "@/components/ConcordeVideoPlayer"
+import ChipLinks from "@/components/ChipLinks"
+import { renderBold } from "@/lib/text"
 
 export function generateStaticParams() {
   return commercialPlanes.map((p) => ({ slug: p.slug }))
@@ -18,6 +20,8 @@ export default async function PlaneDetailPage({
   if (!plane) notFound()
 
   const isConcorde = slug === "concorde"
+  const relatedEngines = engines.filter((e) => plane.relatedEngines?.includes(e.slug))
+  const isSupersonic = slug === "concorde" || slug === "tupolev-tu-144"
 
   return (
     <main className="min-h-screen bg-[#0b0b10] text-[#f8fafc]">
@@ -78,11 +82,30 @@ export default async function PlaneDetailPage({
             <p className="text-[#f8fafc] leading-relaxed">{plane.fact}</p>
           </div>
 
+          {/* At a glance */}
+          {plane.highlights && plane.highlights.length > 0 && (
+            <div className="mb-10 rounded-[28px] border border-white/[0.08] bg-white/[0.03] p-6 md:p-7">
+              <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.4em] text-[#94a3b8]">At a Glance</p>
+              <ul className="grid gap-3 md:grid-cols-2">
+                {plane.highlights.map((h) => (
+                  <li key={h} className="flex items-start gap-3">
+                    <span className="mt-2.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[#3b82f6]" />
+                    <span className="text-sm leading-7 text-[#b8c7dc]">{renderBold(h)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* Overview */}
           {plane.description && (
             <div className="mb-12">
               <p className="mb-5 text-[10px] font-medium uppercase tracking-[0.4em] text-[#94a3b8]">Overview</p>
-              <p className="whitespace-pre-line leading-8 text-[#b8c7dc]">{plane.description}</p>
+              {plane.description.split("\n\n").map((para, i) => (
+                <p key={i} className="mb-5 leading-8 text-[#b8c7dc] last:mb-0">
+                  {renderBold(para)}
+                </p>
+              ))}
             </div>
           )}
 
@@ -128,6 +151,34 @@ export default async function PlaneDetailPage({
               <p className="text-sm">More information coming soon.</p>
             </div>
           )}
+
+          {/* Cross-links */}
+          <div className="mt-12 flex flex-col gap-8 border-t border-white/[0.06] pt-10">
+            {relatedEngines.length > 0 && (
+              <ChipLinks
+                kicker="Powerplants in the Catalog"
+                chips={relatedEngines.map((e) => ({
+                  href: `/engines/${e.slug}`,
+                  label: e.name,
+                  sub: e.detail.split(" · ")[1] ?? e.detail,
+                  accent: "#f59e0b",
+                }))}
+              />
+            )}
+            <ChipLinks
+              kicker="Theory Behind This Aircraft"
+              chips={[
+                { href: "/aerodynamics#wing", label: "Wing Geometry", sub: "AR, sweep, wing loading", accent: "#22d3ee" },
+                { href: "/aerodynamics#high-lift", label: "High-Lift Systems", sub: "flaps, slats, approach speed", accent: "#22d3ee" },
+                ...(isSupersonic
+                  ? [
+                      { href: "/gas-dynamics#inlets", label: "Supersonic Inlets", sub: "shock trains & ram recovery", accent: "#fb923c" },
+                      { href: "/aerodynamics#vortex", label: "Vortex Lift", sub: "the delta wing's second lift", accent: "#22d3ee" },
+                    ]
+                  : [{ href: "/thermodynamics#propulsion", label: "Propulsion", sub: "TSFC & the range equation", accent: "#34d399" }]),
+              ]}
+            />
+          </div>
         </div>
       </div>
     </main>

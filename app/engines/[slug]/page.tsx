@@ -1,7 +1,13 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { engines } from "@/lib/data"
+import { engines, commercialPlanes, fighterJets } from "@/lib/data"
+import ChipLinks from "@/components/ChipLinks"
+
+const FIGHTER_PAGE_OVERRIDES: Record<string, string> = {
+  "f-35-lightning-ii": "/fighters/f35",
+  "f-117-nighthawk": "/fighters/f117",
+}
 
 export function generateStaticParams() {
   return engines.map((e) => ({ slug: e.slug }))
@@ -15,6 +21,24 @@ export default async function EngineDetailPage({
   const { slug } = await params
   const engine = engines.find((e) => e.slug === slug)
   if (!engine) notFound()
+
+  const poweredPlanes = commercialPlanes.filter((p) => p.relatedEngines?.includes(engine.slug))
+  const poweredJets = fighterJets.filter((j) => j.relatedEngines?.includes(engine.slug))
+  const aircraftChips = [
+    ...poweredPlanes.map((p) => ({
+      href: `/planes/${p.slug}`,
+      label: p.name,
+      sub: p.role,
+      accent: "#3b82f6",
+    })),
+    ...poweredJets.map((j) => ({
+      href: FIGHTER_PAGE_OVERRIDES[j.slug] ?? `/fighters/${j.slug}`,
+      label: j.name,
+      sub: j.role,
+      accent: "#ef4444",
+    })),
+  ]
+  const isAfterburning = /afterburn|reheat|vectoring/i.test(engine.detail) || slug === "olympus-593"
 
   return (
     <main className="min-h-screen bg-[#04060a] px-6 pb-24 pt-28 text-[#f8fafc] md:px-12 lg:px-24">
@@ -96,6 +120,22 @@ export default async function EngineDetailPage({
             <p className="text-sm">More information coming soon.</p>
           </div>
         )}
+
+        {/* Cross-links */}
+        <div className="mt-12 flex flex-col gap-8 border-t border-white/[0.06] pt-10">
+          {aircraftChips.length > 0 && <ChipLinks kicker="Flies On" chips={aircraftChips} />}
+          <ChipLinks
+            kicker="Theory Behind This Engine"
+            chips={[
+              { href: "/thermodynamics#brayton", label: "Brayton Cycle", sub: "the four processes inside", accent: "#34d399" },
+              { href: "/thermodynamics#propulsion", label: "Propulsion", sub: "bypass, TSFC, specific thrust", accent: "#34d399" },
+              ...(isAfterburning
+                ? [{ href: "/gas-dynamics#inlets", label: "Inlets & Ram Recovery", sub: "feeding a supersonic engine", accent: "#fb923c" }]
+                : [{ href: "/gas-dynamics#nozzles", label: "Nozzle Flow", sub: "choking & thrust", accent: "#fb923c" }]),
+              { href: "/heat-transfer#applications", label: "Turbine Cooling", sub: "film cooling & TBCs", accent: "#c084fc" },
+            ]}
+          />
+        </div>
       </div>
     </main>
   )

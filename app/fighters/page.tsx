@@ -5,6 +5,8 @@ import PlaneCard from "@/components/PlaneCard"
 import MachScale from "@/components/MachScale"
 import DogfightCarousel from "@/components/DogfightCarousel"
 import FightersSnapScroll from "@/components/FightersSnapScroll"
+import SpecTable from "@/components/SpecTable"
+import ChipLinks from "@/components/ChipLinks"
 import { fighterJets } from "@/lib/data"
 
 export default function FightersPage() {
@@ -63,6 +65,42 @@ export default function FightersPage() {
 
       {/* Mach speed scale */}
       <MachScale jets={fighterJets} />
+
+      {/* Combat performance matrix */}
+      <section className="relative border-y border-white/[0.05] bg-[#0d0709] px-6 py-24 md:px-12 lg:px-24">
+        <SpecTable
+          kicker="Performance Matrix"
+          title="Energy, Turn, and Thrust."
+          description="Thrust-to-weight above 1.0 means the aircraft can accelerate going straight up — the currency of energy manoeuvring. Wing loading (W/S) buys instantaneous turn rate at the cost of ride quality and range. Compare the F-16's light, low-drag energy-fighter numbers against the F-14's swing-wing compromise, or the F-22's ability to hold both columns at once."
+          accent="#f87171"
+          columns={["Aircraft", "Max Mach", "T/W*", "W/S (kg/m²)", "Ceiling (ft)", "Thrust w/ AB (lbf)", "Gen"]}
+          rows={[
+            ["F-22 Raptor", "2.25", "≈1.08", "375", "65,000", "2 × 35,000", "5th"],
+            ["F-35A Lightning II", "1.6", "≈0.87", "526", "50,000", "1 × 43,000", "5th"],
+            ["Su-57 Felon", "2.0", "≈1.02", "≈450", "66,000", "2 × 32,000", "5th"],
+            ["Eurofighter Typhoon", "2.0", "≈1.15", "312", "65,000", "2 × 20,230", "4.5"],
+            ["Dassault Rafale", "1.8", "≈0.99", "328", "50,000", "2 × 17,000", "4.5"],
+            ["F/A-18E Super Hornet", "1.8", "≈0.93", "459", "50,000", "2 × 22,000", "4.5"],
+            ["F-15 Eagle", "2.5", "≈1.07", "358", "65,000", "2 × 23,770", "4th"],
+            ["F-16 Fighting Falcon", "2.05", "≈1.10", "431", "50,000", "1 × 29,500", "4th"],
+            ["F-14 Tomcat", "2.34", "≈0.88", "466", "53,000", "2 × 27,800", "4th"],
+            ["MiG-29 Fulcrum", "2.25", "≈1.09", "403", "59,000", "2 × 18,300", "4th"],
+            ["JAS 39 Gripen", "2.0", "≈0.97", "336", "50,000", "1 × 18,100", "4.5"],
+          ]}
+          footnote="*Thrust-to-weight at ~50% internal fuel, air-to-air loadout — the standard comparison condition. W/S at loaded weight over reference wing area (delta and blended-body types read low because LERX/body lift is excluded). Values are representative open-source figures."
+        />
+        <div className="mx-auto mt-12 max-w-6xl">
+          <ChipLinks
+            kicker="The Theory Behind the Columns"
+            chips={[
+              { href: "/aerodynamics#performance", label: "Turn & Energy", sub: "Ps, corner speed, load factor", accent: "#22d3ee" },
+              { href: "/aerodynamics#vortex", label: "Vortex Lift", sub: "LERX & delta high-α lift", accent: "#22d3ee" },
+              { href: "/gas-dynamics#inlets", label: "Supersonic Inlets", sub: "recovery, unstart, ramjets", accent: "#fb923c" },
+              { href: "/thermodynamics#propulsion", label: "Afterburning", sub: "why AB doubles TSFC", accent: "#34d399" },
+            ]}
+          />
+        </div>
+      </section>
 
       {/* Dogfight rivalry carousel */}
       <section className="relative px-6 pb-24 pt-10 md:px-12 lg:px-24">

@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { FlowButton } from "@/components/ui/flow-button"
+import CompareToggle from "@/components/compare/CompareToggle"
 import { commercialPlanes, type Aircraft } from "@/lib/data"
 
 const STATUS_CONFIG = {
@@ -198,10 +199,11 @@ function PlaneSlide({
             )}
 
             {/* Read more */}
-            <div className="mt-5" onClick={(e) => e.stopPropagation()}>
+            <div className="mt-5 flex items-center justify-between gap-3" onClick={(e) => e.stopPropagation()}>
               <a href={href}>
                 <FlowButton text="Read more" accent={accent} />
               </a>
+              <CompareToggle slug={plane.slug} />
             </div>
           </div>
         </div>

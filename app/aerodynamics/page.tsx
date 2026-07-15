@@ -2,6 +2,21 @@
 import { ReactNode, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Typewriter } from "@/components/ui/typewriter"
+import TheoryToc from "@/components/TheoryToc"
+import ChipLinks from "@/components/ChipLinks"
+
+const TOC = [
+  { id: "forces", label: "Four Forces" },
+  { id: "lift", label: "Lift" },
+  { id: "drag", label: "Drag" },
+  { id: "wing", label: "Wing Geometry" },
+  { id: "high-lift", label: "High-Lift" },
+  { id: "vortex", label: "Vortex Lift" },
+  { id: "compressibility", label: "Compressibility" },
+  { id: "boundary-layer", label: "Boundary Layer" },
+  { id: "stability", label: "Stability" },
+  { id: "performance", label: "Performance" },
+]
 
 // ── Math typesetting helpers ───────────────────────────────────────────────
 
@@ -65,6 +80,7 @@ export default function AerodynamicsPage() {
 
   return (
     <main className="bg-[#04060a]">
+      <TheoryToc sections={TOC} accent="#22d3ee" />
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section
@@ -200,7 +216,7 @@ export default function AerodynamicsPage() {
       </section>
 
       {/* ── 1 · The Four Forces ──────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="forces" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px
           bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent" />
         <div className="mx-auto max-w-5xl">
@@ -232,7 +248,7 @@ export default function AerodynamicsPage() {
       </section>
 
       {/* ── 2 · Lift ─────────────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="lift" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SectionLabel>Lift Generation</SectionLabel>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Bernoulli, Circulation, and C<sub>L</sub>.</h2>
@@ -279,7 +295,7 @@ export default function AerodynamicsPage() {
       </section>
 
       {/* ── 3 · Drag ─────────────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="drag" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SectionLabel>Drag Polar</SectionLabel>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Parasite, Induced, and the Polar.</h2>
@@ -315,7 +331,7 @@ export default function AerodynamicsPage() {
       </section>
 
       {/* ── 4 · Wing Design ──────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="wing" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SectionLabel>Wing Geometry</SectionLabel>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Aspect Ratio, Sweep, and Efficiency.</h2>
@@ -360,8 +376,91 @@ export default function AerodynamicsPage() {
         </div>
       </section>
 
+      {/* ── 4b · High-Lift Systems ───────────────────────────────────── */}
+      <section id="high-lift" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-5xl">
+          <SectionLabel>High-Lift Systems</SectionLabel>
+          <h2 className="mb-4 text-4xl font-bold md:text-5xl">Flaps, Slats, and C<sub>L,max</sub>.</h2>
+          <p className="mb-14 max-w-2xl text-lg leading-relaxed text-[#94a3b8]">
+            A wing optimised for Mach 0.85 cruise cannot land at survivable speeds — its clean
+            C<sub>L,max</sub> of ~1.5 would demand 170+ knot approaches. High-lift devices
+            temporarily transform the wing into a different aerofoil: more camber, more chord,
+            and boundary-layer control, roughly doubling maximum lift for landing.
+          </p>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <EqCard
+              label="Why It Matters — Approach Speed"
+              eq={<>V<sub>REF</sub> = 1.23&thinsp;V<sub>S0</sub><br/><br/>V<sub>S0</sub> ∝ √<Fr n="W/S" d={<>C<sub>L,max</sub></>}/></>}
+              note="Certification requires approach at 23% above the stall speed in landing configuration. Since wing loading is fixed by cruise economics, the only lever left is C_L,max. Raising it from 1.5 (clean) to 3.0 (full flaps + slats) cuts approach speed by ~30% and kinetic energy at touchdown by half — the difference between a 2,000 m and a 3,500 m runway."
+            />
+            <EqCard
+              label="Trailing-Edge Flaps — Camber and Chord"
+              eq={<>ΔC<sub>L,max</sub>: plain ≈ 0.9<br/>slotted ≈ 1.3&ensp;Fowler ≈ 1.9</>}
+              note="A plain flap adds camber. A slotted flap also bleeds high-pressure air through the gap to re-energise the upper-surface boundary layer, delaying separation. A Fowler flap slides aft before rotating — adding wing area as well as camber. The 747's triple-slotted Fowler flaps grow the wing chord by ~25% and were the key to operating 400 tonnes from 1960s runways."
+            />
+            <EqCard
+              label="Leading-Edge Devices — Stall Angle"
+              eq={<>slat gap → re-energised BL<br/><br/>Δα<sub>stall</sub> ≈ +7–10°</>}
+              note="Slats and Krueger flaps attack stall at its origin: the leading-edge suction peak. Opening a slot ahead of the main element flattens the pressure spike and feeds fresh high-energy flow into the boundary layer, letting the wing reach far higher angles of attack before separating. Trailing-edge flaps raise the lift curve; leading-edge devices extend it."
+            />
+            <EqCard
+              label="The Landing Configuration Budget"
+              eq={<>C<sub>L,max</sub>: clean ≈ 1.5<br/>+ slats + full flaps ≈ 2.8–3.2</>}
+              note="A modern airliner roughly doubles its maximum lift coefficient between cruise and landing configuration. The cost is drag (useful on approach — it allows a steeper, powered descent), complexity (flap tracks, actuators, asymmetry protection), and weight. Flap-track fairings — the canoe-shaped pods under the wing — exist purely to house the Fowler motion hardware."
+            />
+            <EqCard
+              label="Deployment Limits"
+              eq={<>V<sub>FE</sub> — max flaps-extended speed<br/><br/>load ∝ ½ρV²·δ<sub>f</sub></>}
+              note="Aerodynamic load on a deflected flap scales with dynamic pressure, so each flap setting carries a placard speed V_FE. Overspeed with flaps out is a structural event, not just a handling one. This is why flaps deploy in scheduled stages during deceleration on approach — and why gusts near V_FE trigger automatic flap load-relief on the A350 and 787."
+            />
+            <EqCard
+              label="Powered Lift — Blown Flaps"
+              eq={<>C<sub>L,max</sub> &gt; 5 (externally blown)</>}
+              note="Directing engine exhaust or bleed air over the flap system adds momentum directly to the boundary layer — circulation control. The C-17 blows its four engines' exhaust through slotted flaps to land 265 tonnes on 1,000 m assault strips at C_L values impossible aerodynamically. The upper limit of this family: the F-35B, where lift is simply engine thrust rotated vertical."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4c · Delta Wings and Vortex Lift ─────────────────────────── */}
+      <section id="vortex" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-5xl">
+          <SectionLabel>Vortex Aerodynamics</SectionLabel>
+          <h2 className="mb-4 text-4xl font-bold md:text-5xl">Delta Wings and Vortex Lift.</h2>
+          <p className="mb-14 max-w-2xl text-lg leading-relaxed text-[#94a3b8]">
+            Below ~10° angle of attack a delta wing is just a low-aspect-ratio wing. Above it,
+            the sharp leading edge deliberately separates the flow into two stable, coiled
+            vortices whose cores sit above the upper surface — a second, nonlinear source of
+            lift that attached-flow theory cannot produce. Concorde landed on it; every
+            LERX-equipped fighter manoeuvres on it.
+          </p>
+          <div className="grid gap-5 md:grid-cols-2">
+            <EqCard
+              label="Polhamus Suction Analogy"
+              eq={<>C<sub>L</sub> = K<sub>p</sub>&thinsp;sin&thinsp;α&thinsp;cos²α + K<sub>v</sub>&thinsp;cos&thinsp;α&thinsp;sin²α</>}
+              note="The first term is ordinary potential-flow (attached) lift; the second is vortex lift, growing with sin²α — negligible at cruise, dominant at high α. K_p and K_v depend on planform (for a slender delta, K_v ≈ π). The analogy: the leading-edge suction force that a rounded aerofoil would recover as thrust reappears, rotated 90°, as extra normal force on the vortex-covered upper surface."
+            />
+            <EqCard
+              label="The Vortex Mechanism"
+              eq={<>sharp LE → fixed separation<br/>→ stable coiled vortex → suction peak</>}
+              note="Flow cannot negotiate a sharp, highly swept leading edge; it separates along the entire edge and rolls into a conical vortex that reattaches inboard. The vortex core spins at high velocity — locally very low pressure — painting a strong suction footprint on the upper surface. Unlike a stalled wing's chaotic separation, this structure is stable and strengthens with angle of attack, up to breakdown."
+            />
+            <EqCard
+              label="Vortex Breakdown"
+              eq={<>α ≈ 30–40° (slender delta)<br/>→ core bursts → buffet, C<sub>L</sub> loss</>}
+              note="Above a critical combination of angle of attack and sweep, the vortex core abruptly expands and loses its ordered rotation — vortex breakdown. Lift collapses gradually (not sharply like a conventional stall) and the burst wake buffets whatever it touches downstream; F/A-18 vertical tails cracked from LERX-vortex breakdown buffet until the fix programme. Breakdown position moving forward with α sets the practical manoeuvre limit."
+            />
+            <EqCard
+              label="The Price — and Concorde's Approach"
+              eq={<>C<sub>Di</sub> = <Fr n="C<sub>L</sub>²" d="πeAR"/>&ensp;with AR ≈ 1.7</>}
+              note="Vortex lift is expensive: with an aspect ratio of 1.7, induced drag at low speed is enormous, and the lift needed for landing arrives only at high α. Concorde approached at 10.5° pitch and ~160 knots with engines carrying much of the descent — the drag was so high that thrust, not pitch, controlled the glide path. The droop nose existed because the wing's physics demanded a deck angle pilots couldn't see over."
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ── 5 · Compressibility ──────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="compressibility" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SectionLabel>High-Speed Aerodynamics</SectionLabel>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Mach, Wave Drag, and Shock Waves.</h2>
@@ -407,7 +506,7 @@ export default function AerodynamicsPage() {
       </section>
 
       {/* ── 6 · Boundary Layer ───────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="boundary-layer" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SectionLabel>Viscous Effects</SectionLabel>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Reynolds Number and the Boundary Layer.</h2>
@@ -453,7 +552,7 @@ export default function AerodynamicsPage() {
       </section>
 
       {/* ── 7 · Stability ────────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="stability" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SectionLabel>Static and Dynamic Stability</SectionLabel>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Static Margin, Neutral Point, and Modes.</h2>
@@ -500,7 +599,7 @@ export default function AerodynamicsPage() {
       </section>
 
       {/* ── 8 · Performance ──────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="performance" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SectionLabel>Flight Performance</SectionLabel>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Range, Turning, and Specific Excess Power.</h2>
@@ -567,6 +666,16 @@ export default function AerodynamicsPage() {
             ))}
           </div>
 
+          <div className="mb-10 border-t border-white/[0.05] pt-8">
+            <ChipLinks
+              kicker="Continue the Notes"
+              chips={[
+                { href: "/gas-dynamics", label: "Gas Dynamics", sub: "shocks, nozzles, choked flow", accent: "#fb923c" },
+                { href: "/thermodynamics#propulsion", label: "Propulsion", sub: "turning L/D into range", accent: "#34d399" },
+                { href: "/fighters", label: "Fighter Jets", sub: "turn rate & Ps in practice", accent: "#ef4444" },
+              ]}
+            />
+          </div>
           <div className="border-t border-white/[0.05] pt-8 text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-white/20">
               AVIA · Aviation Encyclopedia · Aerodynamics Reference

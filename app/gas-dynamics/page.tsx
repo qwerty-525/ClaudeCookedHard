@@ -2,6 +2,18 @@
 import { ReactNode, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Typewriter } from "@/components/ui/typewriter"
+import TheoryToc from "@/components/TheoryToc"
+import ChipLinks from "@/components/ChipLinks"
+
+const TOC = [
+  { id: "governing", label: "Governing Eqns" },
+  { id: "isentropic", label: "Isentropic Flow" },
+  { id: "shocks", label: "Normal Shocks" },
+  { id: "oblique", label: "Oblique Shocks" },
+  { id: "nozzles", label: "Nozzle Flow" },
+  { id: "fanno-rayleigh", label: "Fanno · Rayleigh" },
+  { id: "inlets", label: "Inlets & Ramjets" },
+]
 
 function Fr({ n, d }: { n: ReactNode; d: ReactNode }) {
   return (
@@ -50,6 +62,7 @@ export default function GasDynamicsPage() {
 
   return (
     <main className="bg-[#04060a]">
+      <TheoryToc sections={TOC} accent="#fb923c" />
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section ref={heroRef} className="relative flex h-screen items-center justify-center overflow-hidden">
@@ -109,7 +122,7 @@ export default function GasDynamicsPage() {
       </section>
 
       {/* ── 1 · Governing Equations ──────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="governing" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Governing Equations</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Continuity, Momentum, Energy.</h2>
@@ -142,7 +155,7 @@ export default function GasDynamicsPage() {
       </section>
 
       {/* ── 2 · Isentropic Flow ──────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="isentropic" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Isentropic Flow Relations</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Critical Conditions and the Area–Mach Relation.</h2>
@@ -169,7 +182,7 @@ export default function GasDynamicsPage() {
       </section>
 
       {/* ── 3 · Normal Shocks ────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="shocks" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Normal Shock Waves</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Rankine–Hugoniot Jump Conditions.</h2>
@@ -203,7 +216,7 @@ export default function GasDynamicsPage() {
       </section>
 
       {/* ── 4 · Oblique Shocks and Expansion ────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="oblique" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Oblique Shocks and Expansion Waves</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Turning Supersonic Flow.</h2>
@@ -231,7 +244,7 @@ export default function GasDynamicsPage() {
       </section>
 
       {/* ── 5 · Nozzle Flow ──────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="nozzles" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Convergent–Divergent Nozzle Flow</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Choked Flow and Nozzle Operating Regimes.</h2>
@@ -264,7 +277,7 @@ export default function GasDynamicsPage() {
       </section>
 
       {/* ── 6 · Fanno and Rayleigh Flow ──────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="fanno-rayleigh" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Internal Duct Flows</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Fanno Flow and Rayleigh Flow.</h2>
@@ -291,6 +304,40 @@ export default function GasDynamicsPage() {
         </div>
       </section>
 
+      {/* ── 7 · Supersonic Inlets and High-Speed Propulsion ──────────── */}
+      <section id="inlets" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-5xl">
+          <SL>Applied Gas Dynamics</SL>
+          <h2 className="mb-4 text-4xl font-bold md:text-5xl">Supersonic Inlets, Ramjets, and Beyond.</h2>
+          <p className="mb-14 max-w-2xl text-lg leading-relaxed text-[#94a3b8]">
+            Everything above compounds into one engineering problem: swallow supersonic air,
+            decelerate it with minimum total pressure loss, and burn it. The inlet is where
+            most of a high-speed engine&apos;s thermodynamic work happens — and where it can all
+            be lost in milliseconds.
+          </p>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <EqCard label="Inlet Pressure Recovery"
+              eq={<>π<sub>d</sub> = <Fr n={<>p<sub>0,2</sub></>} d={<>p<sub>0,∞</sub></>}/>&ensp;→&ensp;each 1% ≈ 1.3% thrust</>}
+              note="The inlet's figure of merit: stagnation pressure delivered to the compressor face over freestream stagnation pressure. Losses come almost entirely from shocks. The sensitivity is brutal — roughly 1.3% of net thrust per 1% of recovery — because thrust is a small difference between large momentum flows. Inlet design is where supersonic aircraft programmes are won." />
+            <EqCard label="Oswatitsch Optimum — Shock Staging"
+              eq={<>optimum: M<sub>n</sub> equal across each oblique shock<br/><br/>3 shocks @ M2: π<sub>d</sub> ≈ 0.97 vs 0.72 (normal)</>}
+              note="Total pressure loss grows steeply with shock strength, so N weak shocks beat one strong one — and Oswatitsch proved recovery is maximised when each oblique shock has the same normal Mach number. Concorde's intake used two variable ramps plus a terminal normal shock to recover ~96% at Mach 2; a pitot inlet swallowing one normal shock would recover 72% and the aircraft could not have cruised." />
+            <EqCard label="MIL-E-5008B Recovery Standard"
+              eq={<>π<sub>d</sub> = 1 − 0.075(M<sub>∞</sub> − 1)<sup>1.35</sup></>}
+              note="The classic military specification for expected inlet recovery from Mach 1 to 5 — the baseline every real inlet is judged against. At M1.6: 0.97. At M2.2: 0.91. At M3.2: 0.77. It quantifies why sustained flight above Mach 3 stopped making sense for air-breathing turbojets: the recoverable pressure, and with it thrust margin, falls away faster than speed adds value." />
+            <EqCard label="Inlet Unstart"
+              eq={<>mixed-compression inlet:<br/>swallowed shock expelled → π<sub>d</sub> collapses</>}
+              note="A mixed-compression inlet decelerates flow through internal shocks positioned by precise backpressure. Any disturbance — a gust, a manoeuvre — can push the terminal shock forward out of the duct in milliseconds: unstart. Recovery collapses, drag spikes, and the asymmetric thrust yaws the aircraft violently. SR-71 crews called them 'unstarts'; the fix was automatic spike scheduling that re-swallowed the shock faster than a human could react." />
+            <EqCard label="The Ramjet"
+              eq={<>no turbomachinery:<br/>ram compression → burn → expand<br/><br/>useful M ≈ 2–6</>}
+              note="Above roughly Mach 2, ram compression alone rivals a mechanical compressor — so remove the compressor, and with it the turbine and its temperature limit. A ramjet is an inlet, a flame holder, and a nozzle. The catch: zero static thrust (it must be boosted to speed) and below ~M2 the cycle barely closes. The SR-71's J58 bled inlet air around the core above M2.5, becoming a de facto ramjet — the reason it got faster more efficiently the faster it flew." />
+            <EqCard label="The Scramjet — Supersonic Combustion"
+              eq={<>M<sub>combustor</sub> &gt; 1&ensp;(no throat)<br/><br/>X-43A: M 9.6 · X-51: 210 s burn</>}
+              note="Past Mach 5–6, decelerating flow to subsonic speed for combustion would heat it beyond dissociation and destroy the recovery — so a scramjet burns while the flow is still supersonic, with microseconds of residence time (likened to lighting a match in a hurricane). NASA's X-43A proved it at Mach 9.6 in 2004; the X-51 sustained combustion for 210 seconds in 2013. It remains the only credible air-breathing path to hypersonic cruise." />
+          </div>
+        </div>
+      </section>
+
       {/* ── Footer ───────────────────────────────────────────────────── */}
       <section className="border-t border-white/[0.04] bg-[#04060a] px-6 py-16 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
@@ -310,6 +357,16 @@ export default function GasDynamicsPage() {
                 </ul>
               </div>
             ))}
+          </div>
+          <div className="mb-10 border-t border-white/[0.05] pt-8">
+            <ChipLinks
+              kicker="Continue the Notes"
+              chips={[
+                { href: "/thermodynamics#propulsion", label: "Propulsion", sub: "nozzle thrust in the cycle", accent: "#34d399" },
+                { href: "/aerodynamics#compressibility", label: "Aerodynamics", sub: "wave drag & critical Mach", accent: "#22d3ee" },
+                { href: "/engines/olympus-593", label: "Olympus 593", sub: "shock management at Mach 2", accent: "#f59e0b" },
+              ]}
+            />
           </div>
           <div className="border-t border-white/[0.05] pt-8 text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-white/20">AVIA · Engineering Theory · Gas Dynamics</p>

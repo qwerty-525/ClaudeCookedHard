@@ -18,10 +18,18 @@ A scroll-animated aviation info site built with Next.js 15, Tailwind CSS v3, and
 | `/` | Commercial airliners page |
 | `/fighters` | Fighter jets page |
 | `/engines` | Jet engines page |
-| `/scrollytelling` | B-2 Spirit canvas scroll sequence |
-| `/planes/[slug]` | Commercial plane detail page |
-| `/fighters/[slug]` | Fighter jet detail page |
+| `/b-2` | B-2 Spirit canvas scroll sequence |
+| `/commercial` | Flight deck / cockpit scroll page |
+| `/planes/[slug]` | Commercial plane detail page (plus hand-built Concorde sub-pages under `/planes/concorde/*`) |
+| `/fighters/[slug]` | Fighter jet detail page (F-35 and F-117 have hand-built pages at `/fighters/f35`, `/fighters/f117`) |
 | `/engines/[slug]` | Engine detail page |
+| `/aerodynamics` | Theory notes — aerodynamics (cyan accent) |
+| `/thermodynamics` | Theory notes — thermodynamics + propulsion + combustion (emerald accent) |
+| `/gas-dynamics` | Theory notes — compressible flow, shocks, nozzles, inlets (orange accent) |
+| `/heat-transfer` | Theory notes — conduction/convection/radiation (purple accent) |
+| `/spacecraft` | Spacecraft page (indigo accent) |
+
+Theory pages share a common pattern: hero SVG diagram + `EqCard`/`Fr` local components for equations with explanatory notes. `components/SpecTable.tsx` renders the engineering comparison tables on the three aircraft tab pages.
 
 ## Colour Tokens
 
@@ -68,7 +76,7 @@ All aircraft/engine data lives in `lib/data.ts` and exports:
 - `fighterJets: Aircraft[]`
 - `engines: Aircraft[]`
 
-The `Aircraft` interface has: `slug`, `name`, `detail`, `year`, `fact`, `image?`, `description?`, `specs?`.
+The `Aircraft` interface has: `slug`, `name`, `detail`, `year`, `fact`, `image?`, `description?`, `specs?`, plus `highlights?` ("At a glance" bullets, `**bold**` markup rendered via `lib/text.tsx` `renderBold`), `compare?` (normalized `CompareSpec` powering the home-page compare feature — row config in `lib/compare.ts`, UI in `components/compare/`), and `relatedEngines?` (engine slugs for detail-page cross-links).
 
 Images live in `public/planes/`: `a380.png`, `boeing747.png`, `concorde.png`, `f35.png`.
 B-2 canvas frames: `public/sequence/ezgif-frame-001.png` … `ezgif-frame-156.png`.

@@ -1,3 +1,19 @@
+export interface CompareSpec {
+  variant: string
+  rangeNmi: number
+  cruiseMach: number
+  ceilingFt?: number
+  engines: string
+  engineCount: number
+  thrustEachLbf?: number
+  wingspanM: number
+  lengthM: number
+  mtowT: number
+  paxTypical: number
+  paxMax: number
+  features: string[]
+}
+
 export interface Aircraft {
   slug: string
   role?: string
@@ -10,9 +26,12 @@ export interface Aircraft {
   mach?: number
   status?: "active" | "legacy" | "retired"
   description?: string
+  highlights?: string[]
   specs?: { label: string; value: string }[]
   routes?: string[]
   engineeringFeatures?: { title: string; body: string }[]
+  compare?: CompareSpec
+  relatedEngines?: string[]
 }
 
 export const commercialPlanes: Aircraft[] = [
@@ -27,8 +46,15 @@ export const commercialPlanes: Aircraft[] = [
     fact: "The 'Queen of the Skies' — the first wide-body jet, its iconic hump reshaping air travel. Production ended February 2023 after 1,574 deliveries spanning 54 years.",
     image: "/planes/boeing747.png",
     status: "legacy",
+    highlights: [
+      "**First wide-body jet** — the double-lobe fuselage carried passengers above and standard freight containers below",
+      "**Designed in 28 months** by 4,500 engineers nicknamed 'the Incredibles'",
+      "**High-bypass turbofan pioneer** — the JT9D nearly tripled the bypass ratio of contemporary engines",
+      "**910,000 lb at takeoff** from ordinary runways, thanks to triple-slotted flaps and a supercritical wing",
+      "**1,574 built over 54 years** — the longest widebody production run in history",
+    ],
     description:
-      "The Boeing 747 was born from an unlikely partnership between Boeing and Pan American World Airways, who needed something far larger than the 707. Chief engineer Joe Sutter led a team of over 4,500 engineers who designed the jet in just 28 months — a pace so relentless the team was nicknamed 'the Incredibles'. The aircraft's signature upper deck hump was originally conceived as a lounge for first-class passengers; only later did it become a flight deck sitting atop a double-lobe fuselage wide enough to carry standard freight containers side by side.\n\nThe 747's high-bypass turbofan engines, led into service by the Pratt & Whitney JT9D, were themselves a technological leap — nearly three times the bypass ratio of contemporary military engines. The wing, spanning over 211 feet on the -400 variant, used a supercritical aerofoil and sophisticated high-lift devices that allowed the aircraft to operate from existing runways despite weighing up to 910,000 lbs at takeoff. Production ended on February 1, 2023, when the final 747-8F was delivered to Atlas Air — closing a 54-year manufacturing run and the longest in widebody history.",
+      "The Boeing 747 was born from an unlikely partnership between Boeing and Pan Am, who needed something far larger than the 707. Chief engineer Joe Sutter's team of 4,500 designed the jet in just **28 months** — a pace so relentless they were nicknamed 'the Incredibles'. The signature hump began as a first-class lounge; beneath it, the **double-lobe fuselage** was wide enough to carry freight containers side by side, making the 747 the first aircraft conceived from the outset as both airliner and freighter.\n\nIts JT9D engines brought **high-bypass turbofan** efficiency to commercial aviation, and the 211-foot supercritical wing let a **910,000 lb aircraft** operate from runways built for jets half its weight. Production ended in February 2023 with the final 747-8F — closing a **54-year run**, the longest in widebody history.",
     specs: [
       { label: "Wingspan", value: "211 ft 5 in (64.4 m)" },
       { label: "Length", value: "231 ft 10 in (70.6 m)" },
@@ -54,6 +80,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "The 211-foot wing uses a supercritical aerofoil to minimise wave drag at cruise while complex leading-edge slats and triple-slotted trailing-edge flaps allow a 910,000 lb aircraft to operate from runways designed for jets half its weight. Boeing's engineers had just 28 months to design the entire aircraft — the team was nicknamed 'the Incredibles'.",
       },
     ],
+    compare: {
+      variant: "747-400",
+      rangeNmi: 7730,
+      cruiseMach: 0.85,
+      ceilingFt: 45100,
+      engines: "4× PW4056 / GE CF6 / RR RB211",
+      engineCount: 4,
+      thrustEachLbf: 63300,
+      wingspanM: 64.4,
+      lengthM: 70.6,
+      mtowT: 413,
+      paxTypical: 416,
+      paxMax: 660,
+      features: [
+        "First wide-body jet ever built",
+        "Double-lobe fuselage — airliner and freighter in one",
+        "High-bypass turbofan pioneer",
+      ],
+    },
   },
   {
     slug: "airbus-a380",
@@ -66,8 +111,14 @@ export const commercialPlanes: Aircraft[] = [
     fact: "The world's largest passenger aircraft with two full passenger decks, capable of carrying over 800 passengers in all-economy configuration.",
     image: "/planes/a380.png",
     status: "legacy",
+    highlights: [
+      "**Two full-length passenger decks** — up to 853 seats, the largest airliner ever built",
+      "**3.1 L per 100 passenger-km** — less fuel per passenger than a family car",
+      "**First large-scale CFRP wing box** on a commercial aircraft; roughly 25% composite airframe",
+      "**Built across four countries** — sections moved by barge, convoy, and Beluga to Toulouse",
+    ],
     description:
-      "The Airbus A380 is an engineering monument shaped by an audacious bet: that the future of aviation lay in flying more people per departure, not more flights. Its double-deck, full-length fuselage — with a cross-section of 7.14 m — required Airbus to invent entirely new manufacturing logistics, building sections in factories across Britain, France, Germany, and Spain before shipping them by barge and convoy to Toulouse for final assembly.\n\nRoughly 25% of the airframe is carbon-fibre-reinforced polymer, and the wing box alone uses CFRP for the first time on a commercial aircraft at this scale. The supercritical wing, spanning nearly 80 metres, is so efficient that the A380 burns just 3.1 litres of fuel per 100 passenger-kilometres — less than a family car. Each of its four Trent 900 or GP7200 engines produces up to 76,500 lbf of thrust, yet the aircraft is certified for noise-sensitive airports because its twin-deck boarding empties passengers faster, reducing block time.",
+      "The Airbus A380 is an engineering monument to an audacious bet: that aviation's future lay in flying **more people per departure**, not more flights. Its double-deck, full-length fuselage required Airbus to invent continent-scale manufacturing logistics — sections built in Britain, France, Germany, and Spain, then shipped by barge and convoy to Toulouse for final assembly.\n\nRoughly **25% of the airframe is carbon-fibre**, including the first CFRP wing box on a commercial aircraft at this scale. The near-80-metre supercritical wing is so efficient that the A380 burns just **3.1 litres of fuel per 100 passenger-kilometres** — less than a family car — while four engines of up to 76,500 lbf each lift over a million pounds off the runway.",
     specs: [
       { label: "Wingspan", value: "261 ft 8 in (79.75 m)" },
       { label: "Length", value: "238 ft 7 in (72.72 m)" },
@@ -94,6 +145,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "Despite four engines, the A380 burns only 3.1 litres per 100 passenger-kilometres — less than a family car. The double-deck configuration's 853-seat maximum capacity amortises fuel burn across far more seats than any single-deck aircraft, making per-passenger efficiency the A380's strongest economic argument at high load factors.",
       },
     ],
+    compare: {
+      variant: "A380-800",
+      rangeNmi: 8000,
+      cruiseMach: 0.85,
+      ceilingFt: 43000,
+      engines: "4× RR Trent 900 / EA GP7200",
+      engineCount: 4,
+      thrustEachLbf: 70000,
+      wingspanM: 79.8,
+      lengthM: 72.7,
+      mtowT: 575,
+      paxTypical: 545,
+      paxMax: 853,
+      features: [
+        "Two full-length passenger decks",
+        "3.1 L / 100 pax-km fuel burn",
+        "First large-scale CFRP wing box",
+      ],
+    },
   },
   {
     slug: "concorde",
@@ -106,8 +176,14 @@ export const commercialPlanes: Aircraft[] = [
     fact: "The only supersonic passenger jet in commercial service. Crossed the Atlantic in under 3.5 hours at Mach 2 — twice the speed of sound.",
     image: "/planes/concorde.png",
     status: "retired",
+    highlights: [
+      "**Mach 2.04 cruise** — New York in under 3.5 hours, twice the speed of sound",
+      "**Ogival delta wing with no tailplane** — vortex lift, and a droop nose so pilots could see the runway",
+      "**180°C at the nose tip** in cruise — an aluminium alloy borrowed from engine pistons",
+      "**Supersonic in dry power** — the only airliner ever to cruise beyond Mach 1 without afterburner",
+    ],
     description:
-      "Concorde was not merely fast — it was a complete reimagining of what a passenger aircraft could be. Its ogival delta wing had no separate tailplane; instead, the entire wing-body generated lift and stability through complex vortex aerodynamics that worked best above Mach 1.3. This forced the aircraft to take off and land at unusually high angles of attack, giving crews the distinctive 'droop-nose' mechanism that lowered the nose section so pilots could actually see the runway.\n\nThe airframe was constructed primarily from aluminium alloy — specifically an alloy developed for aero-engine pistons, because at cruise the skin temperature reached 127°C and the nose tip hit 180°C. Titanium was used only where unavoidable, because its cost and weight would have been prohibitive across the entire fuselage. The four Olympus 593 engines used reheat (afterburner) during takeoff and the transonic acceleration to Mach 1, but cruised supersonically in dry power — the only commercial aircraft ever to do so economically. Each flight consumed roughly 25,000 litres of fuel while carrying just 100 passengers.",
+      "Concorde was not merely fast — it was a complete reimagining of what a passenger aircraft could be. Its **ogival delta wing had no separate tailplane**; the entire wing-body generated lift and stability through vortex aerodynamics that worked best above Mach 1.3. Taking off and landing at extreme angles of attack demanded the famous **droop nose**, hydraulically lowered so pilots could actually see the runway.\n\nAt cruise the skin reached **127°C — 180°C at the nose tip** — so the airframe used an aluminium alloy developed for aero-engine pistons. The four Olympus 593s used reheat only for takeoff and the push through Mach 1, then **cruised supersonically in dry power** — the only commercial aircraft ever to do so economically.",
     specs: [
       { label: "Wingspan", value: "83 ft 10 in (25.6 m)" },
       { label: "Length", value: "202 ft 4 in (61.66 m)" },
@@ -134,6 +210,26 @@ export const commercialPlanes: Aircraft[] = [
         body: "Aerodynamic heating raises the skin to 127°C at cruise and 180°C at the nose tip — temperatures that would cause standard aircraft aluminium to creep and fatigue. Concorde's structure used an alloy originally developed for aero-engine pistons. Titanium was used only where unavoidable, as its cost and weight penalty across an entire fuselage would have made the programme economically impossible.",
       },
     ],
+    compare: {
+      variant: "Concorde",
+      rangeNmi: 3900,
+      cruiseMach: 2.04,
+      ceilingFt: 60000,
+      engines: "4× RR/Snecma Olympus 593",
+      engineCount: 4,
+      thrustEachLbf: 38050,
+      wingspanM: 25.6,
+      lengthM: 61.66,
+      mtowT: 185,
+      paxTypical: 100,
+      paxMax: 128,
+      features: [
+        "Mach 2.04 supersonic cruise",
+        "Ogival delta wing, no tailplane",
+        "Droop nose for runway visibility",
+      ],
+    },
+    relatedEngines: ["olympus-593"],
   },
   {
     slug: "boeing-777",
@@ -144,8 +240,15 @@ export const commercialPlanes: Aircraft[] = [
     detail: "Boeing · USA",
     year: 1994,
     fact: "The world's largest twin-engine airliner. Its GE90-115B engine holds the verified record for the highest thrust ever produced by a commercial jet engine.",
+    highlights: [
+      "**First airliner designed entirely on computer** — no paper drawings, no physical mock-up",
+      "**World-record thrust** — the GE90-115B hit 127,900 lbf in testing",
+      "**A fan wider than a 737 fuselage** — 128 inches, with carbon-fibre blades",
+      "**Largest twin-engine airliner** — 396 seats, the backbone of long-haul for two decades",
+      "**Boeing's first fly-by-wire**, kept behind a conventional yoke",
+    ],
     description:
-      "The Boeing 777 was the first commercial aircraft designed entirely on computer — no paper drawings, no physical mock-up. Eight major airlines co-designed it with Boeing under a 'Working Together' programme that meant the first 777-200 to roll off the line in 1994 fit together perfectly on the first attempt. Its fly-by-wire primary flight computers were the first used by a Boeing airliner, though Boeing retained conventional yoke controls rather than adopting Airbus's side-stick approach.\n\nThe 777's most extraordinary feature is its engine. The GE90-115B's fan blades — 22 of them, each over four feet long — are carbon-fibre composites curved like an eagle's wing and larger than the engines of an entire 737. At 128 inches in diameter, the fan is wider than the fuselage of the 737. In testing it produced 127,900 lbf, setting a world record. The -300ER variant's range of 7,370 nautical miles, combined with its 396-seat capacity, made it the backbone of long-haul international aviation for two decades.",
+      "The Boeing 777 was the **first commercial aircraft designed entirely on computer** — no paper drawings, no physical mock-up. Eight airlines co-designed it under Boeing's 'Working Together' programme, and the first 777 off the line in 1994 fit together perfectly on the first attempt. It was also Boeing's first fly-by-wire airliner, though it kept a conventional yoke rather than Airbus's side-stick.\n\nIts most extraordinary feature is the engine. The GE90-115B's 22 carbon-fibre fan blades sweep a disc **wider than a 737's fuselage**, and in testing the engine produced a **world-record 127,900 lbf**. The -300ER's 7,370 nmi range and 396 seats made it the backbone of long-haul aviation for two decades.",
     specs: [
       { label: "Wingspan", value: "212 ft 7 in (64.8 m)" },
       { label: "Length", value: "242 ft 4 in (73.86 m) — 777-300ER" },
@@ -171,6 +274,26 @@ export const commercialPlanes: Aircraft[] = [
         body: "The 777 was Boeing's first airliner with fly-by-wire primary flight controls, but deliberately retained a conventional centre yoke rather than adopting Airbus's side-stick. This preserved crew familiarity and type-rating continuity for airlines transitioning from 747 and 767 operations — a commercial calculation as important as the technical choice of control architecture.",
       },
     ],
+    compare: {
+      variant: "777-300ER",
+      rangeNmi: 7370,
+      cruiseMach: 0.84,
+      ceilingFt: 43100,
+      engines: "2× GE90-115B",
+      engineCount: 2,
+      thrustEachLbf: 115300,
+      wingspanM: 64.8,
+      lengthM: 73.86,
+      mtowT: 352,
+      paxTypical: 396,
+      paxMax: 550,
+      features: [
+        "First fully computer-designed airliner",
+        "World-record GE90 thrust",
+        "Largest twin-engine airliner",
+      ],
+    },
+    relatedEngines: ["ge90-115b", "ge9x"],
   },
   {
     slug: "boeing-787-dreamliner",
@@ -181,8 +304,14 @@ export const commercialPlanes: Aircraft[] = [
     detail: "Boeing · USA",
     year: 2009,
     fact: "First commercial aircraft with over 50% composite materials. Cabin humidity is higher and cabin altitude is lower than any previous jet, reducing passenger fatigue.",
+    highlights: [
+      "**50% composite airframe** — one-piece CFRP fuselage barrels instead of thousands of riveted panels",
+      "**6,000 ft cabin altitude and 15% humidity** — measurably less jet lag",
+      "**Bleed-air eliminated** — an all-electric systems architecture cuts fuel burn",
+      "**20% better fuel efficiency** than the 767 it replaced",
+    ],
     description:
-      "The 787 Dreamliner was Boeing's most radical departure from conventional aluminium construction since the 707. Its fuselage is built from continuous barrel sections of carbon-fibre-reinforced polymer — a one-piece tube rather than thousands of panels and rivets. By weight, the airframe is 50% composite, 20% aluminium, 15% titanium, and 10% steel, making it the first commercial jet in which composites are the dominant structural material.\n\nThe implications cascade through the entire design. Because CFRP doesn't corrode, Boeing could increase cabin humidity from the typical 4% to 15% and lower the equivalent cabin altitude from 8,000 ft to 6,000 ft — measurably reducing headaches and jet lag for passengers. The electrical architecture replaced traditional bleed-air systems (which tap hot compressed air from the engines to power the cabin and de-icing) with an all-electric equivalent, reducing fuel burn. The GEnx and Trent 1000 engines, both geared or three-spool designs, deliver 20% better fuel efficiency than the 767 they replaced.",
+      "The 787 Dreamliner was Boeing's most radical break from aluminium construction since the 707. Its fuselage is built from **continuous one-piece CFRP barrel sections** rather than thousands of panels and rivets, making it the first commercial jet in which **composites are the dominant structural material** — 50% by weight.\n\nThe implications cascade through the design. Because CFRP doesn't corrode, cabin humidity rises to **15%** and cabin altitude drops to **6,000 ft** — measurably reducing headaches and jet lag. An **all-electric architecture** replaced traditional bleed-air systems, and the GEnx and Trent 1000 engines deliver **20% better fuel efficiency** than the 767 the Dreamliner replaced.",
     specs: [
       { label: "Wingspan", value: "197 ft 3 in (60.12 m) — 787-8" },
       { label: "Length", value: "186 ft 1 in (56.7 m) — 787-8 / 206 ft 1 in — 787-9" },
@@ -209,6 +338,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "Higher internal pressurisation lowers the equivalent cabin altitude from the industry-standard 8,000 ft to 6,000 ft, while cabin humidity is maintained at 15% versus the 4% typical of aluminium aircraft — which must be kept dry to prevent corrosion. Clinically measurable reductions in headaches, dehydration, and fatigue on long sectors are a direct result of the composite fuselage making moisture management possible.",
       },
     ],
+    compare: {
+      variant: "787-9",
+      rangeNmi: 7565,
+      cruiseMach: 0.85,
+      ceilingFt: 43100,
+      engines: "2× GEnx-1B / RR Trent 1000",
+      engineCount: 2,
+      thrustEachLbf: 74100,
+      wingspanM: 60.12,
+      lengthM: 62.81,
+      mtowT: 254,
+      paxTypical: 290,
+      paxMax: 420,
+      features: [
+        "50% composite airframe",
+        "6,000 ft cabin altitude, 15% humidity",
+        "No-bleed all-electric architecture",
+      ],
+    },
   },
   {
     slug: "airbus-a350",
@@ -219,23 +367,33 @@ export const commercialPlanes: Aircraft[] = [
     detail: "Airbus · Europe",
     year: 2013,
     fact: "Curved titanium wingtips and a carbon-fibre fuselage achieve 25% better fuel efficiency versus the aircraft it replaces.",
+    highlights: [
+      "**53% composite airframe** — over 70% advanced materials, the highest fraction of any airliner",
+      "**25% lower fuel burn and CO₂** than the previous generation, and up to 9 dB quieter",
+      "**World's longest route** — the 9,700 nmi A350-900ULR flies Singapore–New York non-stop",
+      "**Airspace cabin** — 6,000 ft cabin altitude, HEPA air fully renewed every 2–3 minutes",
+      "**Project Sunrise ULR** — 20,000 L rear centre tank for non-stop Sydney–London, capped at 238 seats",
+    ],
     description:
-      "The Airbus A350 XWB ('Extra Wide Body') was conceived after Boeing launched the 787, and Airbus's initial response — simply upgrading the A330 — was rejected so emphatically by airlines that Airbus had to start from scratch. The result exceeds the 787 in composite content: 53% of the A350's structure is CFRP, including not only the wing and tail but the fuselage frames and skin panels. The wider fuselage cross-section, at 5.97 metres, gives passengers noticeably more room than the 787.\n\nThe wing is a masterpiece of aerodynamic engineering. At 64.75 metres, it uses a carbon composite torsion box that allows it to flex several metres at the tip — impossible in aluminium — and terminates in blade-like curved winglets that are integrated into the wing structure rather than bolted on. Each Trent XWB engine produces up to 97,000 lbf, giving the A350-1000 enough thrust to fly the world's longest scheduled route: Singapore to New York, 9,537 nautical miles, 18 hours, 45 minutes.",
+      "The A350 XWB ('Extra Wide Body') exists because airlines rejected Airbus's first answer to the 787 — a warmed-over A330 — so emphatically that Airbus started from scratch. The clean-sheet result overtook the 787 in composite content: **53% of the structure is carbon-fibre**, including the fuselage frames and skin panels, and the **5.96 m 'extra wide' cross-section** gives passengers noticeably more room than its rival.\n\nThe wing is the masterpiece: a **64.75 m carbon torsion box that flexes several metres at the tip** — impossible in aluminium — ending in blade-like winglets grown into the structure rather than bolted on. Paired with Trent XWB engines of up to 97,000 lbf, one common wing and cockpit carries the whole family: the A350-900, the stretched -1000, the **A350-900ULR that flies the world's longest route** (Singapore–New York, 18h 45m), the A350F freighter, and the **A350-1000ULR built for Qantas's Project Sunrise** — Sydney to London, non-stop.",
     specs: [
-      { label: "Wingspan", value: "212 ft 5 in (64.75 m)" },
-      { label: "Length", value: "219 ft 2 in (66.8 m) — A350-900" },
+      { label: "Wingspan", value: "212 ft 5 in (64.75 m) — all variants" },
+      { label: "Length", value: "219 ft 2 in (66.8 m) — A350-900 · 242 ft 1 in (73.8 m) — A350-1000/-1000ULR" },
       { label: "Engines", value: "2× Rolls-Royce Trent XWB-84 or XWB-97" },
       { label: "Thrust (each)", value: "84,000–97,000 lbf" },
       { label: "Cruise speed", value: "Mach 0.85 (567 mph / 903 km/h)" },
-      { label: "Range", value: "8,100 nmi (15,000 km) — A350-900" },
-      { label: "Passengers", value: "315–440 (2-class)" },
-      { label: "Max takeoff weight", value: "617,300 lb (280,000 kg) — A350-900" },
+      { label: "Range", value: "8,500 nmi (15,750 km) — A350-900 · 9,000 nmi (16,700 km) — A350-1000 HGW · 9,700 nmi — A350-900ULR" },
+      { label: "Passengers", value: "332–352 (3-class) — A350-900 · 375–400 (3-class) — A350-1000 · 238 (4-class) — A350-1000ULR" },
+      { label: "Max takeoff weight", value: "624,600 lb (283,000 kg) — A350-900 HGW · 710,000 lb (322,000 kg) — A350-1000 HGW" },
       { label: "Composite content", value: "53% by weight (more than any other airliner)" },
+      { label: "Variants", value: "A350-900 · A350-900ULR · A350-1000 · A350-1000ULR · A350F freighter" },
+      { label: "Fleet (June 2026)", value: "1,595 orders · 718 deliveries · 41 operators" },
+      { label: "A350-1000ULR orders", value: "12 (Qantas, Project Sunrise) · first delivery April 2027" },
     ],
     engineeringFeatures: [
       {
         title: "Integrated CFRP Wing and Winglets",
-        body: "The 64.75-metre wing is a single carbon-fibre torsion box that can flex several metres at the tip — structurally impossible in aluminium, which would fatigue at that deflection. The curved blade winglets are engineered into the wing's load distribution rather than bolted on as afterthoughts, reducing induced drag more efficiently than any retrofit winglet programme.",
+        body: "The 64.75-metre wing is a single carbon-fibre torsion box that can flex several metres at the tip — structurally impossible in aluminium, which would fatigue at that deflection. The curved blade winglets are engineered into the wing's load distribution rather than bolted on as afterthoughts, reducing induced drag more efficiently than any retrofit winglet programme. Trailing-edge surfaces morph shape in flight, adjusting camber between takeoff, climb, and cruise so the wing holds close to its ideal aerodynamic profile across a flight rather than being optimised for one fixed condition.",
       },
       {
         title: "53% Composite Airframe — Industry First",
@@ -245,7 +403,35 @@ export const commercialPlanes: Aircraft[] = [
         title: "Trent XWB Co-Development",
         body: "The engine and airframe were developed concurrently by Airbus and Rolls-Royce rather than adapting an existing engine to a new airframe. The intake, fan cowl, and thrust reverser are tuned to the A350's specific nacelle geometry — an integration benefit impossible when a single engine must serve multiple aircraft types. The result is the Trent XWB-97's 61:1 overall pressure ratio, the highest of any large commercial engine in service.",
       },
+      {
+        title: "Airspace Cabin and One Common Type Rating",
+        body: "The A350-900, -1000, and A350F share a single wing and cockpit, letting crews fly all three under one type rating. The Airspace cabin built on that shared platform lowers cabin altitude to 6,000 ft and holds humidity at 15%, and Airbus certifies the family to run on up to 50% sustainable aviation fuel blends — the same composite structure that saves weight also underwrites the emissions and noise reductions Airbus advertises against the previous generation.",
+      },
+      {
+        title: "Rear Centre Tank — the A350-1000ULR's Range Extension",
+        body: "Rather than redesign the wing, Airbus added a 20,000-litre fuel tank in the rear centre of the fuselage — the same space-efficient trick used on long-range narrowbodies, scaled up for a widebody. That alone buys roughly 1,000 additional nautical miles, enough to turn Sydney–London and Sydney–New York from impossible into scheduled routes. A lighter Next Generation Air Cooling galley system claws back about 300 kg to help offset the added fuel weight, and the passenger count is deliberately capped at 238 across four classes so the extra weight budget goes to fuel and crew rest rather than seats.",
+      },
     ],
+    compare: {
+      variant: "A350-900",
+      rangeNmi: 8500,
+      cruiseMach: 0.85,
+      engines: "2× RR Trent XWB-84",
+      engineCount: 2,
+      thrustEachLbf: 84000,
+      wingspanM: 64.75,
+      lengthM: 66.8,
+      mtowT: 283,
+      paxTypical: 332,
+      paxMax: 440,
+      features: [
+        "53% composite airframe",
+        "25% lower fuel burn & CO₂",
+        "Airspace cabin — 6,000 ft cabin altitude",
+        "Certified for 50% SAF blends",
+      ],
+    },
+    relatedEngines: ["rolls-royce-trent-xwb"],
   },
   {
     slug: "airbus-a320",
@@ -257,8 +443,14 @@ export const commercialPlanes: Aircraft[] = [
     year: 1987,
     status: "legacy",
     fact: "First airliner with fly-by-wire and side-stick controllers. The A320 family remains the world's best-selling narrowbody jet with over 10,000 in service.",
+    highlights: [
+      "**First fly-by-wire airliner** — envelope protection means it cannot exceed its structural limits",
+      "**Side-stick cockpit** that defined every Airbus since",
+      "**Wider cabin than the 737** — true 3-3 seating with a full trolley aisle",
+      "**10,000+ delivered** — the best-selling narrowbody family in history",
+    ],
     description:
-      "The Airbus A320 didn't just introduce fly-by-wire to commercial aviation — it introduced an entirely new philosophy of the relationship between pilot and machine. Where Boeing's systems respond directly to pilot inputs, the A320's flight computers enforce a flight envelope: no matter what the pilot commands, the aircraft will never exceed its structural or aerodynamic limits. This 'envelope protection' was controversial at launch and remains debated, but it has made the A320 family one of the safest narrowbodies ever built.\n\nThe side-stick replacing the traditional centre yoke freed up the instrument panel and gave crews more space. The aircraft's cross-section, wider than the Boeing 737, allowed true two-by-three seating with an aisle wide enough to pass a meal trolley. The CFM56 or IAE V2500 engines were more efficient than anything previously fitted to a narrowbody. Over 10,000 A320-family aircraft have been delivered, making it the most successful commercial aircraft programme in history by orders.",
+      "The Airbus A320 didn't just introduce **fly-by-wire** to commercial aviation — it introduced a new philosophy of pilot and machine. Its flight computers enforce a hard envelope: no matter what the pilot commands, the aircraft **cannot exceed its structural or aerodynamic limits**. Controversial at launch, envelope protection has helped make the A320 one of the safest narrowbodies ever built.\n\nThe **side-stick** replaced the centre yoke and defined every Airbus cockpit since, while a cross-section **wider than the 737's** allowed true 3-3 seating with a full trolley aisle. Over **10,000 delivered** make it the most successful airliner programme in history by orders.",
     specs: [
       { label: "Wingspan", value: "117 ft 5 in (35.8 m)" },
       { label: "Length", value: "123 ft 3 in (37.57 m)" },
@@ -284,6 +476,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "The A320's fuselage cross-section is 157 cm versus the 737's 142 cm — a structural difference locked in at design and impossible to replicate in a derivative. The extra width creates a genuine 3-3 layout with an aisle wide enough for a full-service trolley, compared to the 737's narrower aisle where trolley service requires passengers to turn sideways.",
       },
     ],
+    compare: {
+      variant: "A320-200",
+      rangeNmi: 3300,
+      cruiseMach: 0.78,
+      ceilingFt: 39800,
+      engines: "2× CFM56-5B / IAE V2500",
+      engineCount: 2,
+      thrustEachLbf: 27000,
+      wingspanM: 35.8,
+      lengthM: 37.57,
+      mtowT: 73.5,
+      paxTypical: 150,
+      paxMax: 186,
+      features: [
+        "First fly-by-wire airliner",
+        "Side-stick cockpit",
+        "Wider cabin than the 737",
+      ],
+    },
   },
   {
     slug: "airbus-a320neo",
@@ -294,8 +505,14 @@ export const commercialPlanes: Aircraft[] = [
     detail: "Airbus · Europe",
     year: 2016,
     fact: "The 'New Engine Option' narrowbody that outsold its Boeing rival before it flew. Over 8,000 orders placed by entry into service — the fastest-selling airliner in history.",
+    highlights: [
+      "**~20% lower fuel burn per seat** from LEAP-1A or PW1100G geared turbofans",
+      "**8,000+ orders before entry into service** — the fastest-selling airliner in history",
+      "**Sharklets add 100 nmi of range** and cut induced drag by 4%",
+      "**Same type rating as the A320ceo** — a differences course, not retraining",
+    ],
     description:
-      "The A320neo (New Engine Option) is precisely what its name says: the A320 family re-engined, rather than redesigned. Airlines could choose between the CFM LEAP-1A or the Pratt & Whitney PW1100G Geared Turbofan — the first time a narrowbody had launched with two competing next-generation engine options. Both deliver around 20% better fuel burn than the CFM56 and V2500 they replace. The GTF achieves this through a reduction gearbox separating the fan and low-pressure turbine, allowing each to spin at its optimal speed — a fundamentally different approach from the LEAP's direct-drive architecture.\n\nBeyond the engine, the A320neo introduced Sharklet wingtip devices — upswept blended winglets that cut induced drag by up to 4% and add 100 nautical miles of range. Because the airframe was otherwise unchanged, A320ceo-rated pilots could fly the neo after a brief differences course. This commonality, combined with the A320's existing advantage in cabin width and automation, allowed Airbus to accumulate over 8,000 neo-family orders before the aircraft entered commercial service with Lufthansa in January 2016 — a milestone that signalled the neo had decisively won the first round of the narrowbody re-engine war.",
+      "The A320neo (New Engine Option) is precisely what its name says: the A320 **re-engined, not redesigned**. Airlines choose between the CFM LEAP-1A and the PW1100G Geared Turbofan — the first narrowbody launched with two competing next-generation engines — and both deliver around **20% better fuel burn** than the CFM56 and V2500 they replace.\n\nUpswept **Sharklet winglets** cut induced drag by 4% and add 100 nautical miles of range, while the unchanged airframe means ceo-rated pilots convert after a brief differences course. That commonality let Airbus book **over 8,000 orders before entry into service** in January 2016 — decisively winning the first round of the narrowbody re-engine war.",
     specs: [
       { label: "Wingspan", value: "117 ft 5 in (35.8 m)" },
       { label: "Length", value: "123 ft 3 in (37.57 m) — A320neo" },
@@ -322,6 +539,26 @@ export const commercialPlanes: Aircraft[] = [
         body: "The cockpit, systems architecture, and handling qualities are identical to the A320ceo. Pilots transition on a brief differences course rather than a full type rating — the key commercial advantage over a new-airframe competitor. This commonality allowed Airbus to accumulate over 8,000 neo-family orders before the aircraft even entered service.",
       },
     ],
+    compare: {
+      variant: "A320neo",
+      rangeNmi: 3700,
+      cruiseMach: 0.78,
+      ceilingFt: 39800,
+      engines: "2× CFM LEAP-1A / PW1100G",
+      engineCount: 2,
+      thrustEachLbf: 32900,
+      wingspanM: 35.8,
+      lengthM: 37.57,
+      mtowT: 79,
+      paxTypical: 165,
+      paxMax: 194,
+      features: [
+        "~20% lower fuel burn than the ceo",
+        "Sharklets add 100 nmi of range",
+        "Common type rating with the A320ceo",
+      ],
+    },
+    relatedEngines: ["cfm-leap-1a"],
   },
   {
     slug: "embraer-e195-e2",
@@ -332,18 +569,24 @@ export const commercialPlanes: Aircraft[] = [
     detail: "Embraer · Brazil",
     year: 2018,
     fact: "The 'Profit Hunter' — geared turbofan engines and an all-new wing make it the most efficient aircraft in the regional jet category.",
+    highlights: [
+      "**17.3% less fuel per seat** than the original E195",
+      "**No middle seats anywhere** — 2-2 layout, every passenger gets window or aisle",
+      "**Clean-sheet high-aspect-ratio wing** built exclusively for the 100–150-seat segment",
+      "**PW1900G geared turbofan** — 12:1 bypass ratio, dramatically quieter",
+    ],
     description:
-      "The E195-E2 is the flagship of Embraer's second-generation E-Jet family, and it represents a complete reengineering rather than a modest update. The wing was redesigned from scratch with a new high-aspect-ratio planform and advanced aerofoil sections, reducing drag significantly. The fly-by-wire system — new to the E2 series — allowed the horizontal tail to be made 15% smaller, cutting drag further. The resulting aircraft burns 17.3% less fuel per seat than the original E195.\n\nThe Pratt & Whitney PW1900G 'Geared Turbofan' engine is the core innovation. By inserting a reduction gearbox between the fan and the low-pressure turbine, the fan can spin at its aerodynamically ideal speed while the turbine spins at its mechanically ideal (much faster) speed — something previously impossible. The result is 11% better fuel burn from the engine alone, with a bypass ratio of 12:1 that also makes the E195-E2 dramatically quieter. In a 2-2 all-economy layout, every passenger gets a window or aisle seat — no middle seat on any row.",
+      "The E195-E2 is the flagship of Embraer's second-generation E-Jet family — a complete re-engineering, not an update. A **clean-sheet high-aspect-ratio wing** and a fly-by-wire system that allowed a **15% smaller horizontal tail** cut drag substantially; the result burns **17.3% less fuel per seat** than the original E195.\n\nThe **PW1900G Geared Turbofan** is the core innovation: a reduction gearbox lets the fan and turbine each spin at their ideal speeds, delivering 11% better fuel burn from the engine alone at a 12:1 bypass ratio. And in the 2-2 cabin, **no passenger ever sits in a middle seat**.",
     specs: [
-      { label: "Wingspan", value: "114 ft 1 in (34.76 m)" },
-      { label: "Length", value: "131 ft 4 in (40.04 m)" },
+      { label: "Wingspan", value: "115 ft 1 in (35.1 m)" },
+      { label: "Length", value: "136 ft 2 in (41.5 m)" },
       { label: "Engines", value: "2× Pratt & Whitney PW1900G (Geared Turbofan)" },
       { label: "Thrust (each)", value: "~22,000 lbf" },
       { label: "Bypass ratio", value: "12:1" },
       { label: "Cruise speed", value: "Mach 0.82 (541 mph / 871 km/h)" },
-      { label: "Range", value: "2,600 nmi (4,815 km)" },
+      { label: "Range", value: "3,000 nmi (5,556 km) — post-2024 performance upgrade" },
       { label: "Passengers", value: "120–146 (2-2 seating, no middle seats)" },
-      { label: "Max takeoff weight", value: "136,200 lb (61,800 kg)" },
+      { label: "Max takeoff weight", value: "137,800 lb (62,500 kg)" },
     ],
     engineeringFeatures: [
       {
@@ -359,6 +602,24 @@ export const commercialPlanes: Aircraft[] = [
         body: "In the standard 2-2 all-economy layout, every single passenger sits at either a window or an aisle seat — there are no middle seats on any row in the entire aircraft. This is a structural consequence of the fuselage width, not a configuration option. On competing 737 or A320 aircraft, middle-seat passengers are unavoidable once the aircraft exceeds about 120 seats.",
       },
     ],
+    compare: {
+      variant: "E195-E2",
+      rangeNmi: 3000,
+      cruiseMach: 0.82,
+      engines: "2× PW PW1900G",
+      engineCount: 2,
+      thrustEachLbf: 22000,
+      wingspanM: 35.1,
+      lengthM: 41.5,
+      mtowT: 62.5,
+      paxTypical: 132,
+      paxMax: 146,
+      features: [
+        "17.3% less fuel per seat than the E195",
+        "2-2 seating — no middle seats",
+        "Clean-sheet regional wing",
+      ],
+    },
   },
   {
     slug: "boeing-737",
@@ -370,8 +631,14 @@ export const commercialPlanes: Aircraft[] = [
     year: 1967,
     status: "legacy",
     fact: "The best-selling commercial jet in history with over 10,000 delivered. More 737s are in the air at any given moment than any other aircraft type.",
+    highlights: [
+      "**Best-selling jet in history** — over 15,000 orders across six decades",
+      "**More 737s airborne at any moment** than any other aircraft type",
+      "**D-shaped nacelle** — the CFM56 flattened to squeeze under a 1960s wing",
+      "**707 fuselage heritage** — a 1965 cost decision that still shapes every variant",
+    ],
     description:
-      "The Boeing 737 began life as a quick, cheap competitor to the Douglas DC-9 — a short-range narrowbody that could use the same 707 cockpit panels and fuselage cross-section to keep development costs down. Its unusual low-slung engine placement, with pods sitting ahead of and below the wing rather than hanging beneath it, was dictated by the aircraft's low ground clearance; a design compromise that has shaped every variant for six decades.\n\nThe 737 has survived through constant reinvention. The 'Classic' series in the 1980s added CFM56 turbofans. The 'Next Generation' series in the 1990s added a new wing, winglets, and a glass cockpit. The MAX, launched in 2011, added the larger LEAP-1B engine — whose size forced further changes to the nose gear and engine mounting that contributed to the MCAS software controversy of 2018. Despite that crisis, the 737 family has accumulated over 15,000 orders across its lifetime, a number no other commercial aircraft has come close to matching.",
+      "The Boeing 737 began as a quick, cheap competitor to the Douglas DC-9, reusing the **707's cockpit panels and fuselage cross-section** to keep costs down. Its unusual **low-slung engine placement** — pods ahead of and below the wing — was dictated by short landing gear, a compromise that has shaped every variant for six decades.\n\nIt survived through constant reinvention: the Classic added CFM56 turbofans, the Next Generation a new wing and glass cockpit, and the MAX the big LEAP-1B — whose size forced the mounting changes behind the 2018 MCAS controversy. Through it all the family has logged **over 15,000 orders**, a number no other airliner approaches.",
     specs: [
       { label: "Wingspan", value: "117 ft 10 in (35.9 m) — 737-800" },
       { label: "Length", value: "129 ft 6 in (39.5 m) — 737-800" },
@@ -397,6 +664,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "The 737 was designed using the 707's fuselage cross-section and cockpit panel layout to reduce development cost in 1965. That decision locked in a floor height and cabin width that has constrained landing gear length and engine placement on every 737 variant ever since — including the MAX's MCAS software, which was itself a consequence of the same 60-year-old geometry.",
       },
     ],
+    compare: {
+      variant: "737-800",
+      rangeNmi: 3115,
+      cruiseMach: 0.785,
+      ceilingFt: 41000,
+      engines: "2× CFM56-7B",
+      engineCount: 2,
+      thrustEachLbf: 27300,
+      wingspanM: 35.9,
+      lengthM: 39.5,
+      mtowT: 79,
+      paxTypical: 162,
+      paxMax: 189,
+      features: [
+        "Best-selling jet in history",
+        "D-shaped CFM56 nacelle",
+        "707 fuselage cross-section",
+      ],
+    },
   },
   {
     slug: "boeing-737-max",
@@ -407,8 +693,14 @@ export const commercialPlanes: Aircraft[] = [
     detail: "Boeing · USA",
     year: 2017,
     fact: "The most controversial commercial jet of the 21st century. Grounded for 20 months after two fatal crashes linked to MCAS software. Recertified in 2020 with hundreds of system changes.",
+    highlights: [
+      "**69-inch LEAP-1B fan** — the largest engine ever fitted to a 737, mounted forward and high",
+      "**MCAS relied on a single sensor** — faulty readings led to two crashes and 346 deaths",
+      "**Grounded 20 months** — the longest grounding of any jet airliner",
+      "**Recertified November 2020** — dual sensors, one-shot activation, full pilot override",
+    ],
     description:
-      "The 737 MAX began as Boeing's response to Airbus's A320neo — a re-engined narrowbody that airlines could order without retraining pilots or rebuilding maintenance programmes. Boeing chose the CFM LEAP-1B engine, whose 69-inch fan diameter was larger than anything previously fitted to a 737. Because the original 737 sits low to the ground — a legacy of the 1960s design for quick ground turnaround — the LEAP-1B had to be mounted further forward and higher on the wing, shifting the centre of thrust and creating a nose-up pitching tendency at high angles of attack.\n\nTo correct this tendency without requiring pilots to retrain on a 'new' aircraft type, Boeing's engineers developed the Maneuvering Characteristics Augmentation System (MCAS). MCAS used a single angle-of-attack sensor to automatically push the nose down if it sensed the aircraft pitching up excessively. When faulty sensor readings activated MCAS erroneously on Lion Air Flight 610 (October 2018) and Ethiopian Airlines Flight 302 (March 2019), crews were unable to override the repeated nose-down commands. All 346 people across both flights were killed. The MAX was grounded globally for 20 months — the longest grounding of any jet airliner — returning to service in November 2020 after MCAS was redesigned to use dual sensors, with pilot override capability and revised training requirements.",
+      "The 737 MAX was Boeing's answer to the A320neo — a re-engine airlines could order **without retraining pilots**. The LEAP-1B's **69-inch fan** was larger than anything a 737 had carried, and the type's low 1960s stance forced it forward and higher on the wing, creating a **nose-up pitching tendency** at high angles of attack.\n\nBoeing masked that tendency with software: MCAS, driven by a **single angle-of-attack sensor**, pushed the nose down automatically. Faulty readings doomed Lion Air 610 and Ethiopian 302, killing **346 people**, and the MAX was grounded worldwide for **20 months** — the longest grounding in jet history. It returned in November 2020 with dual-sensor MCAS, one-shot activation, and full pilot override.",
     specs: [
       { label: "Wingspan", value: "117 ft 10 in (35.9 m)" },
       { label: "Length", value: "138 ft 4 in (42.16 m) — MAX 8" },
@@ -435,6 +727,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "Boeing's central commercial objective was to avoid triggering a new type-rating requirement for 737-qualified pilots — a retraining cost airlines estimated at $1M+ per pilot. This constrained every engineering decision, including the choice not to extend the landing gear to give more ground clearance, because raising the cockpit would have changed seat geometry in a way that would have forced the FAA to classify the MAX as a new aircraft type.",
       },
     ],
+    compare: {
+      variant: "737 MAX 8",
+      rangeNmi: 3550,
+      cruiseMach: 0.79,
+      ceilingFt: 41000,
+      engines: "2× CFM LEAP-1B",
+      engineCount: 2,
+      thrustEachLbf: 28000,
+      wingspanM: 35.9,
+      lengthM: 42.16,
+      mtowT: 82.2,
+      paxTypical: 170,
+      paxMax: 210,
+      features: [
+        "LEAP-1B — largest engine on a 737",
+        "Redesigned dual-sensor MCAS",
+        "Common type rating with the 737 NG",
+      ],
+    },
   },
   {
     slug: "boeing-757",
@@ -446,8 +757,14 @@ export const commercialPlanes: Aircraft[] = [
     year: 1982,
     status: "retired",
     fact: "The narrowbody that could do a widebody's job. Its exceptional thrust-to-weight ratio made it the only single-aisle jet certified for ETOPS transoceanic routes.",
+    highlights: [
+      "**Widebody-class engines on a narrowbody** — over 40,000 lbf each for a 200-seat jet",
+      "**First single-aisle certified ETOPS-180** for transoceanic crossings",
+      "**Shared type rating with the 767** — a commercial first",
+      "**The '757 gap'** — no aircraft since 2004 has replicated its range, payload, and short-field mix",
+    ],
     description:
-      "The Boeing 757 was designed alongside the 767 with a shared cockpit philosophy so that pilots could be rated on both aircraft simultaneously — a commercial first. Despite its narrow single-aisle fuselage, it was powered by the same class of engine as wide-body jets: the Rolls-Royce RB211 or Pratt & Whitney PW2000, both producing over 40,000 lbf of thrust. For an aircraft seating 200 passengers, this was extraordinary — a thrust-to-weight ratio that made the 757 one of the most agile commercial jets ever certified.\n\nThat power enabled the 757 to climb steeply from short, high-altitude airports — making it the aircraft of choice for routes like London to Denver, La Paz, and ETOPS transoceanic crossings normally reserved for widebodies. Its 2,000 sq ft supercritical wing provided low drag at high speed. When Boeing discontinued it in 2004, airlines discovered that no aircraft in production could replicate the 757's combination of range, payload, and short-field capability — a capability gap that persists to this day.",
+      "The Boeing 757 was designed alongside the 767 with a shared cockpit, making it the **first dual type rating** in commercial aviation. Despite its single aisle, it carried **widebody-class engines** — the RB211 or PW2000 at over 40,000 lbf each — giving a 200-seat jet a thrust-to-weight ratio matched by nothing else certified.\n\nThat power meant steep climbs out of short, hot, and high airports, and made the 757 the **first narrowbody cleared for ETOPS-180** transoceanic flying. When production ended in 2004, airlines discovered nothing could replace its combination of range, payload, and short-field performance — the **'757 gap' persists to this day**.",
     specs: [
       { label: "Wingspan", value: "124 ft 10 in (38.05 m)" },
       { label: "Length", value: "155 ft 3 in (47.32 m) — 757-200" },
@@ -473,6 +790,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "The 757 and 767 were designed simultaneously with a common cockpit, becoming the first dual type rating in commercial aviation history. A single crew could be qualified on both aircraft simultaneously — a significantly different airframe, payload, and range capability covered by one certificate. This commonality was as valuable commercially as the aircraft's performance.",
       },
     ],
+    compare: {
+      variant: "757-200",
+      rangeNmi: 3915,
+      cruiseMach: 0.8,
+      ceilingFt: 42000,
+      engines: "2× RB211-535E4B / PW2040",
+      engineCount: 2,
+      thrustEachLbf: 43500,
+      wingspanM: 38.05,
+      lengthM: 47.32,
+      mtowT: 115.7,
+      paxTypical: 200,
+      paxMax: 239,
+      features: [
+        "First narrowbody ETOPS-180",
+        "Widebody-class engines",
+        "Shared 767 type rating",
+      ],
+    },
   },
   {
     slug: "airbus-a330",
@@ -483,16 +819,22 @@ export const commercialPlanes: Aircraft[] = [
     detail: "Airbus · Europe",
     year: 1992,
     fact: "The workhorse of long-haul aviation. Shares 95% commonality with the A340, allowing pilots to fly both types on a single licence — slashing airline training costs.",
+    highlights: [
+      "**One airframe, two or four engines** — developed simultaneously with the A340",
+      "**Single type rating covers both** — no Boeing widebody pair has matched it",
+      "**Automatic centre-of-gravity management** — fuel shifts between tanks in cruise, no crew input",
+      "**Reborn as the A330neo** with Trent 7000 engines in 2014",
+    ],
     description:
-      "The Airbus A330 and A340 were developed simultaneously on a shared airframe — the same fuselage, wing, and systems mated to two or four engines respectively. This 'twinning' strategy let Airbus offer airlines a choice of powerplant philosophy without retraining pilots or restructuring maintenance operations. The A330's wide-body twin-engine design benefited from advances in ETOPS certification that made transoceanic twin-engine operations routine by the early 1990s.\n\nThe fly-by-wire flight control system, shared with the A320 family, gave the A330 envelope protection and automated optimisation of the centre of gravity by transferring fuel between tanks during cruise — automatically improving fuel efficiency without crew input. The aircraft's General Electric CF6, Pratt & Whitney PW4000, or Rolls-Royce Trent 700 engines each produce up to 72,000 lbf, giving the -200 variant sufficient range to serve transpacific sectors. The A330neo, launched in 2014 with Trent 7000 engines, extended the design's life by another generation.",
+      "The Airbus A330 and A340 were developed simultaneously on a **shared airframe** — the same fuselage, wing, and systems mated to two or four engines respectively — so airlines could pick a powerplant philosophy without retraining pilots. Maturing ETOPS rules soon made the twin the economic winner.\n\nFly-by-wire shared with the A320 family brought envelope protection plus a trick unique to Airbus: **automatic centre-of-gravity management**, transferring fuel between tanks in cruise to cut trim drag with no crew input. Launched with **three competing engine options**, the design was renewed again as the **A330neo** in 2014 — a second generation for long-haul's quiet workhorse.",
     specs: [
       { label: "Wingspan", value: "197 ft 10 in (60.3 m)" },
       { label: "Length", value: "208 ft 11 in (63.69 m) — A330-300" },
       { label: "Engines", value: "2× GE CF6-80E1, P&W PW4000, or RR Trent 700/7000" },
       { label: "Thrust (each)", value: "67,500–72,000 lbf" },
       { label: "Cruise speed", value: "Mach 0.82 (541 mph / 871 km/h)" },
-      { label: "Range", value: "5,850 nmi (10,800 km) — A330-300" },
-      { label: "Passengers", value: "277–335 (2-class)" },
+      { label: "Range", value: "6,350 nmi (11,750 km) — A330-300" },
+      { label: "Passengers", value: "250–290 (typical) — A330-300" },
       { label: "Max takeoff weight", value: "513,000 lb (233,000 kg)" },
     ],
     engineeringFeatures: [
@@ -509,6 +851,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "The A330 was certified at launch with three competing engine options — GE CF6-80E1, Pratt & Whitney PW4000, and Rolls-Royce Trent 700. Airlines could choose the engine that matched their existing maintenance programmes across other fleets, reducing whole-fleet operating costs. This flexibility was a deliberate commercial strategy rather than an engineering necessity.",
       },
     ],
+    compare: {
+      variant: "A330-300",
+      rangeNmi: 6350,
+      cruiseMach: 0.82,
+      ceilingFt: 41450,
+      engines: "2× CF6 / PW4000 / Trent 700",
+      engineCount: 2,
+      thrustEachLbf: 72000,
+      wingspanM: 60.3,
+      lengthM: 63.69,
+      mtowT: 233,
+      paxTypical: 277,
+      paxMax: 440,
+      features: [
+        "One type rating with the A340",
+        "Automatic CG management",
+        "Three launch engine options",
+      ],
+    },
   },
   {
     slug: "boeing-707",
@@ -520,8 +881,14 @@ export const commercialPlanes: Aircraft[] = [
     year: 1957,
     status: "retired",
     fact: "The jet that started it all. The 707 made transatlantic air travel viable for ordinary passengers, cutting the New York–London crossing from days to hours.",
+    highlights: [
+      "**Started the transatlantic jet age** — New York–London cut from 14 hours to 8",
+      "**A $16M self-funded gamble** — the 367-80 prototype won both the airline and the KC-135 tanker",
+      "**35° swept wing** from wartime research became the template for every jet since",
+      "**JT3D turbofan** proved turbofans were the future of subsonic transport",
+    ],
     description:
-      "The Boeing 707 was born from a calculated gamble. Boeing spent $16 million of its own money — a colossal sum in 1952 — building the 367-80 demonstrator to prove the concept of a jet-powered transport and tanker. The gamble worked: the Air Force bought the KC-135 tanker, and the commercial 707 followed. Pan American launched the transatlantic jet era on October 4, 1958, cutting the New York–London crossing from nearly 14 hours by piston airliner to 8 hours.\n\nThe 707's 35-degree swept wing was derived directly from German wartime aerodynamic research and represented a near-perfect balance between high-speed cruise efficiency and acceptable low-speed handling. Its JT3D turbofan engines, replacing earlier pure-jet variants, established the high-bypass principle that all subsequent commercial jets have followed. In military hands, the 707 airframe became the E-3 Sentry AWACS aircraft and the E-8 JSTARS — versions of which are still flying today.",
+      "The Boeing 707 was born from a calculated gamble: Boeing spent **$16 million of its own money** — a colossal sum in 1952 — on the 367-80 demonstrator. The gamble won both the KC-135 tanker contract and the commercial 707, and on October 4, 1958 Pan Am **cut New York–London from 14 hours to 8**, opening the jet age.\n\nIts **35-degree swept wing**, derived from German wartime research, struck the balance between cruise efficiency and low-speed handling that every subsequent jet has copied, and the switch to **JT3D turbofans** settled the propulsion question for good. Military 707s — the E-3 Sentry and E-8 JSTARS — still fly today.",
     specs: [
       { label: "Wingspan", value: "145 ft 9 in (44.4 m)" },
       { label: "Length", value: "152 ft 11 in (46.61 m)" },
@@ -547,6 +914,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "Boeing invested its own $16 million — a colossal sum in 1952 — to build the 367-80 prototype without a customer contract, simultaneously pitching it as both a commercial airliner and a military tanker. The gamble produced the KC-135 Stratotanker contract and the commercial 707 simultaneously. Without it, the jet age may have begun under Douglas or Lockheed leadership.",
       },
     ],
+    compare: {
+      variant: "707-320B",
+      rangeNmi: 5765,
+      cruiseMach: 0.86,
+      ceilingFt: 42000,
+      engines: "4× PW JT3D",
+      engineCount: 4,
+      thrustEachLbf: 18000,
+      wingspanM: 44.4,
+      lengthM: 46.61,
+      mtowT: 152.4,
+      paxTypical: 147,
+      paxMax: 189,
+      features: [
+        "Started the transatlantic jet age",
+        "35° swept-wing template",
+        "JT3D turbofan pioneer",
+      ],
+    },
   },
   {
     slug: "airbus-a220",
@@ -557,8 +943,14 @@ export const commercialPlanes: Aircraft[] = [
     detail: "Airbus / Bombardier · Canada",
     year: 2016,
     fact: "Originally the Bombardier C Series — acquired by Airbus after a trade dispute. Its advanced wing and geared turbofan make it 20% more efficient than jets it replaces.",
+    highlights: [
+      "**20% better fuel burn** than the jets it replaces",
+      "**Born the Bombardier C Series** — a 300% US tariff dispute handed it to Airbus",
+      "**Al-Li and CFRP hybrid structure** with a clean-sheet wing for the 100–150-seat class",
+      "**PW1500G geared turbofan** — 12:1 bypass ratio",
+    ],
     description:
-      "The aircraft that became the A220 was designed by Bombardier at the turn of the millennium to fill a specific gap: a jet in the 100–150-seat range built from modern materials and powered by next-generation engines, rather than a shrunken version of a larger plane. The result was the C Series — a clean-sheet design in CFRP and aluminium-lithium alloys with a wing optimised exclusively for this aircraft size, and Pratt & Whitney's new PW1500G Geared Turbofan.\n\nThe aircraft's commercial history became as dramatic as its engineering. Boeing lobbied the US government to impose a 300% tariff on C Series sales to Delta Air Lines, alleging Canadian subsidies constituted unfair competition. Bombardier's response was to give Airbus a majority stake for free — turning the tables completely. Airbus's commercial network then drove orders that Bombardier had been unable to close, and the A220 now competes directly against the 737-7 and A319neo with a structural fuel-burn advantage that Boeing has no direct answer to.",
+      "The A220 began as Bombardier's C Series: a **clean-sheet jet for the 100–150-seat gap**, built from CFRP and aluminium-lithium with a wing optimised exclusively for this size class and Pratt & Whitney's new **PW1500G Geared Turbofan** — not a shrunken version of a bigger plane.\n\nIts commercial history became as dramatic as its engineering. Boeing lobbied for a **300% tariff** on C Series sales to Delta; Bombardier answered by **giving Airbus a majority stake for free**. Airbus's sales network closed the orders Bombardier couldn't, and the A220 now enjoys a structural **20% fuel-burn advantage** Boeing has no direct answer to.",
     specs: [
       { label: "Wingspan", value: "115 ft 5 in (35.1 m)" },
       { label: "Length", value: "127 ft 7 in (38.9 m) — A220-300" },
@@ -567,8 +959,8 @@ export const commercialPlanes: Aircraft[] = [
       { label: "Bypass ratio", value: "12:1" },
       { label: "Cruise speed", value: "Mach 0.82 (541 mph / 871 km/h)" },
       { label: "Range", value: "3,400 nmi (6,300 km) — A220-300" },
-      { label: "Passengers", value: "130–160 (A220-300)" },
-      { label: "Max takeoff weight", value: "149,900 lb (68,000 kg) — A220-300" },
+      { label: "Passengers", value: "120–160 (A220-300)" },
+      { label: "Max takeoff weight", value: "156,300 lb (70,900 kg) — A220-300" },
     ],
     engineeringFeatures: [
       {
@@ -584,6 +976,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "The airframe combines aluminium-lithium alloys — 8-10% lighter and significantly more fatigue-resistant than conventional aircraft aluminium — with carbon-fibre-reinforced polymer for primary structural elements. This hybrid approach achieves a structural weight efficiency impossible in a simple derivative aircraft programme, and was available to Bombardier precisely because the C Series was designed from the ground up.",
       },
     ],
+    compare: {
+      variant: "A220-300",
+      rangeNmi: 3400,
+      cruiseMach: 0.82,
+      ceilingFt: 41000,
+      engines: "2× PW PW1500G",
+      engineCount: 2,
+      thrustEachLbf: 23300,
+      wingspanM: 35.1,
+      lengthM: 38.71,
+      mtowT: 70.9,
+      paxTypical: 140,
+      paxMax: 160,
+      features: [
+        "20% better fuel burn",
+        "Al-Li + CFRP hybrid airframe",
+        "Born as the Bombardier C Series",
+      ],
+    },
   },
   {
     slug: "douglas-dc-3",
@@ -595,8 +1006,14 @@ export const commercialPlanes: Aircraft[] = [
     year: 1935,
     status: "retired",
     fact: "The aircraft that made airlines profitable. By 1939 the DC-3 carried 90% of the world's airline traffic — and thousands still fly commercially today, nearly 90 years on.",
+    highlights: [
+      "**Made airlines profitable** — the first airliner to pay its way on passengers alone, no mail subsidies",
+      "**90% of world airline traffic** flew on DC-3s by 1939",
+      "**Full-payload flight on one engine** — a safety margin decades ahead of its time",
+      "**~400 still airworthy** nearly 90 years after first flight",
+    ],
     description:
-      "The Douglas DC-3 emerged from a request by American Airlines for a sleeper aircraft — one with proper berths so passengers could rest on overnight transcontinental flights. Douglas lengthened and widened the DC-2 to accommodate 14 sleeping berths, then discovered that a 21-seat daytime configuration was simply the most economical aircraft ever built for short- and medium-haul routes. Airlines could for the first time turn a profit carrying passengers alone, without mail subsidies.\n\nIts engineering was advanced for its era: all-metal stressed-skin construction, retractable undercarriage, trailing-edge flaps, and a smooth flush-riveted skin were all features that had existed separately on other aircraft but never combined in one design. The two 1,200 hp Wright R-1820 radial engines were reliable enough to sustain single-engine flight fully loaded. In wartime service as the C-47 'Skytrain', it dropped paratroops at Normandy, supplied the Hump route over the Himalayas, and served with every major Allied air force. Roughly 400 remain airworthy today.",
+      "The Douglas DC-3 began as American Airlines' request for a sleeper aircraft. Douglas stretched the DC-2 for 14 berths, then discovered the 21-seat daytime layout was simply **the most economical airliner ever built** — for the first time, airlines could **profit on passengers alone**, without mail subsidies.\n\nIts genius was integration: all-metal stressed-skin construction, retractable undercarriage, flaps, and flush riveting had all existed separately, but **never combined in one design**. Its over-specified radials could hold full-payload flight on one engine — reliability proven at Normandy and over the Himalayas as the wartime C-47, and the reason **~400 remain airworthy today**.",
     specs: [
       { label: "Wingspan", value: "95 ft 0 in (28.96 m)" },
       { label: "Length", value: "64 ft 6 in (19.66 m)" },
@@ -622,6 +1039,24 @@ export const commercialPlanes: Aircraft[] = [
         body: "Both 1,200 hp Wright R-1820 radials were deliberately over-specified relative to minimum certification requirements. The DC-3 could sustain full-payload flight on one engine — an unusually generous safety margin for its era. This reliability, demonstrated over thousands of wartime hours as the C-47, is the primary reason roughly 400 examples remain airworthy nearly 90 years after the type's first flight.",
       },
     ],
+    compare: {
+      variant: "DC-3",
+      rangeNmi: 1300,
+      cruiseMach: 0.27,
+      ceilingFt: 23200,
+      engines: "2× Wright R-1820 radials (1,200 hp)",
+      engineCount: 2,
+      wingspanM: 28.96,
+      lengthM: 19.66,
+      mtowT: 11.4,
+      paxTypical: 21,
+      paxMax: 32,
+      features: [
+        "First profitable airliner",
+        "~400 still airworthy",
+        "All-metal stressed-skin pioneer",
+      ],
+    },
   },
   {
     slug: "boeing-727",
@@ -633,8 +1068,14 @@ export const commercialPlanes: Aircraft[] = [
     year: 1963,
     status: "retired",
     fact: "The first jetliner to carry 100 million passengers. Its three rear-mounted engines and high-lift wing allowed operations from shorter runways that widened access to air travel.",
+    highlights: [
+      "**Three rear engines and an S-duct** kept the wing clean for the most powerful flap system of its era",
+      "**4,000 ft runways** — jet service reached hundreds of smaller cities for the first time",
+      "**First jet to carry 100 million passengers** (1982)",
+      "**One aircraft per working day** rolled off the Renton line at peak production",
+    ],
     description:
-      "The Boeing 727 was designed to solve a specific operational problem: how to carry jets to smaller airports with shorter runways that were not served by the 707. The solution was radical — three rear-mounted Pratt & Whitney JT8D engines feeding through an S-duct in the tail, eliminating the wing-mounted nacelles that were causing runway clearance issues at the time. This clean-wing configuration also enabled Boeing to fit an extraordinarily powerful high-lift system: triple-slotted flaps occupying most of the trailing edge and Krueger flaps along the leading edge, giving the 727 an approach speed similar to a piston airliner despite its weight.\n\nThe 727 was the first jet to achieve true short-field operations, operating from airports as limited as 4,000 feet. Its T-tail configuration, while creating the risk of 'deep stall' at extreme angles, was necessary to keep the rear engine pods away from the elevators. At peak production, one 727 rolled off the Renton assembly line every working day. It was the first commercial jet to carry 100 million passengers, a milestone it reached in 1982.",
+      "The Boeing 727 solved a specific problem: bringing jets to smaller airports the 707 couldn't reach. The radical answer was **three rear-mounted JT8Ds** — one fed through an S-duct in the tail — leaving a **completely clean wing** free for triple-slotted flaps and full-span Krueger flaps that gave a jet the approach speed of a piston airliner.\n\nThe result was the first true short-field jet, operating from strips as limited as **4,000 feet** and extending jet service to hundreds of smaller cities. At peak, **one 727 left the Renton line every working day**, and in 1982 it became the **first jet to carry 100 million passengers**.",
     specs: [
       { label: "Wingspan", value: "108 ft 0 in (32.92 m)" },
       { label: "Length", value: "153 ft 2 in (46.69 m) — 727-200" },
@@ -660,6 +1101,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "Before the 727, jet service required runways of 6,000 feet or more. By certifying for operations from strips as short as 4,000 feet, the 727 extended jet services to hundreds of smaller American cities that had been unreachable by jet. At peak production, one 727 rolled off the Renton assembly line every working day — the fastest production rate of any commercial jet since the DC-3.",
       },
     ],
+    compare: {
+      variant: "727-200 Adv",
+      rangeNmi: 2400,
+      cruiseMach: 0.82,
+      ceilingFt: 42000,
+      engines: "3× PW JT8D (S-duct)",
+      engineCount: 3,
+      thrustEachLbf: 16000,
+      wingspanM: 32.92,
+      lengthM: 46.69,
+      mtowT: 95,
+      paxTypical: 149,
+      paxMax: 189,
+      features: [
+        "Clean wing, triple-slotted flaps",
+        "4,000 ft runway capability",
+        "First jet to 100M passengers",
+      ],
+    },
   },
   {
     slug: "airbus-a340",
@@ -671,8 +1131,14 @@ export const commercialPlanes: Aircraft[] = [
     year: 1991,
     status: "legacy",
     fact: "Four engines meant it could fly any route without ETOPS restrictions. Singapore Airlines used it for the world's longest non-stop flights — 18 hours, 45 minutes.",
+    highlights: [
+      "**Four engines, no ETOPS limits** — unrestricted overwater routing from day one",
+      "**World's longest flight of its era** — Singapore–Newark, 18h 45m on the -500",
+      "**One type rating with the A330** despite twice the engines",
+      "**Killed by fuel prices** — the last A340 was delivered in 2011",
+    ],
     description:
-      "The Airbus A340 shared its airframe, cockpit, and systems almost entirely with the twin-engine A330 — Airbus's great insight being that one design could satisfy two very different market requirements. The four CFM56 engines on the -200 and -300 variants each produced only 34,000 lbf — modest by wide-body standards — but their number guaranteed route authority: a four-engine jet was exempt from the ETOPS extended-twin operations rules that required long over-ocean diversionary planning for the A330. This gave the A340 authority to operate any route, to any destination, with no restriction.\n\nThe -500 and -600 variants switched to Rolls-Royce Trent 500 engines and offered the longest range of any airliner at the time. Singapore Airlines operated the -500 on a direct Singapore–Newark service spanning 9,534 nautical miles — taking passengers from Southeast Asia to New York in a single 18-hour-45-minute flight. The A340's commercial fate was sealed by rising fuel prices in the mid-2000s: four engines burning fuel at a comparable cost to a twin-engine jet made it economically untenable, and Airbus delivered its last in 2011.",
+      "The Airbus A340 shared its airframe, cockpit, and systems almost entirely with the twin-engine A330 — one design for two markets. Its four modest CFM56s bought something twins couldn't have in the early 1990s: **exemption from ETOPS rules**, and with it unrestricted authority over any ocean, to any destination.\n\nThe Trent 500-powered **-500 flew the longest route in the world** — Singapore–Newark, 9,534 nautical miles in 18 hours 45 minutes. But as ETOPS matured and fuel prices climbed, **four engines became a liability rather than a licence**, and Airbus delivered the last A340 in 2011.",
     specs: [
       { label: "Wingspan", value: "197 ft 10 in (60.3 m)" },
       { label: "Length", value: "208 ft 11 in (63.7 m) — A340-300" },
@@ -697,6 +1163,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "The -200 and -300 variants used CFM56 engines; the -500 and -600 switched to Rolls-Royce Trent 500 at 56,000 lbf each, extending range dramatically. Singapore Airlines operated the -500 on a direct Singapore–Newark service at 9,534 nautical miles — 18 hours, 45 minutes — the longest non-stop commercial route in history at the time.",
       },
     ],
+    compare: {
+      variant: "A340-500",
+      rangeNmi: 9000,
+      cruiseMach: 0.83,
+      ceilingFt: 41450,
+      engines: "4× RR Trent 500",
+      engineCount: 4,
+      thrustEachLbf: 56000,
+      wingspanM: 63.45,
+      lengthM: 67.93,
+      mtowT: 372,
+      paxTypical: 293,
+      paxMax: 375,
+      features: [
+        "Four engines, no ETOPS limits",
+        "Longest route of its era",
+        "One type rating with the A330",
+      ],
+    },
   },
   {
     slug: "tupolev-tu-144",
@@ -708,8 +1193,14 @@ export const commercialPlanes: Aircraft[] = [
     year: 1968,
     status: "retired",
     fact: "The world's first supersonic airliner, beating Concorde to flight by three months. Known as 'Concordski', it flew Mach 2.15 — but was retired after just 55 passenger flights.",
+    highlights: [
+      "**First supersonic airliner to fly** — 31 December 1968, three months before Concorde",
+      "**Mach 2.15 cruise** — faster than Concorde",
+      "**Only 55 revenue flights** before the passenger programme was suspended",
+      "**Second life with NASA** — a supersonic research platform until 1999",
+    ],
     description:
-      "The Tu-144 arrived first — first flight on December 31, 1968, three months before Concorde — and paid for that speed in almost every other dimension. Soviet aeronautical engineers, lacking the same access to advanced computational tools and wind-tunnel time as their Western counterparts, converged on a broadly similar ogival delta configuration but with significantly different engineering choices. The Tu-144's four NK-144 turbofan engines, each with afterburner, were installed in a paired arrangement under the fuselage rather than the under-wing nacelles of Concorde — a packaging that created enormous noise and vibration in the cabin.\n\nThe aircraft that entered passenger service in 1977 was effectively a rushed prototype: cabin noise required passengers to shout to be heard, fuel consumption was so high that range was limited to roughly 3,500 km, and the reliability record was poor. After a fatal crash at the 1973 Paris Air Show and another during a test flight in 1978, the passenger programme was suspended after just 55 revenue flights. The Tu-144 found a second life in the 1990s as a NASA research platform, flying supersonic test missions until 1999.",
+      "The Tu-144 arrived first — **three months before Concorde** — and paid for that speed in almost every other dimension. Soviet engineers converged on a similar ogival delta but paired the four afterburning NK-144s **under the fuselage**, funnelling noise and vibration straight into a cabin where passengers had to shout to be heard.\n\nThe aircraft that entered service in 1977 was effectively a **rushed prototype**: range limited to roughly 3,500 km, poor reliability, and two fatal crashes. The passenger programme was suspended after just **55 revenue flights** — though the type found a second life flying **NASA supersonic research** until 1999.",
     specs: [
       { label: "Wingspan", value: "94 ft 6 in (28.8 m)" },
       { label: "Length", value: "215 ft 6 in (65.7 m)" },
@@ -735,6 +1226,25 @@ export const commercialPlanes: Aircraft[] = [
         body: "The Tu-144 beat Concorde into the air by three months on 31 December 1968 and entered passenger service nine months before Concorde in 1977. But the rush sacrificed range, reliability, and cabin environment. The type operated only the Moscow–Almaty route, accumulated 55 revenue passenger flights, and was suspended after a fatal test crash in 1978 — a cautionary lesson that first flight and viable commercial operation are very different achievements.",
       },
     ],
+    compare: {
+      variant: "Tu-144",
+      rangeNmi: 3500,
+      cruiseMach: 2.15,
+      ceilingFt: 66000,
+      engines: "4× Kuznetsov NK-144 (reheat)",
+      engineCount: 4,
+      thrustEachLbf: 44090,
+      wingspanM: 28.8,
+      lengthM: 65.7,
+      mtowT: 207,
+      paxTypical: 120,
+      paxMax: 150,
+      features: [
+        "First supersonic airliner to fly",
+        "Mach 2.15 — faster than Concorde",
+        "Retractable canard foreplanes",
+      ],
+    },
   },
 ]
 

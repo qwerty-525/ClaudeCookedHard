@@ -2,6 +2,17 @@
 import { ReactNode, useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Typewriter } from "@/components/ui/typewriter"
+import TheoryToc from "@/components/TheoryToc"
+import ChipLinks from "@/components/ChipLinks"
+
+const TOC = [
+  { id: "laws", label: "Laws" },
+  { id: "state", label: "State Variables" },
+  { id: "brayton", label: "Brayton Cycle" },
+  { id: "turbomachinery", label: "Turbomachinery" },
+  { id: "propulsion", label: "Propulsion" },
+  { id: "combustion", label: "Combustion" },
+]
 
 function Fr({ n, d }: { n: ReactNode; d: ReactNode }) {
   return (
@@ -48,6 +59,7 @@ export default function ThermodynamicsPage() {
 
   return (
     <main className="bg-[#04060a]">
+      <TheoryToc sections={TOC} accent="#34d399" />
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section ref={heroRef}
@@ -131,7 +143,7 @@ export default function ThermodynamicsPage() {
       </section>
 
       {/* ── 1 · Laws ─────────────────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="laws" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>The Laws</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Zeroth, First, Second.</h2>
@@ -154,7 +166,7 @@ export default function ThermodynamicsPage() {
       </section>
 
       {/* ── 2 · State Variables ──────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="state" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>State Variables</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Properties of a Thermodynamic System.</h2>
@@ -187,7 +199,7 @@ export default function ThermodynamicsPage() {
       </section>
 
       {/* ── 3 · The Brayton Cycle ────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+      <section id="brayton" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>The Jet Engine Cycle</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">The Brayton Cycle.</h2>
@@ -220,7 +232,7 @@ export default function ThermodynamicsPage() {
       </section>
 
       {/* ── 4 · Turbomachinery ───────────────────────────────────────── */}
-      <section className="border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+      <section id="turbomachinery" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
           <SL>Turbomachinery Thermodynamics</SL>
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">Compressors, Turbines, and Efficiency.</h2>
@@ -252,6 +264,72 @@ export default function ThermodynamicsPage() {
         </div>
       </section>
 
+      {/* ── 5 · Propulsion ───────────────────────────────────────────── */}
+      <section id="propulsion" className="scroll-mt-14 border-t border-white/[0.05] bg-[#06080e] px-6 py-24 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-5xl">
+          <SL>From Cycle to Thrust</SL>
+          <h2 className="mb-4 text-4xl font-bold md:text-5xl">Propulsion Thermodynamics.</h2>
+          <p className="mb-14 max-w-2xl text-lg leading-relaxed text-[#94a3b8]">
+            The Brayton cycle produces net work — propulsion converts it into thrust.
+            Two separate efficiencies govern the conversion, and their product explains
+            every architecture decision from the turbojet to the 12:1-bypass geared turbofan.
+          </p>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <EqCard label="The Thrust Equation"
+              eq={<>F = ṁ(V<sub>e</sub> − V<sub>0</sub>) + (p<sub>e</sub> − p<sub>∞</sub>)A<sub>e</sub></>}
+              note="Thrust is momentum change plus pressure thrust. ṁ is the air mass flow, V₀ flight velocity, V_e exhaust velocity. The same thrust can come from a small ṁ with large ΔV (turbojet) or a huge ṁ with small ΔV (high-bypass turbofan) — and the second is dramatically more efficient. This one equation drives the entire history of engine architecture." />
+            <EqCard label="Propulsive (Froude) Efficiency"
+              eq={<>η<sub>p</sub> = <Fr n="2" d={<>1 + V<sub>e</sub>/V<sub>0</sub></>}/></>}
+              note="The fraction of jet kinetic energy that becomes useful thrust work. η_p → 1 as V_e → V₀, but thrust → 0 there too. A turbojet at V_e/V₀ ≈ 3 wastes half its jet energy stirring the atmosphere; a modern turbofan at V_e/V₀ ≈ 1.35 achieves η_p ≈ 0.85. This is the thermodynamic argument for ever-higher bypass ratios." />
+            <EqCard label="Thermal and Overall Efficiency"
+              eq={<>η<sub>th</sub> = <Fr n={<>ΔKE&#775;<sub>jet</sub></>} d={<>ṁ<sub>f</sub>·LHV</>}/><br/><br/>η<sub>0</sub> = η<sub>th</sub>·η<sub>p</sub> = <Fr n={<>F·V<sub>0</sub></>} d={<>ṁ<sub>f</sub>·LHV</>}/></>}
+              note="Thermal efficiency measures fuel energy converted to jet kinetic energy (set by OPR and TET — the cycle). Propulsive efficiency measures kinetic energy converted to thrust work (set by bypass ratio). Overall efficiency is their product: ~55% × ~80% ≈ 40–45% for a modern turbofan at cruise. The two levers are independent — hence OPR and BPR both keep climbing." />
+            <EqCard label="Thrust Specific Fuel Consumption"
+              eq={<>TSFC = <Fr n={<>ṁ<sub>f</sub></>} d="F"/>&ensp;[lb/lbf·hr]</>}
+              note="The airline-facing efficiency metric — it plugs straight into the Breguet range equation. Early turbojets: ~0.9 at cruise. CFM56 generation: ~0.6. LEAP/GTF/GEnx generation: ~0.5. Afterburning roughly doubles or triples TSFC, which is why supercruise (dry supersonic cruise) was worth an entire engine development programme." />
+            <EqCard label="Specific Thrust — The Design Trade"
+              eq={<><Fr n="F" d="ṁ"/> = (1+f)V<sub>e</sub> − V<sub>0</sub>&ensp;[N·s/kg]</>}
+              note="Thrust per unit of air swallowed. High specific thrust = small frontal area, high jet velocity — fighters, where drag and volume dominate. Low specific thrust = huge fan, slow jet — airliners, where fuel burn dominates. A fighter engine and an airliner engine are the same cycle tuned to opposite ends of this single parameter." />
+            <EqCard label="Afterburning — Rayleigh Heat Addition"
+              eq={<>F<sub>AB</sub>/F<sub>dry</sub> ≈ √(T<sub>0,AB</sub>/T<sub>0,dry</sub>)</>}
+              note="An afterburner adds fuel in the tailpipe (Rayleigh flow) raising exhaust stagnation temperature from ~1000 K to ~2000+ K; jet velocity — and thrust — scale with √T₀. A 50–70% thrust boost with no extra turbomachinery, paid for with 2–3× the TSFC and a huge IR signature. There is no turbine downstream, so the flame can run far hotter than TET limits." />
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6 · Combustion ───────────────────────────────────────────── */}
+      <section id="combustion" className="scroll-mt-14 border-t border-white/[0.05] bg-[#04060a] px-6 py-24 md:px-12 lg:px-24">
+        <div className="mx-auto max-w-5xl">
+          <SL>Heat Addition</SL>
+          <h2 className="mb-4 text-4xl font-bold md:text-5xl">Combustion and the Combustor.</h2>
+          <p className="mb-14 max-w-2xl text-lg leading-relaxed text-[#94a3b8]">
+            The combustor is where the cycle&apos;s q<sub>in</sub> actually happens: kerosene spray,
+            a stoichiometric primary zone, and a carefully staged dilution that delivers gas to
+            the turbine at exactly the temperature the blades can survive.
+          </p>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <EqCard label="Fuel Energy — Lower Heating Value"
+              eq={<>Q&#775;<sub>in</sub> = ṁ<sub>f</sub>·LHV<br/><br/>LHV<sub>Jet-A</sub> = 43.1&thinsp;MJ/kg</>}
+              note="LHV is the usable chemical energy per kilogram of fuel (water in the exhaust stays as vapour, hence 'lower'). Jet-A at 43.1 MJ/kg carries ~60× the energy density of the best lithium-ion batteries — the single number that explains why electric airliners remain hard. Hydrogen: 120 MJ/kg by mass, but ~4× the volume even as cryogenic liquid." />
+            <EqCard label="Fuel–Air Ratio and Equivalence Ratio"
+              eq={<>f = <Fr n={<>ṁ<sub>f</sub></>} d={<>ṁ<sub>air</sub></>}/>&ensp;&ensp;φ = <Fr n="f" d={<>f<sub>stoich</sub></>}/></>}
+              note="For kerosene, f_stoich ≈ 0.068 (φ = 1: exactly enough air to burn all fuel). A jet engine at cruise runs overall f ≈ 0.02 — φ ≈ 0.3, far too lean to burn stably. The combustor solves this by burning near-stoichiometric in the primary zone, then diluting with the remaining ~70% of the air to reach turbine-safe temperature." />
+            <EqCard label="Energy Balance — Temperature Rise"
+              eq={<>ṁ<sub>f</sub>·LHV·η<sub>b</sub> = ṁc<sub>p,g</sub>(T<sub>03</sub> − T<sub>02</sub>)</>}
+              note="The combustor energy balance ties fuel flow to the temperature rise from compressor delivery T₀₂ to turbine entry T₀₃. Combustion efficiency η_b exceeds 99.9% in modern annular combustors at design point — combustion itself is essentially solved; the open problems are emissions, stability, and liner life. c_p,g ≈ 1150 J/kg·K for burnt gas (γ ≈ 1.33)." />
+            <EqCard label="Adiabatic Flame Temperature"
+              eq={<>T<sub>ad</sub> ≈ 2300&thinsp;K&ensp;(kerosene–air, φ = 1)</>}
+              note="The temperature a stoichiometric kerosene-air flame reaches with no heat loss — far above any turbine material limit and above the ~2200 K where nitrogen chemistry runs away. Every combustor is therefore a dilution machine: create a small φ ≈ 1 flame for stability, then quench it fast to T₀₃ = 1700–1900 K before the first nozzle guide vane." />
+            <EqCard label="Thermal NOx — The Zeldovich Mechanism"
+              eq={<>d[NO]/dt ∝ exp<span className="text-base">(</span>−<Fr n="69,090" d="T"/><span className="text-base">)</span></>}
+              note="NOx formation is exponentially sensitive to flame temperature and nearly all of it forms above ~1850 K. Halving residence time or shaving 100 K off peak temperature cuts NOx dramatically — hence rich-quench-lean (RQL) combustors that avoid dwelling at φ = 1, and lean-premixed designs (GEnx TAPS) that never create a stoichiometric zone at all." />
+            <EqCard label="Combustor Loss Budget"
+              eq={<>Δp<sub>0</sub>/p<sub>02</sub> ≈ 3–6%<br/><br/>~20% of air burns; ~80% cools &amp; dilutes</>}
+              note="Total pressure lost in the combustor is thrust never recovered (Rayleigh + friction losses), so liners are designed to the minimum ΔP that still achieves mixing. Of the core airflow, only about a fifth passes through the primary zone flame; the rest enters through liner film-cooling holes and dilution ports, shaping the exit temperature profile so the hottest gas avoids the blade root where stress is highest." />
+          </div>
+        </div>
+      </section>
+
       {/* ── Footer ───────────────────────────────────────────────────── */}
       <section className="border-t border-white/[0.04] bg-[#04060a] px-6 py-16 md:px-12 lg:px-24">
         <div className="mx-auto max-w-5xl">
@@ -271,6 +349,16 @@ export default function ThermodynamicsPage() {
                 </ul>
               </div>
             ))}
+          </div>
+          <div className="mb-10 border-t border-white/[0.05] pt-8">
+            <ChipLinks
+              kicker="Continue the Notes"
+              chips={[
+                { href: "/gas-dynamics", label: "Gas Dynamics", sub: "when the flow goes supersonic", accent: "#fb923c" },
+                { href: "/heat-transfer#applications", label: "Heat Transfer", sub: "cooling the cycle's hot end", accent: "#c084fc" },
+                { href: "/engines", label: "The Engines", sub: "the Brayton cycle in hardware", accent: "#f59e0b" },
+              ]}
+            />
           </div>
           <div className="border-t border-white/[0.05] pt-8 text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-white/20">

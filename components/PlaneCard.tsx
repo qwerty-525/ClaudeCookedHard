@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { motion, useAnimation } from "framer-motion"
 import { FlowButton } from "@/components/ui/flow-button"
+import CompareToggle from "@/components/compare/CompareToggle"
 
 const STATUS_CONFIG = {
   active:  { dot: "#22c55e", label: "In Service" },
@@ -24,6 +25,7 @@ interface PlaneCardProps {
   role?: string
   roleColor?: string
   routes?: string[]
+  compareSlug?: string
 }
 
 export default function PlaneCard({
@@ -39,6 +41,7 @@ export default function PlaneCard({
   role,
   roleColor,
   routes,
+  compareSlug,
 }: PlaneCardProps) {
   const statusCfg = STATUS_CONFIG[status ?? "active"]
   const spinControls = useAnimation()
@@ -104,14 +107,17 @@ export default function PlaneCard({
             >
               {year}
             </span>
-            <span className="flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1.5">
-              <span
-                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style={{ background: statusCfg.dot, boxShadow: `0 0 5px ${statusCfg.dot}99` }}
-              />
-              <span className="text-[10px] font-medium tracking-wide" style={{ color: statusCfg.dot }}>
-                {statusCfg.label}
+            <span className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1.5">
+                <span
+                  className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                  style={{ background: statusCfg.dot, boxShadow: `0 0 5px ${statusCfg.dot}99` }}
+                />
+                <span className="text-[10px] font-medium tracking-wide" style={{ color: statusCfg.dot }}>
+                  {statusCfg.label}
+                </span>
               </span>
+              {compareSlug && <CompareToggle slug={compareSlug} />}
             </span>
           </div>
           {role && roleColor && (

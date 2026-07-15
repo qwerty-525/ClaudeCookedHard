@@ -5,6 +5,9 @@ import CommercialDashboard from "@/components/CommercialDashboard"
 import CompetitorCarousel from "@/components/CompetitorCarousel"
 import PlaneCard from "@/components/PlaneCard"
 import SnapScrollShowcase from "@/components/SnapScrollShowcase"
+import SpecTable from "@/components/SpecTable"
+import ChipLinks from "@/components/ChipLinks"
+import CompareProvider from "@/components/compare/CompareProvider"
 import { commercialPlanes } from "@/lib/data"
 import snapshot from "@/lib/opensky-snapshot.json"
 import type { OpenSkySnapshot } from "@/lib/opensky"
@@ -28,6 +31,7 @@ export default function CommercialPage() {
 
   return (
     <main className="bg-[#0b0b10]">
+      <CompareProvider>
       <CommercialDashboard initial={snapshot as unknown as OpenSkySnapshot} />
 
       <section className="relative border-y border-white/[0.06] bg-[#090d15]">
@@ -188,6 +192,39 @@ export default function CommercialPage() {
         </div>
       </section>
 
+      {/* Fleet engineering data */}
+      <section className="relative border-y border-white/[0.05] bg-[#080d16] px-6 py-24 md:px-12 lg:px-24">
+        <SpecTable
+          kicker="Engineering Data"
+          title="The Fleet by the Numbers."
+          description="Wing loading (W/S) sets stall and approach speed; aspect ratio (AR) sets induced drag; sweep sets the drag-divergence Mach. Read the columns together and each aircraft's design brief becomes visible — Concorde's 1.7 aspect ratio and 60°+ sweep is a supersonic decision; the A350's 9.5 is a fuel-burn decision."
+          accent="#60a5fa"
+          columns={["Aircraft", "MTOW (t)", "Wing Area (m²)", "W/S (kg/m²)", "AR", "¼-Chord Sweep", "Cruise Mach", "Total Thrust (lbf)"]}
+          rows={[
+            ["Boeing 747-400", "413", "541", "763", "7.7", "37.5°", "0.85", "4 × 63,300"],
+            ["Airbus A380", "575", "845", "680", "7.5", "33.5°", "0.85", "4 × 76,500"],
+            ["Boeing 777-300ER", "352", "437", "805", "9.6", "31.6°", "0.84", "2 × 115,300"],
+            ["Boeing 787-9", "254", "377", "674", "9.6", "32.2°", "0.85", "2 × 74,100"],
+            ["Airbus A350-900", "280", "443", "632", "9.5", "31.9°", "0.85", "2 × 84,200"],
+            ["Airbus A320neo", "79", "123", "644", "10.3*", "25°", "0.78", "2 × 27,100"],
+            ["Boeing 737 MAX 8", "82", "127", "646", "10.2*", "25.0°", "0.79", "2 × 28,000"],
+            ["Concorde", "185", "358", "517", "1.7", "delta (LE 60–75°)", "2.04", "4 × 38,050 (reheat)"],
+          ]}
+          footnote="MTOW = maximum takeoff weight. W/S computed at MTOW. *Effective aspect ratio including sharklet/winglet contribution. Values are representative published figures for the listed variant; certified numbers vary by weight option."
+        />
+        <div className="mx-auto mt-12 max-w-6xl">
+          <ChipLinks
+            kicker="The Theory Behind the Columns"
+            chips={[
+              { href: "/aerodynamics#wing", label: "Wing Geometry", sub: "AR, sweep, wing loading", accent: "#22d3ee" },
+              { href: "/aerodynamics#high-lift", label: "High-Lift Systems", sub: "how W/S 763 still lands", accent: "#22d3ee" },
+              { href: "/aerodynamics#compressibility", label: "Compressibility", sub: "why cruise stops at M 0.85", accent: "#22d3ee" },
+              { href: "/thermodynamics#propulsion", label: "Propulsion", sub: "thrust, TSFC & range", accent: "#34d399" },
+            ]}
+          />
+        </div>
+      </section>
+
       {/* Non-competitor planes */}
       <section className="relative px-6 pb-36 md:px-12 lg:px-24">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.12),transparent_38%)]" />
@@ -230,11 +267,13 @@ export default function CommercialPage() {
                   role={plane.role}
                   roleColor={plane.roleColor}
                   routes={plane.routes}
+                  compareSlug={plane.slug}
                 />
               ))}
           </div>
         </div>
       </section>
+      </CompareProvider>
     </main>
   )
 }

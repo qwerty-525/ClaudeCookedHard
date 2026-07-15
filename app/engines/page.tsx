@@ -7,6 +7,8 @@ import PlaneCard from "@/components/PlaneCard"
 import { Typewriter } from "@/components/ui/typewriter"
 import { EngineTypeCarousel } from "@/components/ui/engine-type-carousel"
 import { EngineFaq } from "@/components/ui/engine-faq"
+import SpecTable from "@/components/SpecTable"
+import ChipLinks from "@/components/ChipLinks"
 import { engines } from "@/lib/data"
 
 const EngineTeardown3D = dynamic(() => import("@/components/EngineTeardown3D"), { ssr: false })
@@ -358,6 +360,41 @@ export default function EnginesPage() {
         </div>
       </section>
 
+      {/* Powerplant comparison table */}
+      <section className="relative border-t border-white/[0.04] bg-[#0d0903] px-6 py-24 md:px-12 lg:px-24">
+        <SpecTable
+          kicker="Cycle Parameters"
+          title="Every Engine Is a Point on the Same Map."
+          description="Bypass ratio (BPR) trades specific thrust for propulsive efficiency; overall pressure ratio (OPR) buys thermal efficiency at the cost of compressor stages and temperature. Airliners live top-right (high BPR, high OPR); fighters live bottom-left, where a compact, high-specific-thrust core fits in a fuselage and survives afterburning. The turbojet Olympus sits alone — zero bypass, all jet."
+          accent="#fbbf24"
+          columns={["Engine", "Thrust (lbf)", "BPR", "OPR", "Fan Ø (in)", "TSFC Regime†", "Application"]}
+          rows={[
+            ["GE9X", "105,000", "10:1", "60:1", "134", "cruise ~0.49", "777X"],
+            ["GE90-115B", "115,000", "9:1", "42:1", "128", "cruise ~0.52", "777-300ER"],
+            ["Trent XWB-97", "97,000", "9.3:1", "61:1*", "118", "cruise ~0.48", "A350-1000"],
+            ["PW1100G GTF", "33,110", "12.5:1", "~50:1", "81", "cruise ~0.51", "A320neo"],
+            ["CFM LEAP-1A", "32,900", "11:1", "40:1", "78", "cruise ~0.51", "A320neo / MAX / C919"],
+            ["CFM56-5B", "33,000", "5.9:1", "32.6:1", "68", "cruise ~0.60", "A320ceo / 737NG"],
+            ["Olympus 593", "38,050 (reheat)", "0 (turbojet)", "15.5:1", "—", "M2 cruise ~1.19", "Concorde"],
+            ["P&W F135", "43,000 (AB)", "0.57:1", "28:1", "46", "dry ~0.89", "F-35"],
+            ["P&W F119", "35,000 (AB)", "0.30:1", "26:1", "—", "supercruise", "F-22"],
+            ["GE F110-129", "29,500 (AB)", "0.87:1", "30.7:1", "46.5", "dry ~0.65 / AB ~2.0", "F-16 / F-15"],
+          ]}
+          footnote="†TSFC = thrust specific fuel consumption in lb of fuel per lbf of thrust per hour — lower is better; afterburning roughly doubles it. *Trent XWB achieves its OPR across three spools. BPR = bypass ratio, OPR = overall pressure ratio at top of climb. Representative published values."
+        />
+        <div className="mx-auto mt-12 max-w-6xl">
+          <ChipLinks
+            kicker="The Theory Behind the Columns"
+            chips={[
+              { href: "/thermodynamics#brayton", label: "Brayton Cycle", sub: "why OPR buys efficiency", accent: "#34d399" },
+              { href: "/thermodynamics#propulsion", label: "Propulsion", sub: "BPR vs specific thrust", accent: "#34d399" },
+              { href: "/gas-dynamics#nozzles", label: "Nozzle Flow", sub: "choking & thrust", accent: "#fb923c" },
+              { href: "/heat-transfer#applications", label: "Turbine Cooling", sub: "surviving 1,900 K TET", accent: "#c084fc" },
+            ]}
+          />
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="relative bg-[#04060a] px-6 py-24 md:px-12 lg:px-24 border-t border-white/[0.04]">
         <div className="max-w-3xl mx-auto">
@@ -373,7 +410,7 @@ export default function EnginesPage() {
             <p className="text-xs tracking-[0.4em] text-amber-400 uppercase mb-4 font-medium">
               The Powerplants
             </p>
-            <h2 className="text-4xl font-bold">Seven Engines.</h2>
+            <h2 className="text-4xl font-bold">{engines.length} Engines.</h2>
             <p className="text-[#94a3b8] mt-3 max-w-md leading-relaxed">
               Commercial workhorses, supersonic relics, and afterburning monsters — the engines that define aviation.
             </p>
