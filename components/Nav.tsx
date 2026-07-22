@@ -16,6 +16,7 @@ const THEORY: Tab[] = [
   { href: "/gas-dynamics",   label: "Gas Dyn.", accent: "#fb923c", wipe: "#1a0800", shadow: "shadow-orange-500/25"  },
   { href: "/heat-transfer",  label: "Heat Xfr", accent: "#c084fc", wipe: "#0d0518", shadow: "shadow-violet-500/25"  },
   { href: "/aerodynamics",   label: "Aero",     accent: "#22d3ee", wipe: "#001e2e", shadow: "shadow-cyan-500/25"    },
+  { href: "/systems",        label: "Systems",  accent: "#f472b6", wipe: "#1a0512", shadow: "shadow-pink-500/25"    },
   { href: "/spacecraft",     label: "Space",    accent: "#818cf8", wipe: "#06060e", shadow: "shadow-indigo-500/25"  },
 ]
 const ALL_TABS = [...AIRCRAFT, ...THEORY]

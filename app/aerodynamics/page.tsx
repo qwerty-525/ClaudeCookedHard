@@ -1178,6 +1178,7 @@ export default function AerodynamicsPage() {
               chips={[
                 { href: "/gas-dynamics", label: "Gas Dynamics", sub: "shocks, nozzles, choked flow", accent: "#fb923c" },
                 { href: "/thermodynamics#propulsion", label: "Propulsion", sub: "turning L/D into range", accent: "#34d399" },
+                { href: "/systems#controls", label: "Aircraft Systems", sub: "the machinery that moves the surfaces", accent: "#f472b6" },
                 { href: "/fighters", label: "Fighter Jets", sub: "turn rate & Ps in practice", accent: "#ef4444" },
               ]}
             />

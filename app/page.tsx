@@ -220,6 +220,7 @@ export default function CommercialPage() {
               { href: "/aerodynamics#high-lift", label: "High-Lift Systems", sub: "how W/S 763 still lands", accent: "#22d3ee" },
               { href: "/aerodynamics#compressibility", label: "Compressibility", sub: "why cruise stops at M 0.85", accent: "#22d3ee" },
               { href: "/thermodynamics#propulsion", label: "Propulsion", sub: "thrust, TSFC & range", accent: "#34d399" },
+              { href: "/systems", label: "Aircraft Systems", sub: "hydraulics, FBW & every layer within", accent: "#f472b6" },
             ]}
           />
         </div>

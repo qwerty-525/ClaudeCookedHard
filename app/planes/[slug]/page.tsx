@@ -176,6 +176,7 @@ export default async function PlaneDetailPage({
                       { href: "/aerodynamics#vortex", label: "Vortex Lift", sub: "the delta wing's second lift", accent: "#22d3ee" },
                     ]
                   : [{ href: "/thermodynamics#propulsion", label: "Propulsion", sub: "TSFC & the range equation", accent: "#34d399" }]),
+                { href: "/systems#hydraulics", label: "Aircraft Systems", sub: "hydraulics, electrics & FBW", accent: "#f472b6" },
               ]}
             />
           </div>

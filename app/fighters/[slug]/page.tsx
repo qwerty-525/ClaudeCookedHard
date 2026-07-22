@@ -162,6 +162,7 @@ export default async function FighterDetailPage({
                 { href: "/aerodynamics#performance", label: "Turn & Energy", sub: "Ps, corner speed, load factor", accent: "#22d3ee" },
                 { href: "/aerodynamics#stability", label: "Stability & FBW", sub: "static margin, relaxed stability", accent: "#22d3ee" },
                 { href: "/gas-dynamics#inlets", label: "Supersonic Inlets", sub: "recovery, unstart, ramjets", accent: "#fb923c" },
+                { href: "/systems#fbw", label: "Fly-By-Wire", sub: "control laws & redundancy", accent: "#f472b6" },
               ]}
             />
           </div>

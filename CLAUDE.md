@@ -27,6 +27,7 @@ A scroll-animated aviation info site built with Next.js 15, Tailwind CSS v3, and
 | `/thermodynamics` | Theory notes — thermodynamics + propulsion + combustion (emerald accent) |
 | `/gas-dynamics` | Theory notes — compressible flow, shocks, nozzles, inlets (orange accent) |
 | `/heat-transfer` | Theory notes — conduction/convection/radiation (purple accent) |
+| `/systems` | Theory notes — aircraft systems A–Z: structure, flight controls, FBW, hydraulics, electrical, fuel, bleed, pressurization, avionics, gear, ice/fire, certification (rose accent) |
 | `/spacecraft` | Spacecraft page (indigo accent) |
 
 Theory pages share a common pattern: hero SVG diagram + `EqCard`/`Fr` local components for equations with explanatory notes. `components/SpecTable.tsx` renders the engineering comparison tables on the three aircraft tab pages.
