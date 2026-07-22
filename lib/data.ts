@@ -99,6 +99,7 @@ export const commercialPlanes: Aircraft[] = [
         "High-bypass turbofan pioneer",
       ],
     },
+    relatedEngines: ["ge-genx"],
   },
   {
     slug: "airbus-a380",
@@ -164,6 +165,7 @@ export const commercialPlanes: Aircraft[] = [
         "First large-scale CFRP wing box",
       ],
     },
+    relatedEngines: ["rolls-royce-trent-900"],
   },
   {
     slug: "concorde",
@@ -357,6 +359,7 @@ export const commercialPlanes: Aircraft[] = [
         "No-bleed all-electric architecture",
       ],
     },
+    relatedEngines: ["ge-genx"],
   },
   {
     slug: "airbus-a350",
@@ -495,6 +498,7 @@ export const commercialPlanes: Aircraft[] = [
         "Wider cabin than the 737",
       ],
     },
+    relatedEngines: ["cfm56"],
   },
   {
     slug: "airbus-a320neo",
@@ -683,6 +687,7 @@ export const commercialPlanes: Aircraft[] = [
         "707 fuselage cross-section",
       ],
     },
+    relatedEngines: ["cfm56"],
   },
   {
     slug: "boeing-737-max",
@@ -746,6 +751,7 @@ export const commercialPlanes: Aircraft[] = [
         "Common type rating with the 737 NG",
       ],
     },
+    relatedEngines: ["cfm-leap-1a"],
   },
   {
     slug: "boeing-757",
@@ -1285,6 +1291,7 @@ export const fighterJets: Aircraft[] = [
         body: "Onboard and off-board sensor data is fused in real time into a single tactical picture shared across the cockpit. The Raptor can track and fire on adversaries while emitting so little radar that it remains electronically invisible to them throughout the engagement.",
       },
     ],
+    relatedEngines: ["pw-f119"],
   },
   {
     slug: "f-35-lightning-ii",
@@ -1323,6 +1330,7 @@ export const fighterJets: Aircraft[] = [
         body: "The F135 is the most powerful fighter engine ever built, producing 43,000 lbf with afterburner — more than any previous production fighter powerplant. Three variants (F135-100/400/600) serve the A/B/C airframes while sharing a common core, enabling a single logistics and maintenance chain across all three services.",
       },
     ],
+    relatedEngines: ["pw-f135"],
   },
   {
     slug: "sukhoi-su-57",
@@ -1470,6 +1478,7 @@ export const fighterJets: Aircraft[] = [
         body: "The same airframe supports a full-spectrum electronic warfare variant by replacing all air-to-air weapons with ALQ-99/218 jamming pods and adding a second crew station for an electronic warfare officer. Structural and electrical commonality means Growler aircrew require only a short differences course from the Super Hornet, maintaining interoperability in carrier deck operations.",
       },
     ],
+    relatedEngines: ["ge-f414"],
   },
   {
     slug: "sr-71-blackbird",
@@ -1508,6 +1517,7 @@ export const fighterJets: Aircraft[] = [
         body: "The SR-71 used JP-7, a specially developed fuel with an extremely high flash point that circulated through the airframe as a heat sink before reaching the combustion chambers. JP-7 was so difficult to ignite that each takeoff required injection of triethylborane — a pyrophoric compound — to initiate combustion.",
       },
     ],
+    relatedEngines: ["pw-j58"],
   },
   {
     slug: "f-14-tomcat",
@@ -1546,6 +1556,7 @@ export const fighterJets: Aircraft[] = [
         body: "All combat avionics and weapons systems were packaged in modular standardised pallets that could be swapped on a carrier deck in under one hour. This was a deliberate logistics decision: the entire combat system could be upgraded between deployments by replacing pallets rather than rewiring the aircraft.",
       },
     ],
+    relatedEngines: ["ge-f110"],
   },
   {
     slug: "f-15-eagle",
@@ -1620,6 +1631,7 @@ export const fighterJets: Aircraft[] = [
         body: "The pilot sits at a 30° recline instead of the traditional upright position, redistributing blood pooling forces during high-G pulls and increasing sustainable G-tolerance from approximately 7G to 9G. The side-mounted force-sensing stick — the pilot's hand barely moves during a maximum-G turn — was a direct consequence of this seating posture.",
       },
     ],
+    relatedEngines: ["ge-f110"],
   },
   {
     slug: "f-117-nighthawk",
@@ -1978,6 +1990,214 @@ export const engines: Aircraft[] = [
       {
         title: "Modular Line Maintenance Architecture",
         body: "Any module of the F110 can be replaced at line level without removing the entire engine from the aircraft. For the F-16's operational concept — rapid sortie generation from forward operating locations with minimal support equipment — this modularity is as tactically valuable as the raw thrust output. GE subsequently scaled the same core further into the F118, which powers the B-2 Spirit stealth bomber.",
+      },
+    ],
+  },
+  {
+    slug: "rolls-royce-trent-900",
+    role: "Four-Engine Titan",
+    roleColor: "#8b5cf6",
+    name: "Rolls-Royce Trent 900",
+    detail: "Rolls-Royce · High-bypass turbofan (three-shaft)",
+    year: 2004,
+    fact: "The exclusive launch engine of the Airbus A380. Its 116-inch fan and three-shaft architecture were certified to lift the world's largest passenger aircraft off ordinary runways.",
+    description:
+      "The Trent 900 was developed specifically for the Airbus A380, competing against the Engine Alliance GP7200 for what became a rare split-supplier arrangement on a single airframe — airlines chose their engine the way they choose their airframe manufacturer. Rolls-Royce's signature three-shaft layout, with separate fan, intermediate-pressure, and high-pressure spools each spinning at its own optimal speed, let the Trent 900 reach a 39:1 overall pressure ratio without the compressor stall margins that plague two-shaft designs pushed this hard.\n\nThe 116-inch swept fan uses 24 wide-chord titanium blades rather than the carbon-fibre composites of GE's contemporary designs — a deliberate Rolls-Royce material choice that trades a small weight penalty for decades of in-service reliability data. Four Trent 900s, each rated up to 84,000 lbf, must move an aircraft weighing over 1.2 million pounds off a standard runway — a thrust-to-weight demand that shaped the entire engine's compressor and turbine cooling design from the outset.",
+    specs: [
+      { label: "Type", value: "High-bypass turbofan (three-shaft)" },
+      { label: "Thrust", value: "70,000–84,000 lbf (310–374 kN)" },
+      { label: "Fan diameter", value: "116 in (295 cm)" },
+      { label: "Bypass ratio", value: "~8.5:1" },
+      { label: "Overall pressure ratio", value: "39:1" },
+      { label: "Fan blades", value: "24 wide-chord titanium blades" },
+      { label: "Aircraft", value: "Airbus A380 (exclusive)" },
+      { label: "Competing engine", value: "Engine Alliance GP7200 (customer-selectable)" },
+    ],
+    engineeringFeatures: [
+      {
+        title: "Three-Shaft Architecture",
+        body: "Fan, intermediate-pressure, and high-pressure spools rotate independently at their own optimal speeds — Rolls-Royce's signature departure from the two-shaft designs used by GE and Pratt & Whitney. This lets the high-pressure compressor run at a higher rotational speed relative to the fan than a two-shaft engine could tolerate, underpinning the Trent 900's 39:1 overall pressure ratio.",
+      },
+      {
+        title: "Titanium Wide-Chord Fan Blades",
+        body: "24 wide-chord titanium blades, rather than carbon-fibre composites, sweep the 116-inch fan disc. The material choice sacrifices some weight savings for a manufacturing and repair history Rolls-Royce could draw on from decades of prior Trent variants — a conservative decision on an engine that, being one of two choices on the A380, needed to enter service with minimal risk of early-life issues.",
+      },
+      {
+        title: "Split-Supplier Engine Competition",
+        body: "The A380 is one of the few widebody programmes where Airbus certified two entirely separate, non-interchangeable engines — the Trent 900 and the Engine Alliance GP7200 — and let airlines choose. Emirates, the largest A380 operator, flies the Engine Alliance GP7200 fleet-wide, while Trent 900s power operators including Lufthansa, British Airways, Singapore Airlines, and Qantas — a rare instance of engine choice becoming as strategic a decision as airframe choice itself.",
+      },
+    ],
+  },
+  {
+    slug: "ge-genx",
+    role: "Dual-Platform Efficiency",
+    roleColor: "#14b8a6",
+    name: "GE GEnx",
+    detail: "GE Aviation · High-bypass turbofan",
+    year: 2006,
+    fact: "The only modern engine certified for two entirely different widebody families — a 111-inch fan for the 787 and a smaller 105-inch fan for the 747-8, sharing one core.",
+    description:
+      "The GEnx was GE's answer to the composite-airframe generation, built as the successor to the CF6 with a fundamentally different design brief: fifteen percent better fuel burn, dramatically lower emissions, and enough architectural flexibility to serve both a clean-sheet twin-aisle (the 787) and a re-engined double-decker (the 747-8) from a common core. No prior GE widebody engine had been stretched across two such different airframes simultaneously.\n\nThe front fan case and blades are woven carbon-fibre composite — a technology GE pioneered commercially on the GE90 — while the combustor uses a twin-annular pre-swirl (TAPS) design that mixes fuel and air more thoroughly before ignition, cutting nitrogen oxide emissions by over 50% versus regulatory limits at the time of certification. The 787 variant's larger 111-inch fan reflects that aircraft's higher bypass-ratio requirement for long-haul efficiency, while the 747-8's 105-inch GEnx-2B67 trades some bypass for the thrust density a four-engine freighter and passenger variant demands.",
+    specs: [
+      { label: "Type", value: "High-bypass turbofan" },
+      { label: "Thrust", value: "66,500–75,000 lbf (296–334 kN), varies by variant" },
+      { label: "Fan diameter", value: "111.1 in (787) / 104.7 in (747-8)" },
+      { label: "Bypass ratio", value: "Up to 9:1" },
+      { label: "Overall pressure ratio", value: "Up to 58:1" },
+      { label: "Combustor", value: "Twin-annular pre-swirl (TAPS) — low-NOx" },
+      { label: "Aircraft", value: "Boeing 787 (GEnx-1B) / Boeing 747-8 (GEnx-2B)" },
+      { label: "Fuel saving vs CF6", value: "~15%" },
+    ],
+    engineeringFeatures: [
+      {
+        title: "One Core, Two Airframes",
+        body: "The GEnx-1B (787) and GEnx-2B (747-8) share a common gas-generator core but differ in fan diameter, bypass ratio, and nacelle to suit two very different missions — a long-range composite twin-aisle and a four-engine double-decker freighter/passenger derivative. Very few commercial engine families have been stretched across airframes this dissimilar without a full core redesign.",
+      },
+      {
+        title: "Twin-Annular Pre-Swirl Combustor",
+        body: "The TAPS combustor mixes fuel and air far more thoroughly before ignition than earlier single-annular designs, allowing more complete combustion at lower peak flame temperatures. Lower peak temperatures mean less thermal nitrogen oxide formation — the GEnx meets emissions limits with more than 50% margin, a certification advantage that let it compete directly against the Trent 1000 on environmental grounds alone.",
+      },
+      {
+        title: "Carbon-Fibre Fan Case and Blades",
+        body: "Building on GE90 composite fan technology, the GEnx front fan case and blades are woven carbon-fibre rather than titanium, reducing engine weight by roughly 400 lb per engine compared to an equivalent metal design. On a twin-engine 787, that weight saving compounds directly into the aircraft's fuel-burn advantage over metal-fan competitors.",
+      },
+    ],
+  },
+  {
+    slug: "cfm56",
+    role: "Best-Selling Turbofan",
+    roleColor: "#0ea5e9",
+    name: "CFM56",
+    detail: "CFM International · High-bypass turbofan",
+    year: 1984,
+    fact: "The best-selling jet engine in history, with over 33,000 delivered. It powers the 737 Classic/NG, the A320ceo family, and the A340 — a single design underpinning three separate airliner programmes.",
+    description:
+      "The CFM56 exists because of a 1971 joint venture that, on paper, should never have worked: GE Aviation contributed the F101 military core from the B-1 bomber programme, Snecma of France contributed fan and low-pressure turbine expertise, and CFM International was formed as a 50/50 partnership to build a narrowbody engine neither company could have fielded competitively alone. Cold War-era US export restrictions on the F101 core nearly killed the programme before it began; only a change in policy let the joint venture proceed.\n\nOnce certified, the CFM56 became the default engine of single-aisle aviation. The -3 powered the 737 Classic, the -5 the A320 family and the A340, and the -7B the 737NG — three separate airframe programmes standardising on one core across four decades. By 2010 the fleet had logged over 470 million flight hours, and the -7B's dispatch reliability exceeded 99.98%, a figure that made engine choice almost a non-decision for airlines ordering 737NGs. Its 5.9:1 bypass ratio, modest by today's geared-turbofan standards, was itself a leap when the CFM56 replaced the JT8D's near-zero-bypass turbojet-derived architecture.",
+    specs: [
+      { label: "Type", value: "High-bypass turbofan" },
+      { label: "Thrust range", value: "18,500–34,000 lbf (82–151 kN)" },
+      { label: "Fan diameter", value: "60–72.3 in, depending on variant" },
+      { label: "Bypass ratio", value: "5.0–6.6:1, depending on variant" },
+      { label: "Aircraft", value: "737 Classic/NG (-3/-7B), A320ceo family (-5B), A340 (-5C)" },
+      { label: "Cumulative flight hours", value: "470+ million (by 2010)" },
+      { label: "Dispatch reliability (-7B)", value: ">99.98%" },
+      { label: "Units delivered", value: "33,000+ — best-selling jet engine in history" },
+    ],
+    engineeringFeatures: [
+      {
+        title: "GE–Snecma Joint Core Heritage",
+        body: "The CFM56's gas generator core descends from GE's F101 military engine, developed for the B-1 Lancer bomber, while Snecma contributed the fan and low-pressure turbine. Neither company could have fielded a competitive narrowbody engine alone under 1970s development budgets — the 50/50 joint venture structure, unusual for its era, is as much the reason for the CFM56's dominance as any single technical feature.",
+      },
+      {
+        title: "One Core Across Three Airframe Families",
+        body: "The -3, -5, and -7B variants share a common core while adapting fan size, nacelle, and thrust rating to the 737 Classic/NG, the A320 family, and the A340 respectively. Standardising maintenance, spares, and technician training across three separate airliner programmes gave airlines with mixed Boeing/Airbus fleets a rare point of commonality in an otherwise fragmented supply chain.",
+      },
+      {
+        title: "99.98% Dispatch Reliability",
+        body: "The -7B variant powering the 737NG achieves a dispatch reliability rate exceeding 99.98% — meaning an aircraft is delayed or cancelled for an engine-related fault in fewer than 2 of every 10,000 departures. That reliability record, accumulated over hundreds of millions of flight hours, is the primary reason the CFM56 remained the default narrowbody engine choice for over three decades before the LEAP succeeded it.",
+      },
+    ],
+  },
+  {
+    slug: "pw-f119",
+    role: "Supercruise Pioneer",
+    roleColor: "#ef4444",
+    name: "Pratt & Whitney F119",
+    detail: "Pratt & Whitney · Low-bypass augmented turbofan",
+    year: 1997,
+    fact: "The first fighter engine built for sustained supersonic cruise without afterburner. Its two-dimensional vectoring nozzle gives the F-22 nose authority no aerodynamic surface alone can match.",
+    description:
+      "The F119 was developed for the Advanced Tactical Fighter competition that produced the F-22 Raptor — the first clean-sheet military turbofan since the F100, a quarter-century earlier. Where every prior fighter engine treated supersonic flight as an afterburner-dependent sprint, the F119 was designed from its first requirements documents to sustain Mach 1.5–1.8 in dry power alone, a capability known as supercruise. Afterburner remains available for burst performance, pushing thrust into the 35,000 lbf class, but the F-22 rarely needs it to out-accelerate an adversary already at their own afterburner limit.\n\nThe engine's two-dimensional convergent-divergent nozzle vectors thrust up to 20° in the pitch axis, a mechanically simpler system than the Su-57's three-dimensional nozzles but one integrated directly into the airframe's low-observable shaping — the nozzle's flattened cross-section and serrated trailing edge scatter radar returns the same way the fuselage panels do. That vectoring increases roll rate by roughly 50% and gives the Raptor nose-pointing authority at angles of attack where conventional control surfaces have stalled. The F119's core was later scaled up and mated to a Rolls-Royce lift fan to become the F135 that powers every F-35 variant, making it the common ancestor of the two most advanced fighter powerplants in service.",
+    specs: [
+      { label: "Type", value: "Low-bypass augmented turbofan" },
+      { label: "Thrust class", value: "35,000 lbf (156 kN) with afterburner" },
+      { label: "Supercruise speed", value: "Mach 1.5–1.8 (no afterburner)" },
+      { label: "Nozzle", value: "2D convergent-divergent, ±20° pitch vectoring" },
+      { label: "Aircraft", value: "F-22 Raptor (exclusive)" },
+      { label: "Roll rate increase from vectoring", value: "~50%" },
+      { label: "Scaled into", value: "Pratt & Whitney F135 (F-35 family)" },
+    ],
+    engineeringFeatures: [
+      {
+        title: "Supercruise Without Afterburner",
+        body: "The F119 sustains Mach 1.5–1.8 flight on dry thrust alone — a regime every prior fighter engine could only reach by burning afterburner fuel at three to four times the dry-power rate. This gives the F-22 a persistent supersonic engagement envelope that afterburner-dependent adversaries cannot match without depleting their fuel reserves far faster.",
+      },
+      {
+        title: "2D Vectoring Nozzle Integrated into Stealth Shaping",
+        body: "The flattened, serrated nozzle vectors thrust up to 20° in pitch while its geometry scatters radar returns using the same edge-alignment principle as the airframe's panel lines — the propulsion system is part of the stealth design, not a signature source bolted onto it. Vectoring increases roll rate by roughly 50% and restores control authority at angles of attack where conventional aerodynamic surfaces have stalled.",
+      },
+      {
+        title: "Common Ancestor of the F135",
+        body: "The F119's core was scaled up, given a larger fan and higher bypass ratio, and mated to a Rolls-Royce-designed lift fan to become the F135 that powers all three F-35 variants. A single core lineage now underpins both of the West's fifth-generation fighter fleets, simplifying the industrial base that sustains both programmes.",
+      },
+    ],
+  },
+  {
+    slug: "ge-f414",
+    role: "Carrier Powerplant",
+    roleColor: "#f97316",
+    name: "General Electric F414",
+    detail: "GE Aviation · Low-bypass afterburning turbofan",
+    year: 1995,
+    fact: "Powers the F/A-18E/F Super Hornet and EA-18G Growler with 35% more thrust than the F404 it replaced — enough to offset a 25% larger airframe with no loss in performance.",
+    description:
+      "The F414 was developed specifically for the F/A-18E/F Super Hornet, GE's answer to a Navy requirement that the redesigned airframe — 25% larger in fuselage and wing area than the original Hornet — could not simply carry more of the same F404 engine. GE built the F414's core around technology from the YF120, the competing engine design from the Advanced Tactical Fighter programme that lost to the F119, giving the F414 a technical lineage shared with the very engine now flying in the F-22.\n\nEach F414 produces roughly 35% more thrust than the F404-GE-402 it replaced, restoring the thrust-to-weight margin the larger Super Hornet airframe would otherwise have lost. A dual-channel Full Authority Digital Engine Control (FADEC) governs fuel delivery, thrust modulation, and fault detection with no mechanical backup — if one channel fails, the second takes over instantly, a redundancy requirement specific to carrier aviation where an engine flameout on approach offers no time for pilot troubleshooting. The same core, without afterburner reconfiguration, later became the basis for the EA-18G Growler's powerplant, preserving full type-commonality between strike and electronic-warfare variants.",
+    specs: [
+      { label: "Type", value: "Low-bypass afterburning turbofan" },
+      { label: "Thrust (each)", value: "22,000 lbf (98 kN) with afterburner" },
+      { label: "Thrust-to-weight class", value: "9:1" },
+      { label: "Control system", value: "Dual-channel FADEC, no mechanical backup" },
+      { label: "Aircraft", value: "F/A-18E/F Super Hornet, EA-18G Growler" },
+      { label: "Thrust increase vs F404", value: "~35%" },
+      { label: "Derived technology from", value: "YF120 (ATF competitor to the F119)" },
+    ],
+    engineeringFeatures: [
+      {
+        title: "35% More Thrust to Match a Larger Airframe",
+        body: "The Super Hornet's fuselage and wing area grew 25% over the original Hornet to carry more fuel and weapons — a change that would have degraded thrust-to-weight performance on the old F404. The F414 restores and exceeds that margin, giving the larger, heavier Super Hornet performance the smaller original airframe could not match.",
+      },
+      {
+        title: "Dual-Channel FADEC with No Mechanical Backup",
+        body: "Fuel delivery, thrust governing, and fault detection run entirely through a dual-channel digital control system — if one channel fails, the second assumes control without pilot intervention. Carrier approach offers no altitude margin for an engine control fault, making this redundancy a safety requirement specific to naval aviation rather than a convenience feature.",
+      },
+      {
+        title: "Shared Lineage with the F119",
+        body: "The F414's core incorporates technology from the YF120, the competing engine design GE built for the Advanced Tactical Fighter programme that the F119 ultimately won. Losing that competition did not waste the investment — the YF120's low-pressure system technology found its way into the F414, giving the Navy's carrier fighter engine and the Air Force's F-22 engine a shared technical ancestry.",
+      },
+    ],
+  },
+  {
+    slug: "pw-j58",
+    role: "Mach 3 Icon",
+    roleColor: "#eab308",
+    name: "Pratt & Whitney J58",
+    detail: "Pratt & Whitney · Afterburning turbojet (bleed-bypass)",
+    year: 1958,
+    status: "retired",
+    fact: "The only engine ever to sustain Mach 3.2+ cruise for hours at a time. Above Mach 2, it bled 20% of its compressor air directly into the afterburner, becoming part turbojet, part ramjet.",
+    description:
+      "The J58 began as a Navy engine design in 1956 and was radically reworked for the CIA's A-12 Oxcart and later the SR-71 Blackbird, whose Mach 3.2+ cruise for hours at a stretch exceeded what any conventional turbojet compressor could survive. A standard turbojet compressor, pushed to those speeds, would surge and stall as intake air arrived faster and hotter than the rear compressor stages could process. Pratt & Whitney's solution was to stop fighting that airflow and instead redirect it.\n\nAbove roughly Mach 2, bypass valves opened at the fourth compressor stage, diverting about 20% of the incoming air through six external tubes directly into the afterburner section — bypassing the rear compressor stages, combustor, and turbine entirely. That bled air did double duty: it cooled the afterburner structure against the extreme heat of Mach 3 flight, and it added thrust by combusting in the afterburner with the tailpipe fuel. At cruise, the variable-geometry inlet spike — which physically translated up to 26 inches to manage the shockwave — did the majority of the compression work, meaning the J58 behaved less like a pure turbojet and more like a hybrid turbojet-ramjet unique in aviation history. The airframe itself grew several inches at operating temperature, and JP-7 fuel, chosen for its high flash point, was circulated through the structure as a heat sink before it ever reached the combustor.",
+    specs: [
+      { label: "Type", value: "Afterburning turbojet with compressor bleed-bypass" },
+      { label: "Thrust (each)", value: "32,500 lbf (144.6 kN) with afterburner" },
+      { label: "Compressor pressure ratio", value: "8.8:1" },
+      { label: "Bleed air diverted at cruise", value: "~20% of compressor entry airflow" },
+      { label: "Aircraft", value: "SR-71 Blackbird, A-12 Oxcart, YF-12" },
+      { label: "Sustained cruise speed", value: "Mach 3.2+" },
+      { label: "Fuel", value: "JP-7 — high flash point, used as structural coolant" },
+    ],
+    engineeringFeatures: [
+      {
+        title: "Compressor Bleed-Bypass at Mach 2+",
+        body: "Above Mach 2, valves at the fourth compressor stage divert roughly 20% of intake air through six external tubes straight into the afterburner, skipping the rear compressor, combustor, and turbine entirely. This relieves the compressor of air it could not otherwise process at Mach 3 intake temperatures, while the diverted air itself contributes both cooling and additional thrust in the afterburner.",
+      },
+      {
+        title: "Turbojet-Ramjet Hybrid Cycle",
+        body: "At sustained Mach 3.2+ cruise, the variable-geometry inlet spike — translating up to 26 inches — performs the majority of the air compression before the engine core ever sees it, with the turbojet core contributing a comparatively small share of total thrust. No other production engine has operated continuously in this hybrid regime, part turbojet and part ramjet, for hours at a time.",
+      },
+      {
+        title: "JP-7 as Structural Heat Sink",
+        body: "JP-7 fuel was selected specifically for its unusually high flash point, low volatility, and difficulty igniting — properties that let it circulate through the airframe as a coolant, absorbing heat from a structure reaching hundreds of degrees Celsius, before finally reaching the combustor. The fuel was so resistant to ignition that each engine start required injecting triethylborane, a pyrophoric compound, just to establish combustion.",
       },
     ],
   },

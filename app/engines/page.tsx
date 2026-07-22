@@ -372,12 +372,16 @@ export default function EnginesPage() {
             ["GE9X", "105,000", "10:1", "60:1", "134", "cruise ~0.49", "777X"],
             ["GE90-115B", "115,000", "9:1", "42:1", "128", "cruise ~0.52", "777-300ER"],
             ["Trent XWB-97", "97,000", "9.3:1", "61:1*", "118", "cruise ~0.48", "A350-1000"],
+            ["Trent 900", "84,000", "~8.5:1", "39:1", "116", "cruise ~0.56", "A380"],
+            ["GEnx-1B", "75,000", "9:1", "58:1", "111", "cruise ~0.53", "787 / 747-8"],
             ["PW1100G GTF", "33,110", "12.5:1", "~50:1", "81", "cruise ~0.51", "A320neo"],
             ["CFM LEAP-1A", "32,900", "11:1", "40:1", "78", "cruise ~0.51", "A320neo / MAX / C919"],
             ["CFM56-5B", "33,000", "5.9:1", "32.6:1", "68", "cruise ~0.60", "A320ceo / 737NG"],
             ["Olympus 593", "38,050 (reheat)", "0 (turbojet)", "15.5:1", "—", "M2 cruise ~1.19", "Concorde"],
+            ["P&W J58", "32,500 (AB)", "0 (turbojet)", "8.8:1", "—", "M3.2 cruise ~1.9", "SR-71"],
             ["P&W F135", "43,000 (AB)", "0.57:1", "28:1", "46", "dry ~0.89", "F-35"],
             ["P&W F119", "35,000 (AB)", "0.30:1", "26:1", "—", "supercruise", "F-22"],
+            ["GE F414", "22,000 (AB)", "0.25:1", "30:1", "—", "dry ~0.72 / AB ~1.85", "F/A-18E/F"],
             ["GE F110-129", "29,500 (AB)", "0.87:1", "30.7:1", "46.5", "dry ~0.65 / AB ~2.0", "F-16 / F-15"],
           ]}
           footnote="†TSFC = thrust specific fuel consumption in lb of fuel per lbf of thrust per hour — lower is better; afterburning roughly doubles it. *Trent XWB achieves its OPR across three spools. BPR = bypass ratio, OPR = overall pressure ratio at top of climb. Representative published values."
